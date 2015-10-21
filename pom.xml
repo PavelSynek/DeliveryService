@@ -9,77 +9,55 @@
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
-        <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>2.0.2-beta</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-orm</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.data</groupId>
-            <artifactId>spring-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-entitymanager</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-validator</artifactId>
-        </dependency>
-        <!-- <dependency> -->
-        <!-- <groupId>javax.inject</groupId> -->
-        <!-- <artifactId>javax.inject</artifactId> -->
-        <!-- <version>1</version> -->
-        <!-- </dependency> -->
-
-        <!-- <dependency> -->
-        <!-- <groupId>javax.enterprise</groupId> -->
-        <!-- <artifactId>cdi-api</artifactId> -->
-        <!-- <version>1.2</version> -->
-        <!-- </dependency> -->
-        <dependency>
-            <groupId>javax.el</groupId>
-            <artifactId>javax.el-api</artifactId>
-            <version>2.2.4</version>
-        </dependency>
-        <dependency>
-            <groupId>cz.fi.muni.pa165</groupId>
-            <artifactId>eshop-api</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
+        <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.glassfish.web</groupId>
-            <artifactId>javax.el</artifactId>
-            <version>2.2.4</version>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
+            <version>4.2.2.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
+            <version>4.2.2.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>4.2.2.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>4.2.2.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-jpa</artifactId>
+            <version>1.9.0.RELEASE</version>
+        </dependency>
+
+        <!-- Persistence -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-entitymanager</artifactId>
+            <version>5.0.2.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>5.2.2.Final</version>
+        </dependency>
+
+        <!-- Logging -->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
             <artifactId>commons-logging</artifactId>
+            <version>1.2</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -87,11 +65,24 @@
             <version>1.7.12</version>
         </dependency>
 
+        <!-- Test dependencies -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.9.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>2.0.2-beta</version>
+            <scope>test</scope>
+        </dependency>
+
         <!-- For embedded usage -->
         <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
-            <version>10.10.2.0</version>
+            <version>10.12.1.1</version>
         </dependency>
     </dependencies>
 </project>
