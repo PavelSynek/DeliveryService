@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Implementation of {@link EmployeeDao}
+ *
  * @author Matej Leško
  * @version 0.1
  * @see Person
@@ -26,5 +27,9 @@ public class EmployeeImpl extends Person<Employee> implements EmployeeDao {
 
     public EmployeeImpl(Class<Employee> employeeClass) {
         super(employeeClass);
+    }
+
+    public EmployeeImpl() {
+        super(Employee.class);
     }
 }
