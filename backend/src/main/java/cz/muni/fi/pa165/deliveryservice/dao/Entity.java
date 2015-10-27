@@ -2,6 +2,8 @@ package cz.muni.fi.pa165.deliveryservice.dao;
 
 import cz.muni.fi.pa165.deliveryservice.dao.access.DBHandler;
 import cz.muni.fi.pa165.deliveryservice.entity.DBEntity;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -28,11 +30,15 @@ import java.util.List;
  * @see Person
  * @see EmployeeImpl
  */
+@Transactional
+@Repository
 public abstract class Entity<E extends DBEntity> implements EntityTemplate<E> {
 
     DBHandler<E> dbHandler;
+
     @PersistenceContext
     private EntityManager em;
+
     private Class<E> eClass;
 
     public Entity(Class<E> eClass) {
