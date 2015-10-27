@@ -1,8 +1,6 @@
 package cz.muni.fi.pa165.deliveryservice.entity;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by Matej Leško on 2015-10-25.
@@ -17,6 +15,10 @@ import javax.persistence.Id;
  * @author Matej Leško
  * @version 0.1
  */
+
+@Entity
+@Table(schema="CNTRCT")
+@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public abstract class DBEntity {
 
     @Id
