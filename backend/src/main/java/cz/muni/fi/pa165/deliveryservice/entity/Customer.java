@@ -6,13 +6,10 @@
 
 package cz.muni.fi.pa165.deliveryservice.entity;
 
-import javax.persistence.Entity;
-
 /**
  *
  * @author Tomas Milota
  */
-@Entity
 public class Customer extends DBPerson {
 
     @Override
