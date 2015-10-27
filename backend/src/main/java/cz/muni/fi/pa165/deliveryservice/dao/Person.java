@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.deliveryservice.dao;
 
 import cz.muni.fi.pa165.deliveryservice.entity.DBPerson;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -11,6 +13,8 @@ import java.util.List;
  * <p/>
  * Project: delivery-service
  */
+@Transactional
+@Repository
 public abstract class Person<E extends DBPerson> extends Entity<E> implements PersonTemplate<E> {
 
     public Person(Class<E> eClass) {
