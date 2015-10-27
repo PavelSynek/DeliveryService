@@ -37,9 +37,8 @@ public abstract class Entity<E extends DBEntity> implements EntityTemplate<E> {
     DBHandler<E> dbHandler;
 
     @PersistenceContext
-    private EntityManager em;
-
-    private Class<E> eClass;
+    protected EntityManager em;
+    protected Class<E> eClass;
 
     public Entity(Class<E> eClass) {
         this.eClass = eClass;
