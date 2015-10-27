@@ -27,7 +27,10 @@ import java.util.Date;
 public abstract class DBPerson extends DBEntity {
 
     @Column(nullable = false, unique = true)
-    @Pattern(regexp = ".+@.+\\....?")
+    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
+            +"[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
+            +"(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
+            message="{invalid.email}")
     @NotNull
     private String email;
     private String firstName;
