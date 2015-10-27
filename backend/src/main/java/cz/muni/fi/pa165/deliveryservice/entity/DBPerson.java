@@ -9,6 +9,7 @@ package cz.muni.fi.pa165.deliveryservice.entity;
  */
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
@@ -21,6 +22,8 @@ import java.util.Date;
  * @author Matej Leško
  * @version 0.1
  */
+
+@Entity
 public abstract class DBPerson extends DBEntity {
 
     @Column(nullable = false, unique = true)
