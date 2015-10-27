@@ -8,11 +8,14 @@ package cz.muni.fi.pa165.deliveryservice.entity;
  * Project: delivery-service
  */
 
+import javax.persistence.Entity;
+
 /**
  * Entity representing Employee in the system.
  * @author Matej Leško
  * @version 0.1
  */
+@Entity
 public class Employee extends DBPerson {
 
     @Override
