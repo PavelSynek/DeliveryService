@@ -42,16 +42,20 @@ public abstract class Entity<E extends DBEntity> implements EntityTemplate<E> {
 
     public Entity(Class<E> eClass) {
         this.eClass = eClass;
-        dbHandler = new DBHandler<E>(em, eClass);
+//        dbHandler = new DBHandler<E>(em, eClass);
     }
 
     @Override
     public E findById(Long id) {
+        if (dbHandler == null)
+            dbHandler =  new DBHandler<E>(em, eClass);
         return dbHandler.findById(id);
     }
 
     @Override
     public List<E> findAll() {
+        if (dbHandler == null)
+            dbHandler =  new DBHandler<E>(em, eClass);
         return dbHandler.findAll();
     }
 
