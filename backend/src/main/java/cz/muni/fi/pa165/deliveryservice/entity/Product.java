@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.deliveryservice.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import java.time.LocalDate;
 
 /**
@@ -8,24 +9,12 @@ import java.time.LocalDate;
  */
 
 @Entity
-public class Product {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class Product extends DBEntity {
 
     @Column(nullable = false, unique = true)
     private String name;
 
     private LocalDate addedDate;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -50,15 +39,12 @@ public class Product {
 
         Product product = (Product) o;
 
-        if (id != null ? !id.equals(product.id) : product.id != null) return false;
-        return !(name != null ? !name.equals(product.name) : product.name != null);
+        return name.equals(product.name);
 
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        return result;
+        return name.hashCode();
     }
 }

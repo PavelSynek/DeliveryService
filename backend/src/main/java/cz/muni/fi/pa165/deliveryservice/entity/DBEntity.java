@@ -19,7 +19,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(schema = "CNTRCT")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class DBEntity {
 
     @Id
