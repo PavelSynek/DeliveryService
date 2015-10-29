@@ -16,7 +16,7 @@ import cz.muni.fi.pa165.deliveryservice.entity.Employee;
  *
  * @author Matej Leško
  * @version 0.1
- * @see EmployeeImpl
+ * @see EmployeeDaoImpl
  * @see Person
  * @see Entity
  */

@@ -23,13 +23,13 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 @Transactional
-public class EmployeeImpl extends Person<Employee> implements EmployeeDao {
+public class EmployeeDaoImpl extends Person<Employee> implements EmployeeDao {
 
-    public EmployeeImpl(Class<Employee> employeeClass) {
+    public EmployeeDaoImpl(Class<Employee> employeeClass) {
         super(employeeClass);
     }
 
-    public EmployeeImpl() {
+    public EmployeeDaoImpl() {
         super(Employee.class);
     }
 }

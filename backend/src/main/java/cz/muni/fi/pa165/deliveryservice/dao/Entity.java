@@ -28,7 +28,7 @@ import java.util.List;
  * @author Matej Leško
  * @version 0.1
  * @see Person
- * @see EmployeeImpl
+ * @see EmployeeDaoImpl
  */
 @Transactional
 @Repository
