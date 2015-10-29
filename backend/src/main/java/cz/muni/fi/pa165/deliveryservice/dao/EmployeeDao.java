@@ -13,6 +13,7 @@ import cz.muni.fi.pa165.deliveryservice.entity.Employee;
 /**
  * Data Access Object for Employee entity
  * TODO - add employee specific methods
+ *
  * @author Matej Leško
  * @version 0.1
  * @see EmployeeImpl

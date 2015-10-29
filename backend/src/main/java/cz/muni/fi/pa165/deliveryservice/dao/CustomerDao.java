@@ -9,9 +9,8 @@ package cz.muni.fi.pa165.deliveryservice.dao;
 import cz.muni.fi.pa165.deliveryservice.entity.Customer;
 
 /**
- *
  * @author Tomas Milota
  */
-public interface CustomerDao extends PersonTemplate<Customer>{
-    
+public interface CustomerDao extends PersonTemplate<Customer> {
+
 }

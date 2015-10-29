@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 
 /**
  * Entity representing Employee in the system.
+ *
  * @author Matej Leško
  * @version 0.1
  */

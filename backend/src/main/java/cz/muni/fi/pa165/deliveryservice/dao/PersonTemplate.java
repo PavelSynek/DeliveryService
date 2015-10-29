@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * Contract containing common methods for entities in db representing living people.
+ *
  * @param <E> Class representing Person stored in the database.
  * @author Matej Leško
  * @version 0.1
@@ -24,19 +25,21 @@ public interface PersonTemplate<E extends DBPerson> extends EntityTemplate<E> {
 
     /**
      * List all people with given name
+     *
      * @param name name of the person.
      * @return list of entities representing people with given name.
      * @see List
      * @see E
      */
-    public List<E> findByName(String name);
+    List<E> findByName(String name);
 
     /**
      * Finds a person with given e-mail
-     * @param email  e-mail
+     *
+     * @param email e-mail
      * @return entity representing a person with given e-mail, or null.
      * @throws IllegalArgumentException
      */
-    public E findByEmail(String email) throws IllegalArgumentException;
+    E findByEmail(String email) throws IllegalArgumentException;
 
 }

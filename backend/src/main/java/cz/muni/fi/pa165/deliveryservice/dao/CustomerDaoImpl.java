@@ -11,12 +11,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- *
  * @author Tomas Milota
  */
 @Transactional
 @Repository
-public class CustomerDaoImpl extends Person<Customer> implements CustomerDao{
+public class CustomerDaoImpl extends Person<Customer> implements CustomerDao {
     public CustomerDaoImpl(Class<Customer> CustomerClass) {
         super(CustomerClass);
     }

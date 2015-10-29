@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * Abstract implementation of Entity DAO. Implements all basic
  * operation over any {@link DBEntity} object.
- *
+ * <p/>
  * In this case suffix Impl
  * was not appropriate, because {@link DBEntity} alone is not accessible from DB.
  *
@@ -48,14 +48,14 @@ public abstract class Entity<E extends DBEntity> implements EntityTemplate<E> {
     @Override
     public E findById(Long id) {
         if (dbHandler == null)
-            dbHandler =  new DBHandler<E>(em, eClass);
+            dbHandler = new DBHandler<E>(em, eClass);
         return dbHandler.findById(id);
     }
 
     @Override
     public List<E> findAll() {
         if (dbHandler == null)
-            dbHandler =  new DBHandler<E>(em, eClass);
+            dbHandler = new DBHandler<E>(em, eClass);
         return dbHandler.findAll();
     }
 
