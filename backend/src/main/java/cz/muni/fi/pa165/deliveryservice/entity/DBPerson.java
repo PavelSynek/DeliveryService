@@ -10,15 +10,14 @@ package cz.muni.fi.pa165.deliveryservice.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Abstract class representing DBPerson using the system together with
  * common data fields and encapsulation.
+ *
  * @author Matej Leško
  * @version 0.1
  */
@@ -27,10 +26,10 @@ import java.util.Date;
 public abstract class DBPerson extends DBEntity {
 
     @Column(nullable = false, unique = true)
-    @Pattern(regexp="[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
-            +"[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
-            +"(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
-            message="{invalid.email}")
+    @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\."
+            + "[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@"
+            + "(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?",
+            message = "{invalid.email}")
     @NotNull
     private String email;
     private String firstName;
@@ -40,8 +39,7 @@ public abstract class DBPerson extends DBEntity {
     private String phone;
 
     @NotNull
-    @Temporal(TemporalType.DATE)
-    private Date registrationDate;
+    private LocalDate registrationDate;
 
     /**
      * @return email of the person.
@@ -51,7 +49,6 @@ public abstract class DBPerson extends DBEntity {
     }
 
     /**
-     *
      * @param email email of the person.
      */
     public void setEmail(String email) {
@@ -59,7 +56,6 @@ public abstract class DBPerson extends DBEntity {
     }
 
     /**
-     *
      * @return first name, known as a "given name" too.
      */
     public String getFirstName() {
@@ -67,7 +63,6 @@ public abstract class DBPerson extends DBEntity {
     }
 
     /**
-     *
      * @param firstName first name, known as a "given name" too.
      */
     public void setFirstName(String firstName) {
@@ -75,7 +70,6 @@ public abstract class DBPerson extends DBEntity {
     }
 
     /**
-     *
      * @return surname, known as a "family name" too.
      */
     public String getSurname() {
@@ -83,7 +77,6 @@ public abstract class DBPerson extends DBEntity {
     }
 
     /**
-     *
      * @param surname known as a "family name" too.
      */
     public void setSurname(String surname) {
@@ -91,7 +84,6 @@ public abstract class DBPerson extends DBEntity {
     }
 
     /**
-     *
      * @return phone number
      */
     public String getPhone() {
@@ -99,7 +91,6 @@ public abstract class DBPerson extends DBEntity {
     }
 
     /**
-     *
      * @param phone phone number
      */
     public void setPhone(String phone) {
@@ -107,18 +98,16 @@ public abstract class DBPerson extends DBEntity {
     }
 
     /**
-     *
      * @return date of registration
      */
-    public Date getRegistrationDate() {
+    public LocalDate getRegistrationDate() {
         return registrationDate;
     }
 
     /**
-     *
      * @param registrationDate date of registration
      */
-    public void setRegistrationDate(Date registrationDate) {
+    public void setRegistrationDate(LocalDate registrationDate) {
         this.registrationDate = registrationDate;
     }
 }

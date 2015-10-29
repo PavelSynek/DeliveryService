@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.deliveryservice.entity;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Created by Pavel on 21. 10. 2015.
@@ -17,8 +17,7 @@ public class Product {
     @Column(nullable = false, unique = true)
     private String name;
 
-    @Temporal(TemporalType.DATE)
-    private Date addedDate;
+    private LocalDate addedDate;
 
     public Long getId() {
         return id;
@@ -36,11 +35,11 @@ public class Product {
         this.name = name;
     }
 
-    public Date getAddedDate() {
+    public LocalDate getAddedDate() {
         return addedDate;
     }
 
-    public void setAddedDate(Date addedDate) {
+    public void setAddedDate(LocalDate addedDate) {
         this.addedDate = addedDate;
     }
 

@@ -13,6 +13,8 @@ import org.testng.annotations.Test;
 
 import javax.persistence.PersistenceException;
 import javax.validation.ConstraintViolationException;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,10 +40,12 @@ public class EmployeeDaoTest extends AbstractTestNGSpringContextTests {
         courier.setEmail("courier@mail.com");
         courier.setFirstName("Jon");
         courier.setSurname("Snow");
+        courier.setRegistrationDate(LocalDate.of(2015, Month.JANUARY, 1));
         employeeDao.create(courier);
 
         accountant = new Employee();
         accountant.setEmail("accountant@mail.com");
+        accountant.setRegistrationDate(LocalDate.of(2015, Month.JANUARY, 1));
         employeeDao.create(accountant);
     }
 
@@ -94,6 +98,9 @@ public class EmployeeDaoTest extends AbstractTestNGSpringContextTests {
     public void emailIsUniqueTest() {
         Employee courier2 = new Employee();
         courier2.setEmail("courier@mail.com");
+        courier2.setFirstName("Jon");
+        courier2.setSurname("Snow");
+        courier2.setRegistrationDate(LocalDate.of(2015, Month.JANUARY, 1));
         employeeDao.create(courier2);
     }
 }
