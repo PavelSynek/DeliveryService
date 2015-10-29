@@ -12,13 +12,14 @@ import javax.persistence.*;
 
 /**
  * Basic abstraction of entity from database
+ *
  * @author Matej Leško
  * @version 0.1
  */
 
 @Entity
-@Table(schema="CNTRCT")
-@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
+@Table(schema = "CNTRCT")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public abstract class DBEntity {
 
     @Id
