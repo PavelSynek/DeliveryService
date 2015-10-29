@@ -3,10 +3,10 @@ package cz.muni.fi.pa165.deliveryservice.dao.access;
 import cz.muni.fi.pa165.deliveryservice.entity.DBEntity;
 
 import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.Table;
-import javax.persistence.TypedQuery;
-import java.text.MessageFormat;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Expression;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**
@@ -32,7 +32,6 @@ import java.util.List;
 public class DBHandler<E extends DBEntity> {
     private EntityManager em;
     private Class<E> eClass;
-    private Table table;
 
     /**
      * @param em     Entity Manager should be container managed. Application managed object is not supported
@@ -42,7 +41,6 @@ public class DBHandler<E extends DBEntity> {
     public DBHandler(EntityManager em, Class<E> eClass) {
         this.em = em;
         this.eClass = eClass;
-        table = eClass.getAnnotation(Table.class);
     }
 
     /**
@@ -56,17 +54,27 @@ public class DBHandler<E extends DBEntity> {
      * @see cz.muni.fi.pa165.deliveryservice.dao.EntityTemplate#findAll()
      */
     public List<E> findAll() {
-        String select = MessageFormat.format("SELECT x FROM {0} x", table.name());
-        TypedQuery<E> query = em.createQuery(select, eClass);
-        return query.getResultList();
+        CriteriaBuilder builder = em.getEntityManagerFactory().getCriteriaBuilder();
+        CriteriaQuery<E> criteria = builder.createQuery(eClass);
+        Root<E> from = criteria.from(eClass);
+        criteria.select(from);
+        return em.createQuery(criteria).getResultList();
     }
 
     /**
      * @see cz.muni.fi.pa165.deliveryservice.dao.PersonTemplate#findByName(String)
      */
     public List<E> findByName(String name) {
-        String select = MessageFormat.format("SELECT x FROM {0} x WHERE x.name like :name ", table.name());
-        return em.createQuery(select, eClass).setParameter("name", "%" + name + "%").getResultList();
+        CriteriaBuilder builder = em.getEntityManagerFactory().getCriteriaBuilder();
+        CriteriaQuery<E> criteria = builder.createQuery(eClass);
+        Root<E> from = criteria.from(eClass);
+        criteria.select(from);
+
+        Expression<String> exp = builder.concat(from.get("firstName"), " ");
+        exp = builder.concat(exp, from.get("surname"));
+
+        criteria.where(builder.like(exp, "%" + name + "%"));
+        return em.createQuery(criteria).getResultList();
     }
 
     /**
@@ -76,13 +84,11 @@ public class DBHandler<E extends DBEntity> {
         if (email == null || email.isEmpty())
             throw new IllegalArgumentException("Cannot search for null e-mail");
 
-        try {
-            String select = MessageFormat.format("SELECT x FROM {0} x WHERE email=:email", table.name());
-            return em
-                    .createQuery(select, eClass).setParameter("email", email)
-                    .getSingleResult();
-        } catch (NoResultException nre) {
-            return null;
-        }
+        CriteriaBuilder builder = em.getEntityManagerFactory().getCriteriaBuilder();
+        CriteriaQuery<E> criteria = builder.createQuery(eClass);
+        Root<E> from = criteria.from(eClass);
+        criteria.select(from);
+        criteria.where(builder.equal(from.get("email"), email));
+        return em.createQuery(criteria).getSingleResult();
     }
 }
