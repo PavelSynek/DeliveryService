@@ -6,10 +6,12 @@
 
 package cz.muni.fi.pa165.deliveryservice.entity;
 
+import javax.persistence.Entity;
+
 /**
- *
  * @author Tomas Milota
  */
+@Entity
 public class Customer extends DBPerson {
 
     @Override
@@ -21,7 +23,7 @@ public class Customer extends DBPerson {
         if (!(obj instanceof Customer))
             return false;
         Customer other = (Customer) obj;
-        if (this.getEmail() == null){
+        if (this.getEmail() == null) {
             if (other.getEmail() != null)
                 return false;
         } else if (!this.getEmail().equals(other.getEmail()))
