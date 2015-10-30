@@ -64,4 +64,10 @@ public interface EntityTemplate<E extends DBEntity> {
      */
     E update(E entity);
 
+    /**
+     * Initialize all database access handlers that entity need for its queries.
+     * This must be always called before entity uses its method.
+     */
+    void initDBAccessHandlers();
+
 }
