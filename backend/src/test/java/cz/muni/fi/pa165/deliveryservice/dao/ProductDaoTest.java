@@ -40,6 +40,8 @@ public class ProductDaoTest extends AbstractTestNGSpringContextTests {
         plane = new Product();
         plane.setName("Boeing");
         productDao.create(plane);
+
+        productDao.initDBAccessHandlers();
     }
 
     @Test
