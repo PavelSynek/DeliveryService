@@ -49,6 +49,8 @@ public class CustomerDaoTest extends AbstractTestNGSpringContextTests {
         happyCustomer.setRegistrationDate(LocalDate.of(2014, Month.DECEMBER, 24));
         happyCustomer.addOrder(null);
         customerDao.create(happyCustomer);
+
+        customerDao.initDBAccessHandlers();
     }
 
     @Test
