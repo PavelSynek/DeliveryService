@@ -34,28 +34,22 @@ import java.util.List;
 @Repository
 public abstract class Entity<E extends DBEntity> implements EntityTemplate<E> {
 
-    DBHandler<E> dbHandler;
-
     @PersistenceContext
     protected EntityManager em;
     protected Class<E> eClass;
+    DBHandler<E> dbHandler;
 
     public Entity(Class<E> eClass) {
         this.eClass = eClass;
-//        dbHandler = new DBHandler<E>(em, eClass);
     }
 
     @Override
     public E findById(Long id) {
-        if (dbHandler == null)
-            dbHandler = new DBHandler<E>(em, eClass);
         return dbHandler.findById(id);
     }
 
     @Override
     public List<E> findAll() {
-        if (dbHandler == null)
-            dbHandler = new DBHandler<E>(em, eClass);
         return dbHandler.findAll();
     }
 
@@ -72,5 +66,11 @@ public abstract class Entity<E extends DBEntity> implements EntityTemplate<E> {
     @Override
     public E update(E entity) {
         return em.merge(entity);
+    }
+
+    @Override
+    public void initDBAccessHandlers() {
+        if (dbHandler == null)
+            dbHandler = new DBHandler<E>(em, eClass);
     }
 }
