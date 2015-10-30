@@ -35,7 +35,7 @@ public class CustomerDaoTest extends AbstractTestNGSpringContextTests {
     @BeforeClass
     public void setUp() {
         angryCustomer = new Customer();
-        angryCustomer.setEmail("angrycustomerxxx@gmail.com");
+        angryCustomer.setEmail("angrycustomer@gmail.com");
         angryCustomer.setFirstName("John");
         angryCustomer.setSurname("Smith");
         angryCustomer.setRegistrationDate(LocalDate.of(2015, Month.JANUARY, 1));
@@ -43,7 +43,7 @@ public class CustomerDaoTest extends AbstractTestNGSpringContextTests {
         customerDao.create(angryCustomer);
 
         happyCustomer = new Customer();
-        happyCustomer.setEmail("happycustomer@gmail.com");
+        happyCustomer.setEmail("happycustomerxxx@gmail.com");
         happyCustomer.setFirstName("James");
         happyCustomer.setSurname("Doe");
         happyCustomer.setRegistrationDate(LocalDate.of(2014, Month.DECEMBER, 24));
