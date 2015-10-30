@@ -30,7 +30,6 @@ public class EmployeeDaoTest extends AbstractTestNGSpringContextTests {
 
     @Autowired
     private EmployeeDao employeeDao;
-
     private Employee courier;
     private Employee accountant;
 
@@ -47,6 +46,7 @@ public class EmployeeDaoTest extends AbstractTestNGSpringContextTests {
         accountant.setEmail("accountant@mail.com");
         accountant.setRegistrationDate(LocalDate.of(2015, Month.JANUARY, 1));
         employeeDao.create(accountant);
+        employeeDao.initDBAccessHandlers();
     }
 
     @Test
