@@ -46,4 +46,16 @@ public class Customer extends DBPerson {
         result = prime * result + ((getEmail() == null) ? 0 : getEmail().hashCode());
         return result;
     }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public void addOrder(Order order) {
+        orders.add(order);
+    }
 }
