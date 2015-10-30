@@ -102,5 +102,7 @@ public class EmployeeDaoTest extends AbstractTestNGSpringContextTests {
         courier2.setSurname("Snow");
         courier2.setRegistrationDate(LocalDate.of(2015, Month.JANUARY, 1));
         employeeDao.create(courier2);
+
+        employeeDao.findByEmail("courier@mail.com");
     }
 }
