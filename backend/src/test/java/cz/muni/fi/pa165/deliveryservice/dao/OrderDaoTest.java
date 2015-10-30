@@ -56,7 +56,6 @@ public class OrderDaoTest extends AbstractTestNGSpringContextTests {
         date2 = LocalDate.of(2015, Month.APRIL, 5);
         date3 = LocalDate.of(2015, Month.JUNE, 6);
 
-
         angryCustomer = new Customer();
         angryCustomer.setEmail("angrycustomerxxx@gmail.com");
         angryCustomer.setFirstName("Jake");
@@ -140,8 +139,8 @@ public class OrderDaoTest extends AbstractTestNGSpringContextTests {
         expected.add(order4);
         expected.add(order5);
 
-        assertEquals(expected, orderDao.findAll());
-        Assert.assertEquals(expected.size(), 5);
+        assertEquals(orderDao.findAll(), expected);
+        assertEquals(expected.size(), 5);
     }
 
     @Test
@@ -150,10 +149,9 @@ public class OrderDaoTest extends AbstractTestNGSpringContextTests {
 
         Order found = orderDao.findById(order2.getId());
 
-        Assert.assertEquals(found.getCreated(), date2);
-        Assert.assertEquals(found.getState(), OrderState.RECEIVED);
-        Assert.assertEquals(found.getCustomer().getEmail(), happyCustomer.getEmail());
-
+        assertEquals(found.getCreated(), date2);
+        assertEquals(found.getState(), OrderState.RECEIVED);
+        assertEquals(found.getCustomer().getEmail(), happyCustomer.getEmail());
     }
 
     @Test
@@ -170,19 +168,18 @@ public class OrderDaoTest extends AbstractTestNGSpringContextTests {
         orderDao.update(found);
 
         Order found2 = orderDao.findById(found.getId());
-        assertEquals(found, found2);
+        assertEquals(found2, found);
     }
 
     @Test
     public void getOrdersWithStateTest() {
-        Assert.assertEquals(orderDao.getOrdersWithState(OrderState.SHIPPED).size(), 1);
+        assertEquals(orderDao.getOrdersWithState(OrderState.SHIPPED).size(), 1);
 
         List<Order> canceled = orderDao.getOrdersWithState(OrderState.CANCELED);
         List<Order> received = orderDao.getOrdersWithState(OrderState.RECEIVED);
 
-        Assert.assertEquals(canceled.size(), 2);
-        Assert.assertEquals(received.size(), 2);
-
+        assertEquals(canceled.size(), 2);
+        assertEquals(received.size(), 2);
     }
 
     @Test
@@ -190,11 +187,11 @@ public class OrderDaoTest extends AbstractTestNGSpringContextTests {
         LocalDate date1 = LocalDate.of(2016, Month.JANUARY, 1);
         LocalDate date2 = LocalDate.of(2017, Month.APRIL, 5);
 
-        Assert.assertEquals(orderDao.getOrdersCreatedBetween(date1, date2).size(), 0);
+        assertEquals(orderDao.getOrdersCreatedBetween(date1, date2).size(), 0);
 
         LocalDate date3 = LocalDate.of(2015, Month.JANUARY, 1);
         LocalDate date4 = LocalDate.of(2015, Month.MAY, 5);
-        Assert.assertEquals(orderDao.getOrdersCreatedBetween(date3, date4).size(), 3);
+        assertEquals(orderDao.getOrdersCreatedBetween(date3, date4).size(), 3);
     }
 
     @Test
@@ -202,14 +199,14 @@ public class OrderDaoTest extends AbstractTestNGSpringContextTests {
         List<Order> temp = new ArrayList<>();
         temp.add(order1);
         temp.add(order3);
-        Assert.assertEquals(orderDao.findByCustomer(angryCustomer.getId()), temp);
+        assertEquals(orderDao.findByCustomer(angryCustomer.getId()), temp);
 
         temp.clear();
 
         temp.add(order2);
         temp.add(order4);
         temp.add(order5);
-        Assert.assertEquals(orderDao.findByCustomer(happyCustomer.getId()), temp);
+        assertEquals(orderDao.findByCustomer(happyCustomer.getId()), temp);
     }
 
     @Test
@@ -217,7 +214,7 @@ public class OrderDaoTest extends AbstractTestNGSpringContextTests {
         LocalDate date1 = LocalDate.of(2016, Month.JANUARY, 1);
         LocalDate date2 = LocalDate.of(2017, Month.APRIL, 5);
 
-        Assert.assertEquals(
+        assertEquals(
                 orderDao.getOrdersCreatedBetweenWithState(
                         date1,
                         date2,
@@ -228,7 +225,7 @@ public class OrderDaoTest extends AbstractTestNGSpringContextTests {
 
         LocalDate date3 = LocalDate.of(2015, Month.JANUARY, 1);
         LocalDate date4 = LocalDate.of(2015, Month.MAY, 5);
-        Assert.assertEquals(
+        assertEquals(
                 orderDao.getOrdersCreatedBetweenWithState(
                         date3,
                         date4,
@@ -241,7 +238,7 @@ public class OrderDaoTest extends AbstractTestNGSpringContextTests {
         temp.add(order1);
         temp.add(order3);
 
-        Assert.assertEquals(
+        assertEquals(
                 orderDao.getOrdersCreatedBetweenWithState(
                         date3,
                         date2,
@@ -250,6 +247,4 @@ public class OrderDaoTest extends AbstractTestNGSpringContextTests {
                 temp
         );
     }
-
-
 }

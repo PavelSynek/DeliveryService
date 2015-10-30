@@ -59,7 +59,7 @@ public class CustomerDaoTest extends AbstractTestNGSpringContextTests {
         expected.add(angryCustomer);
         expected.add(happyCustomer);
 
-        assertEquals(expected, customerDao.findAll());
+        assertEquals(customerDao.findAll(), expected);
     }
 
     @Test
@@ -77,8 +77,8 @@ public class CustomerDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void findByName() {
         List<Customer> found = customerDao.findByName("John Smith");
-        assertEquals(1, found.size());
-        assertEquals(angryCustomer, found.get(0));
+        assertEquals(found.size(), 1);
+        assertEquals(found.get(0), angryCustomer);
     }
 
     @Test
@@ -88,8 +88,8 @@ public class CustomerDaoTest extends AbstractTestNGSpringContextTests {
         customerDao.update(john);
 
         List<Customer> found = customerDao.findByName("John Doe");
-        assertEquals(1, found.size());
+        assertEquals(found.size(), 1);
         Customer expected = found.get(0);
-        assertEquals(expected, john);
+        assertEquals(john, expected);
     }
 }

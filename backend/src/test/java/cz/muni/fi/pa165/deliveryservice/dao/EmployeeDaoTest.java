@@ -55,7 +55,7 @@ public class EmployeeDaoTest extends AbstractTestNGSpringContextTests {
         expected.add(courier);
         expected.add(accountant);
 
-        assertEquals(expected, employeeDao.findAll());
+        assertEquals(employeeDao.findAll(), expected);
     }
 
     @Test
@@ -73,8 +73,8 @@ public class EmployeeDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void findByName() {
         List<Employee> found = employeeDao.findByName("Jon Snow");
-        assertEquals(1, found.size());
-        assertEquals(courier, found.get(0));
+        assertEquals(found.size(), 1);
+        assertEquals(found.get(0), courier);
     }
 
     @Test
@@ -84,7 +84,7 @@ public class EmployeeDaoTest extends AbstractTestNGSpringContextTests {
         employeeDao.update(found);
 
         Employee found2 = employeeDao.findByName("Jon Stark").get(0);
-        assertEquals(found, found2);
+        assertEquals(found2, found);
     }
 
     @Test(expectedExceptions = ConstraintViolationException.class)
@@ -92,7 +92,7 @@ public class EmployeeDaoTest extends AbstractTestNGSpringContextTests {
         Employee emp = new Employee();
         emp.setEmail(null);
         employeeDao.create(emp);
-        
+
         employeeDao.findByEmail("courier@mail.com");
     }
 
