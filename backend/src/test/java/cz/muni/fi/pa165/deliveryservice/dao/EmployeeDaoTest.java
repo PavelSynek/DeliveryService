@@ -92,6 +92,8 @@ public class EmployeeDaoTest extends AbstractTestNGSpringContextTests {
         Employee emp = new Employee();
         emp.setEmail(null);
         employeeDao.create(emp);
+        
+        employeeDao.findByEmail("courier@mail.com");
     }
 
     @Test(expectedExceptions = PersistenceException.class)
