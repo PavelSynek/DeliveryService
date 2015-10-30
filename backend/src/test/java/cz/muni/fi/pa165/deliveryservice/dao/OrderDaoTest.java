@@ -59,14 +59,14 @@ public class OrderDaoTest extends AbstractTestNGSpringContextTests {
 
         angryCustomer = new Customer();
         angryCustomer.setEmail("angrycustomerxxx@gmail.com");
-        angryCustomer.setFirstName("John");
+        angryCustomer.setFirstName("Jake");
         angryCustomer.setSurname("Smith");
         angryCustomer.setRegistrationDate(LocalDate.of(2015, Month.JANUARY, 1));
 
         happyCustomer = new Customer();
         happyCustomer.setEmail("happycustomer@gmail.com");
         happyCustomer.setFirstName("James");
-        happyCustomer.setSurname("Doe");
+        happyCustomer.setSurname("Bond");
         happyCustomer.setRegistrationDate(LocalDate.of(2014, Month.DECEMBER, 24));
 
 //        Product car =  new Product();
