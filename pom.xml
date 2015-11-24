@@ -11,6 +11,7 @@
     <modules>
         <module>backend</module>
         <module>service-layer</module>
+        <module>api-layer</module>
     </modules>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
