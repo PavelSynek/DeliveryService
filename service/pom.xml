@@ -12,11 +12,37 @@
     <artifactId>delivery-service-service-layer</artifactId>
 
     <dependencies>
+        <!-- Backend -->
         <dependency>
             <artifactId>delivery-service-backend</artifactId>
             <groupId>cz.muni.fi.pa165.deliveryservice</groupId>
             <version>${project.parent.version}</version>
         </dependency>
-    </dependencies>
 
+        <!-- Utility -->
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
+        </dependency>
+        <dependency>
+            <groupId>net.sf.dozer</groupId>
+            <artifactId>dozer</artifactId>
+            <version>5.5.1</version>
+        </dependency>
+
+        <!-- Test dependencies -->
+        <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>javax.el-api</artifactId>
+            <version>3.0.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.8.4</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 </project>
