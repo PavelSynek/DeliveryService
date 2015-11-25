@@ -12,6 +12,13 @@
     <artifactId>delivery-service-backend</artifactId>
 
     <dependencies>
+        <!-- Api -->
+        <dependency>
+            <artifactId>delivery-service-api</artifactId>
+            <groupId>cz.muni.fi.pa165.deliveryservice</groupId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>

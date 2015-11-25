@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.deliveryservice.dto;
 
-import com.sun.istack.internal.NotNull;
+
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by Pavel on 25. 11. 2015.
