@@ -49,7 +49,9 @@ public interface OrderService {
     List<Order> findAllOrders();
 
     void shipOrder(Order order);
+
     void finishOrder(Order order);
+
     void cancelOrder(Order order);
 
     Order findOrderById(Long id);
