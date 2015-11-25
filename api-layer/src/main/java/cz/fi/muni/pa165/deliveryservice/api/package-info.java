@@ -5,4 +5,4 @@
  * <p/>
  * Project: delivery-service
  */
-package cz.fi.muni.pa165.service.tests;
+package cz.fi.muni.pa165.deliveryservice.api;
