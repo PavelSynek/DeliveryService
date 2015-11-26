@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.deliveryservice.persist.dao;
 
 import cz.muni.fi.pa165.deliveryservice.persist.dao.access.DBHandler;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Customer;
+import cz.muni.fi.pa165.deliveryservice.persist.entity.Employee;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Order;
 import cz.muni.fi.pa165.deliveryservice.persist.enums.OrderState;
 import org.springframework.stereotype.Repository;
@@ -26,6 +27,7 @@ import java.util.List;
 public class OrderDaoImpl extends Entity<Order> implements OrderDao {
 
     private DBHandler<Customer> customerDBHandler;
+    private DBHandler<Employee> employeeDBHandler;
 
     public OrderDaoImpl(Class<Order> orderClass) {
         super(orderClass);
@@ -73,9 +75,11 @@ public class OrderDaoImpl extends Entity<Order> implements OrderDao {
         return rList;
     }
 
+
     @Override
     public void initDBAccessHandlers() {
         super.initDBAccessHandlers();
         customerDBHandler = new DBHandler<>(em, Customer.class);
+        employeeDBHandler = new DBHandler<>(em, Employee.class);
     }
 }
