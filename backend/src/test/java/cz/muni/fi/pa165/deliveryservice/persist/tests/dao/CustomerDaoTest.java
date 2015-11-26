@@ -1,6 +1,7 @@
-package cz.muni.fi.pa165.deliveryservice.persist.dao;
+package cz.muni.fi.pa165.deliveryservice.persist.tests.dao;
 
 import cz.muni.fi.pa165.deliveryservice.persist.PersistenceApplicationContext;
+import cz.muni.fi.pa165.deliveryservice.persist.dao.CustomerDao;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;

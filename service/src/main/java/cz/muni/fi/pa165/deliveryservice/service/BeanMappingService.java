@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.deliveryservice;
+package cz.muni.fi.pa165.deliveryservice.service;
 
 import org.dozer.Mapper;
 

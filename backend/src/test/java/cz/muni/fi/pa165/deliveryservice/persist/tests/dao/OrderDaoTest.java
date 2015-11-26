@@ -1,6 +1,8 @@
-package cz.muni.fi.pa165.deliveryservice.persist.dao;
+package cz.muni.fi.pa165.deliveryservice.persist.tests.dao;
 
 import cz.muni.fi.pa165.deliveryservice.persist.PersistenceApplicationContext;
+import cz.muni.fi.pa165.deliveryservice.persist.dao.CustomerDao;
+import cz.muni.fi.pa165.deliveryservice.persist.dao.OrderDao;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Customer;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Order;
 import cz.muni.fi.pa165.deliveryservice.persist.enums.OrderState;

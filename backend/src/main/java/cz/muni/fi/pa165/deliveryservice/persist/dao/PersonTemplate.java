@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.deliveryservice.persist.dao;
 
 import cz.muni.fi.pa165.deliveryservice.persist.entity.DBPerson;
+import cz.muni.fi.pa165.deliveryservice.persist.entity.Employee;
 
 import java.util.List;
 
@@ -19,7 +20,7 @@ import java.util.List;
  * @author Matej Leško
  * @version 0.1
  * @see DBPerson
- * @see cz.muni.fi.pa165.deliveryservice.persist.entity.Employee
+ * @see Employee
  */
 public interface PersonTemplate<E extends DBPerson> extends EntityTemplate<E> {
 
