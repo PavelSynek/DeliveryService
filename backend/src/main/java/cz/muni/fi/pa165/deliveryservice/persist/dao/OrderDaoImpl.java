@@ -36,7 +36,7 @@ public class OrderDaoImpl extends Entity<Order> implements OrderDao {
     }
 
     @Override
-    public List<Order> findByCustomer(Long customerId) {
+    public List<Order> findByCustomer(long customerId) {
         Customer customer = customerDBHandler.findById(customerId);
         return customer.getOrders();
     }
