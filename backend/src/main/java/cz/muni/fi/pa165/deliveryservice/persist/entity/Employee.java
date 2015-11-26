@@ -9,6 +9,10 @@ package cz.muni.fi.pa165.deliveryservice.persist.entity;
  */
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Entity representing Employee in the system.
@@ -18,6 +22,10 @@ import javax.persistence.Entity;
  */
 @Entity
 public class Employee extends DBPerson {
+
+    @OneToMany
+    @NotNull
+    private List<Order> orders = new ArrayList<>();
 
     @Override
     public int hashCode() {
@@ -45,4 +53,15 @@ public class Employee extends DBPerson {
         return true;
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
+    public void addOrder(Order order) {
+        orders.add(order);
+    }
 }
