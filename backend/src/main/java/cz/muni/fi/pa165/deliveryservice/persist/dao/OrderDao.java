@@ -22,7 +22,7 @@ public interface OrderDao extends EntityTemplate<Order> {
      * @return list of entities representing orders of specific customer.
      * @see List
      */
-    List<Order> findByCustomer(Long customerId);
+    List<Order> findByCustomer(long customerId);
 
     /**
      * List of all orders with particular state
