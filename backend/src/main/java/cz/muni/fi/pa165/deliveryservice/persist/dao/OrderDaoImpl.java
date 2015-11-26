@@ -44,6 +44,12 @@ public class OrderDaoImpl extends Entity<Order> implements OrderDao {
     }
 
     @Override
+    public List<Order> findByEmployee(long employeeId) {
+        Employee employee = employeeDBHandler.findById(employeeId);
+        return employee.getOrders();
+    }
+
+    @Override
     public List<Order> getOrdersWithState(OrderState state) {
         CriteriaBuilder builder = em.getEntityManagerFactory().getCriteriaBuilder();
         CriteriaQuery<Order> criteria = builder.createQuery(eClass);
