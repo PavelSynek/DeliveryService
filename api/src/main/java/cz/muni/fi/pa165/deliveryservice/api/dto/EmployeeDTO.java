@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.deliveryservice.dto;
+package cz.muni.fi.pa165.deliveryservice.api.dto;
 
 /**
  * Created by Tomas Milota on 27.11.2015.
