@@ -51,4 +51,12 @@ public interface OrderDao extends EntityTemplate<Order> {
      */
     public List<Order> getOrdersCreatedBetweenWithState(LocalDate start, LocalDate end, OrderState state);
 
+    /**
+     * List all orders delivered by employee
+     *
+     * @param employeeId Id of the customer.
+     * @return list of entities representing orders of specific customer.
+     * @see List
+     */
+    List<Order> findByEmployee(long employeeId);
 }
