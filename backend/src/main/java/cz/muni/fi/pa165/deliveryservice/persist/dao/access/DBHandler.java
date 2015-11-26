@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.deliveryservice.persist.dao.access;
 
+import cz.muni.fi.pa165.deliveryservice.persist.dao.*;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.DBEntity;
 
 import javax.persistence.EntityManager;
@@ -23,11 +24,11 @@ import java.util.List;
  * @param <E> Class representing entity of database.
  * @author Matej Leško
  * @version 0.1
- * @see cz.muni.fi.pa165.deliveryservice.persist.dao.EntityTemplate
- * @see cz.muni.fi.pa165.deliveryservice.persist.dao.PersonTemplate
- * @see cz.muni.fi.pa165.deliveryservice.persist.dao.EmployeeDao
- * @see cz.muni.fi.pa165.deliveryservice.persist.dao.ProductDao
- * @see cz.muni.fi.pa165.deliveryservice.persist.dao.OrderDao
+ * @see EntityTemplate
+ * @see PersonTemplate
+ * @see EmployeeDao
+ * @see ProductDao
+ * @see OrderDao
  */
 public class DBHandler<E extends DBEntity> {
     private EntityManager em;
@@ -44,14 +45,14 @@ public class DBHandler<E extends DBEntity> {
     }
 
     /**
-     * @see cz.muni.fi.pa165.deliveryservice.persist.dao.EntityTemplate#findById(Long)
+     * @see EntityTemplate#findById(Long)
      */
     public E findById(Long id) {
         return em.find(eClass, id);
     }
 
     /**
-     * @see cz.muni.fi.pa165.deliveryservice.persist.dao.EntityTemplate#findAll()
+     * @see EntityTemplate#findAll()
      */
     public List<E> findAll() {
         CriteriaBuilder builder = em.getEntityManagerFactory().getCriteriaBuilder();
@@ -62,7 +63,7 @@ public class DBHandler<E extends DBEntity> {
     }
 
     /**
-     * @see cz.muni.fi.pa165.deliveryservice.persist.dao.PersonTemplate#findByName(String)
+     * @see PersonTemplate#findByName(String)
      */
     public List<E> findByName(String name) {
         CriteriaBuilder builder = em.getEntityManagerFactory().getCriteriaBuilder();
@@ -78,7 +79,7 @@ public class DBHandler<E extends DBEntity> {
     }
 
     /**
-     * @see cz.muni.fi.pa165.deliveryservice.persist.dao.PersonTemplate#findByEmail(String)
+     * @see PersonTemplate#findByEmail(String)
      */
     public E findByEmail(String email) {
         if (email == null || email.isEmpty())

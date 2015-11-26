@@ -1,7 +1,7 @@
-package cz.muni.fi.pa165.deliveryservice.facade;
+package cz.muni.fi.pa165.deliveryservice.api.facade;
 
-import cz.muni.fi.pa165.deliveryservice.dto.ProductCreateDTO;
-import cz.muni.fi.pa165.deliveryservice.dto.ProductDTO;
+import cz.muni.fi.pa165.deliveryservice.api.dto.ProductCreateDTO;
+import cz.muni.fi.pa165.deliveryservice.api.dto.ProductDTO;
 
 import java.util.List;
 

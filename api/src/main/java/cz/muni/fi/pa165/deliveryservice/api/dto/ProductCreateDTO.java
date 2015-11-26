@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.deliveryservice.dto;
+package cz.muni.fi.pa165.deliveryservice.api.dto;
 
 
 import javax.validation.constraints.NotNull;

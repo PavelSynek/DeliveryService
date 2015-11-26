@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.deliveryservice;
+package cz.muni.fi.pa165.deliveryservice.service;
 
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Customer;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Employee;

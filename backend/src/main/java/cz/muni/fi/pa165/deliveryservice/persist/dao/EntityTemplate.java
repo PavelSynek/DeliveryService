@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.deliveryservice.persist.dao;
 
-import cz.muni.fi.pa165.deliveryservice.persist.entity.DBEntity;
+import cz.muni.fi.pa165.deliveryservice.persist.entity.*;
 
 import java.util.List;
 
@@ -20,10 +20,10 @@ import java.util.List;
  * @author Matej Leško
  * @version 0.1
  * @see DBEntity
- * @see cz.muni.fi.pa165.deliveryservice.persist.entity.DBPerson
- * @see cz.muni.fi.pa165.deliveryservice.persist.entity.Employee
- * @see cz.muni.fi.pa165.deliveryservice.persist.entity.Order
- * @see cz.muni.fi.pa165.deliveryservice.persist.entity.Product
+ * @see DBPerson
+ * @see Employee
+ * @see Order
+ * @see Product
  */
 public interface EntityTemplate<E extends DBEntity> {
     /**

@@ -1,8 +1,8 @@
-package cz.muni.fi.pa165.deliveryservice.config;
+package cz.muni.fi.pa165.deliveryservice.service.config;
 
-import cz.muni.fi.pa165.deliveryservice.ProductServiceImpl;
-import cz.muni.fi.pa165.deliveryservice.facade.ProductFacadeImpl;
 import cz.muni.fi.pa165.deliveryservice.persist.PersistenceApplicationContext;
+import cz.muni.fi.pa165.deliveryservice.service.ProductServiceImpl;
+import cz.muni.fi.pa165.deliveryservice.service.facade.ProductFacadeImpl;
 import org.dozer.DozerBeanMapper;
 import org.dozer.Mapper;
 import org.dozer.loader.api.BeanMappingBuilder;

@@ -1,10 +1,11 @@
-package cz.muni.fi.pa165.deliveryservice.facade;
+package cz.muni.fi.pa165.deliveryservice.service.facade;
 
-import cz.muni.fi.pa165.deliveryservice.BeanMappingService;
-import cz.muni.fi.pa165.deliveryservice.ProductService;
-import cz.muni.fi.pa165.deliveryservice.dto.ProductCreateDTO;
-import cz.muni.fi.pa165.deliveryservice.dto.ProductDTO;
+import cz.muni.fi.pa165.deliveryservice.api.dto.ProductCreateDTO;
+import cz.muni.fi.pa165.deliveryservice.api.dto.ProductDTO;
+import cz.muni.fi.pa165.deliveryservice.api.facade.ProductFacade;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Product;
+import cz.muni.fi.pa165.deliveryservice.service.BeanMappingService;
+import cz.muni.fi.pa165.deliveryservice.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Inject;
