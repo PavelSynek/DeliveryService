@@ -12,10 +12,14 @@ import java.util.List;
  */
 public interface OrderService {
 
+    /**
+     * Create order in the system
+     * @param order
+     */
     void createOrder(Order order);
 
     /**
-     * Get all saved orders belonging to the given user.
+     * Get all saved orders belonging to the given user
      */
     List<Order> getOrdersByCustomer(Customer customer);
 
@@ -46,16 +50,43 @@ public interface OrderService {
     List<Order> getOrdersByState(OrderState state);
 
 
-    List<Order> findAllOrders();
+    /**
+     * Find all orders in the system and return them
+     * @return list of orders
+     */
+    List<Order> findAll();
 
+    /**
+     * Ship order to the customer
+     * @param order
+     */
     void shipOrder(Order order);
 
+    /**
+     * Let customer finish the order and store it to the sytem
+     * @param order
+     */
     void finishOrder(Order order);
 
-    void cancelOrder(Order order);
+    /**
+     * Cancels order made in system
+     * @param order
+     */
+    void deleteOrder(Order order);
 
-    Order findOrderById(Long id);
+    /**
+     * Check order in the system by its ID
+     * @param id unique identifier for order
+     * @return
+     */
+    Order findOrderById(long id);
 
-    Integer getTotalPrice(long orderId);
+    /**
+     * Return total price of the order.
+     * Order can have additional expenses, use it for final checkout.
+     * @param id unique identifier for order
+     * @return
+     */
+    Integer getTotalPrice(long id);
 }
 
