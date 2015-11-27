@@ -477,8 +477,12 @@ public class OrderServiceTests extends AbstractTestNGSpringContextTests {
         Product b = new Product();
         a.setName("a");
         b.setName("b");
+
         a.setPrice(20);
         b.setPrice(10);
+
+        a.setAddedDate(LocalDate.now());
+        b.setAddedDate(LocalDate.now());
 
         productList.add(a);
         productList.add(b);
