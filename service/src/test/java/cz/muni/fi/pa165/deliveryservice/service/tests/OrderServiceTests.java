@@ -85,6 +85,52 @@ public class OrderServiceTests extends AbstractTestNGSpringContextTests {
     }
 
     @Test
+    public void testLastDayWithState_1_Single() {
+        Order testOrder = new Order();
+        testOrder.setId(20L);
+        testOrder.setState(OrderState.CLOSED);
+        testOrder.setCreated(dayAgo);
+
+        when(orderDao.getOrdersCreatedBetweenWithState(any(LocalDate.class), any(LocalDate.class), any())).
+                thenReturn(Collections.singletonList(testOrder));
+
+        List<Order> orders = orderService.getOrdersLastDayWithState(OrderState.CLOSED);
+        Assert.assertEquals(1, orders.size());
+        Assert.assertTrue(orders.get(0).getId().equals(20L));
+
+        verify(orderDao).getOrdersCreatedBetweenWithState(dayAgo, defaultDate, OrderState.CLOSED);
+    }
+
+    @Test
+    public void testLastDayWithState_2_List() {
+
+        Order testOrder1 = new Order();
+        testOrder1.setId(20L);
+        testOrder1.setState(OrderState.CLOSED);
+        testOrder1.setCreated(dayAgo);
+
+        Order testOrder2 = new Order();
+        testOrder2.setId(30L);
+        testOrder2.setState(OrderState.CLOSED);
+        testOrder2.setCreated(dayAgo);
+
+        List<Order> compList = new ArrayList<>();
+        compList.add(testOrder1);
+        compList.add(testOrder2);
+
+
+        when(orderDao.getOrdersCreatedBetweenWithState(any(LocalDate.class), any(LocalDate.class), any())).
+                thenReturn(compList);
+
+        List<Order> orders = orderService.getOrdersLastDayWithState(OrderState.CLOSED);
+        Assert.assertEquals(2, orders.size());
+        Assert.assertTrue(orders.get(0).getId().equals(20L));
+        Assert.assertTrue(orders.get(1).getId().equals(30L));
+
+        verify(orderDao, times(2)).getOrdersCreatedBetweenWithState(dayAgo, defaultDate, OrderState.CLOSED);
+    }
+
+    @Test
     public void testLastWeekWithState_1_Single() {
         Order testOrder = new Order();
         testOrder.setId(20L);
@@ -175,6 +221,134 @@ public class OrderServiceTests extends AbstractTestNGSpringContextTests {
 
         verify(orderDao, times(2)).getOrdersCreatedBetweenWithState(monthAgo, defaultDate, OrderState.SHIPPED);
     }
+
+    @Test
+    public void testLastDay_1_Single() {
+        Order testOrder = new Order();
+        testOrder.setId(20L);
+        testOrder.setCreated(dayAgo);
+
+        when(orderDao.getOrdersCreatedBetween(any(LocalDate.class), any(LocalDate.class))).
+                thenReturn(Collections.singletonList(testOrder));
+
+        List<Order> orders = orderService.getOrdersLastDay();
+        Assert.assertEquals(1, orders.size());
+        Assert.assertTrue(orders.get(0).getId().equals(20L));
+
+        verify(orderDao).getOrdersCreatedBetween(dayAgo, defaultDate);
+    }
+
+    @Test
+    public void testLastDay_2_List() {
+
+        Order testOrder1 = new Order();
+        testOrder1.setId(20L);
+        testOrder1.setCreated(dayAgo);
+
+        Order testOrder2 = new Order();
+        testOrder2.setId(30L);
+        testOrder2.setCreated(dayAgo);
+
+        List<Order> compList = new ArrayList<>();
+        compList.add(testOrder1);
+        compList.add(testOrder2);
+
+
+        when(orderDao.getOrdersCreatedBetween(any(LocalDate.class), any(LocalDate.class))).
+                thenReturn(compList);
+
+        List<Order> orders = orderService.getOrdersLastDay();
+        Assert.assertEquals(2, orders.size());
+        Assert.assertTrue(orders.get(0).getId().equals(20L));
+        Assert.assertTrue(orders.get(1).getId().equals(30L));
+
+        verify(orderDao, times(2)).getOrdersCreatedBetween(dayAgo, defaultDate);
+    }
+
+    @Test
+    public void testLastWeek_1_Single() {
+        Order testOrder = new Order();
+        testOrder.setId(20L);
+        testOrder.setCreated(weekAgo);
+
+        when(orderDao.getOrdersCreatedBetween(any(LocalDate.class), any(LocalDate.class))).
+                thenReturn(Collections.singletonList(testOrder));
+
+        List<Order> orders = orderService.getOrdersLastWeek();
+        Assert.assertEquals(1, orders.size());
+        Assert.assertTrue(orders.get(0).getId().equals(20L));
+
+        verify(orderDao).getOrdersCreatedBetween(weekAgo, defaultDate);
+    }
+
+    @Test
+    public void testLastWeek_2_List() {
+        Order testOrder1 = new Order();
+        testOrder1.setId(20L);
+        testOrder1.setCreated(weekAgo);
+
+        Order testOrder2 = new Order();
+        testOrder2.setId(30L);
+        testOrder2.setCreated(weekAgo);
+
+        List<Order> compList = new ArrayList<>();
+        compList.add(testOrder1);
+        compList.add(testOrder2);
+
+
+        when(orderDao.getOrdersCreatedBetween(any(LocalDate.class), any(LocalDate.class))).
+                thenReturn(compList);
+
+        List<Order> orders = orderService.getOrdersLastWeek();
+        Assert.assertEquals(2, orders.size());
+        Assert.assertTrue(orders.get(0).getId().equals(20L));
+        Assert.assertTrue(orders.get(1).getId().equals(30L));
+
+        verify(orderDao, times(2)).getOrdersCreatedBetween(weekAgo, defaultDate);
+    }
+
+    @Test
+    public void testLastMonth_1_Single() {
+        Order testOrder = new Order();
+        testOrder.setId(20L);
+        testOrder.setCreated(monthAgo);
+
+        when(orderDao.getOrdersCreatedBetween(any(LocalDate.class), any(LocalDate.class))).
+                thenReturn(Collections.singletonList(testOrder));
+
+        List<Order> orders = orderService.getOrdersLastMonth();
+        Assert.assertEquals(1, orders.size());
+        Assert.assertTrue(orders.get(0).getId().equals(20L));
+
+        verify(orderDao).getOrdersCreatedBetween(monthAgo, defaultDate);
+    }
+
+    @Test
+    public void testLastMonth_2_List() {
+        Order testOrder1 = new Order();
+        testOrder1.setId(20L);
+        testOrder1.setCreated(monthAgo);
+
+        Order testOrder2 = new Order();
+        testOrder2.setId(30L);
+        testOrder2.setCreated(monthAgo);
+
+        List<Order> compList = new ArrayList<>();
+        compList.add(testOrder1);
+        compList.add(testOrder2);
+
+
+        when(orderDao.getOrdersCreatedBetween(any(LocalDate.class), any(LocalDate.class))).
+                thenReturn(compList);
+
+        List<Order> orders = orderService.getOrdersLastMonth();
+        Assert.assertEquals(2, orders.size());
+        Assert.assertTrue(orders.get(0).getId().equals(20L));
+        Assert.assertTrue(orders.get(1).getId().equals(30L));
+
+        verify(orderDao, times(2)).getOrdersCreatedBetween(monthAgo, defaultDate);
+    }
+
 
 //    @Test
 //    public void getAllOrdersLastWeekTest() {
