@@ -8,6 +8,7 @@ package cz.muni.fi.pa165.deliveryservice.api.facade;
  * Project: DeliveryService
  */
 
+import cz.muni.fi.pa165.deliveryservice.api.dto.OrderCreateDTO;
 import cz.muni.fi.pa165.deliveryservice.api.dto.OrderDTO;
 import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
 import cz.muni.fi.pa165.deliveryservice.api.dao.util.*;
@@ -25,7 +26,7 @@ public interface OrderFacade {
      *
      * @param order entity representing Order in real world
      */
-    void createOrder(OrderDTO order) throws OrderAlreadyExistsException;
+    long createOrder(OrderCreateDTO order) throws OrderAlreadyExistsException;
 
     /**
      * List orders of specific customer
