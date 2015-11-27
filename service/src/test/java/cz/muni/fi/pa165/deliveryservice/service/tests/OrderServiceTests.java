@@ -8,13 +8,12 @@ package cz.muni.fi.pa165.deliveryservice.service.tests;
  * Project: DeliveryService
  */
 
+import cz.muni.fi.pa165.deliveryservice.api.dao.util.ViolentDataAccessException;
 import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
-import cz.muni.fi.pa165.deliveryservice.api.service.util.CancelledOrderException;
-import cz.muni.fi.pa165.deliveryservice.api.service.util.ClosedOrderException;
-import cz.muni.fi.pa165.deliveryservice.api.service.util.ShippedOrderException;
-import cz.muni.fi.pa165.deliveryservice.api.service.util.UnprocessedOrderException;
+import cz.muni.fi.pa165.deliveryservice.api.service.util.*;
 import cz.muni.fi.pa165.deliveryservice.persist.dao.OrderDao;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Order;
+import cz.muni.fi.pa165.deliveryservice.persist.entity.Product;
 import cz.muni.fi.pa165.deliveryservice.service.OrderService;
 import cz.muni.fi.pa165.deliveryservice.service.config.ServiceConfiguration;
 import org.hibernate.service.spi.ServiceException;
@@ -460,6 +459,47 @@ public class OrderServiceTests extends AbstractTestNGSpringContextTests {
         OrderState bak = orderClosed.getState();
         orderService.cancelOrder(orderClosed);
         Assert.assertEquals(orderClosed.getState(), bak);
+    }
+
+    //TODO -- strange behavior due to DBHandler probably - make investigate
+    @Test(expectedExceptions = NotFoundException.class)
+    public void testTotalPriceNotFoundException() throws NotFoundException {
+        int id = 3;
+//      orderService.getOrderDao().initDBAccessHandlers();
+        when(orderDao.findById(any())).thenThrow(new ViolentDataAccessException(any()));
+        orderService.getTotalPrice(id);
+    }
+
+    @Test
+    public void testTotalPrice() {
+        List<Product> productList = new ArrayList<>();
+        Product a = new Product();
+        Product b = new Product();
+        a.setName("a");
+        b.setName("b");
+        a.setPrice(20);
+        b.setPrice(10);
+
+        productList.add(a);
+        productList.add(b);
+
+        orderReceived.setProducts(productList);
+
+        when(orderDao.findById(any())).thenReturn(orderReceived);
+
+        int price = 0;
+        int expectedPrice = 30;
+        try {
+            price = orderService.getTotalPrice(orderReceived.getId());
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
+
+        Order found = orderDao.findById(orderReceived.getId());
+        Assert.assertEquals(found, orderReceived);
+        Assert.assertEquals(found.getProducts(), productList);
+        Assert.assertEquals(price, expectedPrice);
+
     }
 
 }
