@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.deliveryservice.api.dto.CustomerDTO;
 import cz.muni.fi.pa165.deliveryservice.api.dto.PersonAuthenticateDTO;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Tomas Milota on 27.11.2015.
@@ -34,4 +35,14 @@ public interface CustomerFacade {
      * Try to authenticate a customer. Return true only if the hashed password matches the records.
      */
     boolean authenticate(PersonAuthenticateDTO p);
+
+    /**
+     * Remove customer by given email.
+     */
+    void delete(Long id);
+
+    /**
+     * Get all customers with specific name.
+     */
+    List<CustomerDTO> findByName(String name);
 }

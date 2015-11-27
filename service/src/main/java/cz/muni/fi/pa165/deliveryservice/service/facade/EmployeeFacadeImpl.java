@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Tomas Milota on 27.11.2015.
@@ -53,5 +54,17 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
     public boolean authenticate(PersonAuthenticateDTO p) {
         Employee employee = employeeService.findById(p.getPersonId());
         return employeeService.authenticate(employee, p.getPassword());
+    }
+
+    @Override
+    public void delete(Long id) {
+        Employee employee = employeeService.findById(id);
+        employeeService.delete(employee);
+    }
+
+    @Override
+    public List<EmployeeDTO> findByName(String name) {
+        List<Employee> employees = employeeService.findByName(name);
+        return beanMappingService.mapTo(employees, EmployeeDTO.class);
     }
 }

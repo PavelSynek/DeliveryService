@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Tomas Milota on 27.11.2015.
@@ -53,5 +54,17 @@ public class CustomerFacadeImpl implements CustomerFacade {
     public boolean authenticate(PersonAuthenticateDTO p) {
         Customer customer = customerService.findById(p.getPersonId());
         return customerService.authenticate(customer, p.getPassword());
+    }
+
+    @Override
+    public void delete(Long id) {
+        Customer customer = customerService.findById(id);
+        customerService.delete(customer);
+    }
+
+    @Override
+    public List<CustomerDTO> findByName(String name) {
+        List<Customer> customers = customerService.findByName(name);
+        return beanMappingService.mapTo(customers, CustomerDTO.class);
     }
 }
