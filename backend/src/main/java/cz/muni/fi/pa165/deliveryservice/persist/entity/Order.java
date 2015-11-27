@@ -18,7 +18,7 @@ import java.util.List;
  * @version 0.1
  */
 @Entity
-@Table(name = "PRODUCT_ORDER")
+@Table(name = "DELIVERY_ORDER")
 public class Order extends DBEntity {
 
     @ManyToOne(optional = false)
