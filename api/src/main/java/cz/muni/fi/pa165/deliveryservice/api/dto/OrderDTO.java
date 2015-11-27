@@ -101,6 +101,11 @@ public class OrderDTO {
                 return false;
         } else if (!customer.equals(other.customer))
             return false;
+        if (employee == null) {
+            if (other.employee != null)
+                return false;
+        } else if (!employee.equals(other.employee))
+            return false;
         return true;
     }
 }
