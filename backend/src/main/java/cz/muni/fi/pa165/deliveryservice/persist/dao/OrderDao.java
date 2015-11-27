@@ -1,8 +1,8 @@
 package cz.muni.fi.pa165.deliveryservice.persist.dao;
 
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Order;
-import cz.muni.fi.pa165.deliveryservice.persist.enums.OrderState;
-import cz.muni.fi.pa165.deliveryservice.persist.util.ViolentDataAccessException;
+import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
+import cz.muni.fi.pa165.deliveryservice.persist.dao.util.ViolentDataAccessException;
 
 import java.time.LocalDate;
 import java.util.List;

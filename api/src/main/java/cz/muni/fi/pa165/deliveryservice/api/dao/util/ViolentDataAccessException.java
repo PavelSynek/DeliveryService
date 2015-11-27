@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.deliveryservice.persist.util;
+package cz.muni.fi.pa165.deliveryservice.api.dao.util;
 
 import org.springframework.dao.DataAccessException;
 

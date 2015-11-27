@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.deliveryservice.service.util;
+package cz.muni.fi.pa165.deliveryservice.api.service.util;
 
 /**
  * Created by Matej Leško on 2015-11-27.

@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.deliveryservice.persist.enums;
+package cz.muni.fi.pa165.deliveryservice.api.enums;
 
 /**
  * Created by Matej Leško on 2015-10-30.

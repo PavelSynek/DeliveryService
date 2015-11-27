@@ -1,6 +1,4 @@
-package cz.muni.fi.pa165.deliveryservice.service.util;
-
-import cz.muni.fi.pa165.deliveryservice.persist.entity.Employee;
+package cz.muni.fi.pa165.deliveryservice.api.service.util;
 
 /**
  * Created by Matej Leško on 2015-11-27.
@@ -12,7 +10,7 @@ import cz.muni.fi.pa165.deliveryservice.persist.entity.Employee;
 
 /**
  * Occurs when there is an attempt to manipulate with an order,
- * which was not processed by {@link Employee}
+ * which was not processed by Employee
  *
  * @author Matej Leško
  */
