@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.deliveryservice.persist.dao;
 
 import cz.muni.fi.pa165.deliveryservice.persist.entity.*;
+import cz.muni.fi.pa165.deliveryservice.persist.util.ViolentDataAccessException;
+import org.springframework.dao.DataAccessException;
 
 import java.util.List;
 
@@ -32,7 +34,7 @@ public interface EntityTemplate<E extends DBEntity> {
      * @param id unique ID of {@link E}
      * @return {@link E} found entity
      */
-    E findById(Long id);
+    E findById(Long id) throws ViolentDataAccessException;
 
     /**
      * Search all record of {@link E} in the database.
@@ -48,21 +50,21 @@ public interface EntityTemplate<E extends DBEntity> {
      *
      * @param entity entity to store
      */
-    void create(E entity);
+    void create(E entity) throws ViolentDataAccessException;
 
     /**
      * Removes given entity {@link E}. From the database
      *
      * @param entity entity to remove
      */
-    void remove(E entity);
+    void remove(E entity) throws ViolentDataAccessException;
 
     /**
      * Updates entity {@link E} in the database
      *
      * @param entity entity to update
      */
-    E update(E entity);
+    E update(E entity) throws ViolentDataAccessException;
 
     /**
      * Initialize all database access handlers that entity need for its queries.
