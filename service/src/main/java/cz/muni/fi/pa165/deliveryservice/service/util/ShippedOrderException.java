@@ -12,8 +12,8 @@ package cz.muni.fi.pa165.deliveryservice.service.util;
  * Occurs when there is aan attempt to ship already shipped order
  * @author Matej Leško
  */
-public class AlreadyShippedException extends IllegalStateException {
-    public AlreadyShippedException(String desc) {
+public class ShippedOrderException extends IllegalStateException {
+    public ShippedOrderException(String desc) {
         super(desc);
     }
 }
