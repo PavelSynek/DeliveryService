@@ -14,5 +14,5 @@ package cz.muni.fi.pa165.deliveryservice.persist.enums;
  * @author Matej Leško
  */
 public enum OrderState {
-    RECEIVED, CANCELED, SHIPPED, DONE
+    RECEIVED, CANCELED, SHIPPED, CLOSED
 }
