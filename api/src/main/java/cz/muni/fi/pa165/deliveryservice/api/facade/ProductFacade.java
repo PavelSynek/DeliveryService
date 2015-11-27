@@ -10,11 +10,23 @@ import java.util.List;
  */
 public interface ProductFacade {
 
+    /**
+     * Create new product
+     */
     Long createProduct(ProductCreateDTO p);
 
+    /**
+     * Remove product with given id
+     */
     void deleteProduct(Long productId);
 
+    /**
+     * Get all products
+     */
     List<ProductDTO> getAllProducts();
 
+    /**
+     * Gets product with given id
+     */
     ProductDTO getProductWithId(Long id);
 }
