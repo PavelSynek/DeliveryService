@@ -1,12 +1,11 @@
 package cz.muni.fi.pa165.deliveryservice.service;
 
 import cz.muni.fi.pa165.deliveryservice.persist.dao.OrderDao;
-import cz.muni.fi.pa165.deliveryservice.persist.entity.Customer;
-import cz.muni.fi.pa165.deliveryservice.persist.entity.Employee;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Order;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Product;
 import cz.muni.fi.pa165.deliveryservice.persist.enums.OrderState;
-import cz.muni.fi.pa165.deliveryservice.service.util.AlreadyShippedException;
+import cz.muni.fi.pa165.deliveryservice.service.util.*;
+import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
@@ -19,13 +18,27 @@ import java.util.List;
  * <p>
  * Project: DeliveryService
  */
+
+
+/**
+ * Implementation of order service contract.
+ *
+ * @author Matej Leško
+ */
+@Service
 public class OrderServiceImpl implements OrderService {
 
     @Inject
     private OrderDao orderDao;
 
     @Override
-    public void createOrder(Order order) {
+    public void createOrder(Order order) throws OrderAlreadyExistsException {
+
+        if (orderDao.findById(order.getId()) != null)
+            throw new OrderAlreadyExistsException("Order: " + order.getId() + " already exists");
+
+        order.setState(OrderState.RECEIVED);
+
         orderDao.create(order);
     }
 
