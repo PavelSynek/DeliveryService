@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.deliveryservice.service;
 
 import cz.muni.fi.pa165.deliveryservice.persist.dao.ProductDao;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Product;
+import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 /**
  * Created by Pavel on 25. 11. 2015.
  */
+@Service
 public class ProductServiceImpl implements ProductService {
 
     @Inject
