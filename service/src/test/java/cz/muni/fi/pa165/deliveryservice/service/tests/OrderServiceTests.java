@@ -4,7 +4,7 @@ package cz.muni.fi.pa165.deliveryservice.service.tests;
  * Created by Matej Leško on 2015-11-27.
  * Email: lesko.matej.pu@gmail.com, mlesko@redhat.com
  * Phone: +421 949 478 066
- * <p>
+ * <p/>
  * Project: DeliveryService
  */
 
@@ -15,7 +15,6 @@ import cz.muni.fi.pa165.deliveryservice.api.service.util.ShippedOrderException;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.UnprocessedOrderException;
 import cz.muni.fi.pa165.deliveryservice.persist.dao.OrderDao;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Order;
-import cz.muni.fi.pa165.deliveryservice.persist.entity.OrderItem;
 import cz.muni.fi.pa165.deliveryservice.service.OrderService;
 import cz.muni.fi.pa165.deliveryservice.service.config.ServiceConfiguration;
 import org.hibernate.service.spi.ServiceException;
@@ -36,9 +35,7 @@ import java.util.Collections;
 import java.util.List;
 
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  *
@@ -94,9 +91,9 @@ public class OrderServiceTests extends AbstractTestNGSpringContextTests {
         dayAgo = defaultDate.minusDays(1);
     }
 
-/*
- * *********************************Time tests************************************
- */
+    /*
+     * *********************************Time tests************************************
+     */
     @Test
     public void testLastDayWithState_1_Single() {
         Order testOrder = new Order();
