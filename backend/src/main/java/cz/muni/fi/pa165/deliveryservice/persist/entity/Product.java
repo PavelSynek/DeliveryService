@@ -14,7 +14,10 @@ public class Product extends DBEntity {
     @Column(nullable = false, unique = true)
     private String name;
 
+    //TODO (Matej) - this should be annotated as @NotNull no?
     private LocalDate addedDate;
+
+    private int price;
 
     public String getName() {
         return name;
@@ -46,5 +49,13 @@ public class Product extends DBEntity {
     @Override
     public int hashCode() {
         return name.hashCode();
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }
