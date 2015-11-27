@@ -56,6 +56,10 @@ public class Order extends DBEntity {
         this.customer = customer;
     }
 
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
     public List<Product> getProducts() {
         return Collections.unmodifiableList(products);
     }
