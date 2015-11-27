@@ -25,6 +25,10 @@ public class Order extends DBEntity {
     @NotNull
     private Customer customer;
 
+
+    @ManyToOne // at the time of creating order, no employee can be free to process it
+    private Employee employee;
+
     @OneToMany
     @NotNull
     private List<Product> products = new ArrayList<>();
@@ -35,6 +39,14 @@ public class Order extends DBEntity {
     @Enumerated
     @NotNull
     private OrderState state;
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
 
     public Customer getCustomer() {
         return customer;
