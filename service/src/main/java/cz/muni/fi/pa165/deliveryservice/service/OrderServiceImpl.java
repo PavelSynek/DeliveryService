@@ -115,8 +115,11 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order findById(long id) {
-        return orderDao.findById(id);
+    public Order findById(long id) throws NotFoundException {
+        Order found = orderDao.findById(id);
+        if (found == null)
+            throw new NotFoundException("Order: " + id + " does not exists");
+        return found;
     }
 
     @Override
