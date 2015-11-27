@@ -35,8 +35,8 @@ public class ProductServiceTest extends AbstractTestNGSpringContextTests {
     @InjectMocks
     private ProductService productService;
 
-    private Product product1;
-    private Product product2;
+    private Product car;
+    private Product plane;
 
     @BeforeClass
     public void setup() {
@@ -45,44 +45,44 @@ public class ProductServiceTest extends AbstractTestNGSpringContextTests {
 
     @BeforeMethod
     public void createProducts() {
-        product1 = new Product();
-        product1.setId(1l);
-        product1.setName("Car");
-        product1.setPrice(1000000);
-        product1.setAddedDate(LocalDate.of(2015, 1, 1));
+        car = new Product();
+        car.setId(1l);
+        car.setName("Car");
+        car.setPrice(1000000);
+        car.setAddedDate(LocalDate.of(2015, 1, 1));
 
-        product2 = new Product();
-        product1.setId(2l);
-        product2.setName("Plane");
-        product2.setPrice(100000000);
-        product2.setAddedDate(LocalDate.of(2014, 12, 24));
+        plane = new Product();
+        plane.setId(2l);
+        plane.setName("Plane");
+        plane.setPrice(100000000);
+        plane.setAddedDate(LocalDate.of(2014, 12, 24));
     }
 
     @Test
     public void create() {
-        productService.createProduct(product1);
-        verify(productDao).create(product1);
+        productService.createProduct(car);
+        verify(productDao).create(car);
     }
 
     @Test
     public void delete() {
-        when(productDao.findById(product1.getId())).thenReturn(product1);
-        productService.deleteProduct(product1.getId());
-        verify(productDao).remove(product1);
+        when(productDao.findById(car.getId())).thenReturn(car);
+        productService.deleteProduct(car.getId());
+        verify(productDao).remove(car);
     }
 
     @Test
     public void findById() {
-        when(productDao.findById(product1.getId())).thenReturn(product1);
-        Product found = productService.findById(product1.getId());
-        assertEquals(found, product1);
+        when(productDao.findById(car.getId())).thenReturn(car);
+        Product found = productService.findById(car.getId());
+        assertEquals(found, car);
     }
 
     @Test
     public void findAll() {
         List<Product> expected = new ArrayList<>();
-        expected.add(product1);
-        expected.add(product2);
+        expected.add(car);
+        expected.add(plane);
         when(productDao.findAll()).thenReturn(expected);
 
         List<Product> found = productService.findAll();
