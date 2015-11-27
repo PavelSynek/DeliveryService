@@ -9,8 +9,13 @@ package cz.muni.fi.pa165.deliveryservice.service.tests;
  */
 
 import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
+import cz.muni.fi.pa165.deliveryservice.api.service.util.CancelledOrderException;
+import cz.muni.fi.pa165.deliveryservice.api.service.util.ClosedOrderException;
+import cz.muni.fi.pa165.deliveryservice.api.service.util.ShippedOrderException;
+import cz.muni.fi.pa165.deliveryservice.api.service.util.UnprocessedOrderException;
 import cz.muni.fi.pa165.deliveryservice.persist.dao.OrderDao;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Order;
+import cz.muni.fi.pa165.deliveryservice.persist.entity.OrderItem;
 import cz.muni.fi.pa165.deliveryservice.service.OrderService;
 import cz.muni.fi.pa165.deliveryservice.service.config.ServiceConfiguration;
 import org.hibernate.service.spi.ServiceException;
@@ -68,7 +73,12 @@ public class OrderServiceTests extends AbstractTestNGSpringContextTests {
         orderReceived.setState(OrderState.RECEIVED);
         orderShipped.setState(OrderState.SHIPPED);
         orderClosed.setState(OrderState.CLOSED);
-        orderCancelled.setState(OrderState.CANCELED);
+        orderCancelled.setState(OrderState.CANCELLED);
+
+        orderReceived.setId(1l);
+        orderShipped.setId(2l);
+        orderClosed.setId(3l);
+        orderCancelled.setId(4l);
 
 
     }
@@ -84,6 +94,9 @@ public class OrderServiceTests extends AbstractTestNGSpringContextTests {
         dayAgo = defaultDate.minusDays(1);
     }
 
+/*
+ * *********************************Time tests************************************
+ */
     @Test
     public void testLastDayWithState_1_Single() {
         Order testOrder = new Order();
@@ -134,17 +147,17 @@ public class OrderServiceTests extends AbstractTestNGSpringContextTests {
     public void testLastWeekWithState_1_Single() {
         Order testOrder = new Order();
         testOrder.setId(20L);
-        testOrder.setState(OrderState.CANCELED);
+        testOrder.setState(OrderState.CANCELLED);
         testOrder.setCreated(weekAgo);
 
         when(orderDao.getOrdersCreatedBetweenWithState(any(LocalDate.class), any(LocalDate.class), any())).
                 thenReturn(Collections.singletonList(testOrder));
 
-        List<Order> orders = orderService.getOrdersLastWeekWithState(OrderState.CANCELED);
+        List<Order> orders = orderService.getOrdersLastWeekWithState(OrderState.CANCELLED);
         Assert.assertEquals(1, orders.size());
         Assert.assertTrue(orders.get(0).getId().equals(20L));
 
-        verify(orderDao).getOrdersCreatedBetweenWithState(weekAgo, defaultDate, OrderState.CANCELED);
+        verify(orderDao).getOrdersCreatedBetweenWithState(weekAgo, defaultDate, OrderState.CANCELLED);
     }
 
     @Test
@@ -152,12 +165,12 @@ public class OrderServiceTests extends AbstractTestNGSpringContextTests {
 
         Order testOrder1 = new Order();
         testOrder1.setId(20L);
-        testOrder1.setState(OrderState.CANCELED);
+        testOrder1.setState(OrderState.CANCELLED);
         testOrder1.setCreated(weekAgo);
 
         Order testOrder2 = new Order();
         testOrder2.setId(30L);
-        testOrder2.setState(OrderState.CANCELED);
+        testOrder2.setState(OrderState.CANCELLED);
         testOrder2.setCreated(weekAgo);
 
         List<Order> compList = new ArrayList<>();
@@ -168,12 +181,12 @@ public class OrderServiceTests extends AbstractTestNGSpringContextTests {
         when(orderDao.getOrdersCreatedBetweenWithState(any(LocalDate.class), any(LocalDate.class), any())).
                 thenReturn(compList);
 
-        List<Order> orders = orderService.getOrdersLastWeekWithState(OrderState.CANCELED);
+        List<Order> orders = orderService.getOrdersLastWeekWithState(OrderState.CANCELLED);
         Assert.assertEquals(2, orders.size());
         Assert.assertTrue(orders.get(0).getId().equals(20L));
         Assert.assertTrue(orders.get(1).getId().equals(30L));
 
-        verify(orderDao, times(2)).getOrdersCreatedBetweenWithState(weekAgo, defaultDate, OrderState.CANCELED);
+        verify(orderDao, times(2)).getOrdersCreatedBetweenWithState(weekAgo, defaultDate, OrderState.CANCELLED);
     }
 
     @Test
@@ -355,17 +368,101 @@ public class OrderServiceTests extends AbstractTestNGSpringContextTests {
 //
 //        Order testOrder = new Order();
 //        testOrder.setId(20L);
-//        testOrder.setState(OrderState.CANCELED);
+//        testOrder.setState(OrderState.CANCELLED);
 //        testOrder.setCreated(weekAgo);
 //
 //        when(orderDao.getOrdersCreatedBetweenWithState(any(LocalDate.class), any(LocalDate.class), any())).
 //                thenReturn(Collections.singletonList(testOrder));
 //
-//        List<Order> orders = orderService.getOrdersLastWeekWithState(OrderState.CANCELED);
+//        List<Order> orders = orderService.getOrdersLastWeekWithState(OrderState.CANCELLED);
 //        Assert.assertEquals(1, orders.size());
 //        Assert.assertTrue(orders.get(0).getId().equals(20L));
 //
-//        verify(orderDao).getOrdersCreatedBetweenWithState(weekAgo, defaultDate, OrderState.CANCELED);
+//        verify(orderDao).getOrdersCreatedBetweenWithState(weekAgo, defaultDate, OrderState.CANCELLED);
 //    }
+
+/*
+* *********************************Time tests END************************************
+*/
+
+    @Test
+    public void testShipping_Received() {
+        orderService.shipOrder(orderReceived);
+        Assert.assertEquals(orderReceived.getState(), OrderState.SHIPPED);
+    }
+
+    @Test(expectedExceptions = ShippedOrderException.class)
+    public void testShipping_Shipped() {
+        OrderState bak = orderShipped.getState();
+        orderService.shipOrder(orderShipped);
+        Assert.assertEquals(orderShipped.getState(), bak);
+    }
+
+    @Test(expectedExceptions = CancelledOrderException.class)
+    public void testShipping_Cancelled() {
+        OrderState bak = orderCancelled.getState();
+        orderService.shipOrder(orderCancelled);
+        Assert.assertEquals(orderCancelled.getState(), bak);
+    }
+
+    @Test(expectedExceptions = ClosedOrderException.class)
+    public void testShipping_Closed() {
+        OrderState bak = orderClosed.getState();
+        orderService.shipOrder(orderClosed);
+        Assert.assertEquals(orderClosed.getState(), bak);
+    }
+
+    @Test(expectedExceptions = UnprocessedOrderException.class)
+    public void testClosing_Received() {
+        OrderState bak = orderReceived.getState();
+        orderService.closeOrder(orderReceived);
+        Assert.assertEquals(orderReceived.getState(), bak);
+    }
+
+    @Test
+    public void testClosing_Shipped() {
+        orderService.closeOrder(orderShipped);
+        Assert.assertEquals(orderShipped.getState(), OrderState.CLOSED);
+    }
+
+    @Test(expectedExceptions = CancelledOrderException.class)
+    public void testClosing_Cancelled() {
+        OrderState bak = orderCancelled.getState();
+        orderService.closeOrder(orderCancelled);
+        Assert.assertEquals(orderCancelled.getState(), bak);
+    }
+
+    @Test(expectedExceptions = ClosedOrderException.class)
+    public void testClosing_Closed() {
+        OrderState bak = orderClosed.getState();
+        orderService.closeOrder(orderClosed);
+        Assert.assertEquals(orderClosed.getState(), bak);
+    }
+
+    @Test
+    public void testCancelling_Received() {
+        orderService.cancelOrder(orderReceived);
+        Assert.assertEquals(orderReceived.getState(), OrderState.CANCELLED);
+    }
+
+    @Test
+    public void testCancelling_Shipped() {
+        orderService.cancelOrder(orderShipped);
+        Assert.assertEquals(orderShipped.getState(), OrderState.CANCELLED);
+    }
+
+    @Test(expectedExceptions = CancelledOrderException.class)
+    public void testCancelling_Cancelled() {
+        OrderState bak = orderCancelled.getState();
+        orderService.cancelOrder(orderCancelled);
+        Assert.assertEquals(orderCancelled.getState(), bak);
+    }
+
+    @Test(expectedExceptions = ClosedOrderException.class)
+    public void testCancelling_Closed() {
+        OrderState bak = orderClosed.getState();
+        orderService.cancelOrder(orderClosed);
+        Assert.assertEquals(orderClosed.getState(), bak);
+    }
 
 }
