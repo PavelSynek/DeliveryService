@@ -80,7 +80,7 @@ public class OrderDaoTest extends AbstractTestNGSpringContextTests {
 
         order1 = new Order();
         order1.setCreated(date1);
-        order1.setState(OrderState.CANCELED);
+        order1.setState(OrderState.CANCELLED);
         order1.setCustomer(angryCustomer);
 
         order2 = new Order();
@@ -90,7 +90,7 @@ public class OrderDaoTest extends AbstractTestNGSpringContextTests {
 
         order3 = new Order();
         order3.setCreated(date3);
-        order3.setState(OrderState.CANCELED);
+        order3.setState(OrderState.CANCELLED);
         order3.setCustomer(angryCustomer);
 
         order4 = new Order();
@@ -178,7 +178,7 @@ public class OrderDaoTest extends AbstractTestNGSpringContextTests {
     public void getOrdersWithStateTest() {
         assertEquals(orderDao.getOrdersWithState(OrderState.SHIPPED).size(), 1);
 
-        List<Order> canceled = orderDao.getOrdersWithState(OrderState.CANCELED);
+        List<Order> canceled = orderDao.getOrdersWithState(OrderState.CANCELLED);
         List<Order> received = orderDao.getOrdersWithState(OrderState.RECEIVED);
 
         assertEquals(canceled.size(), 2);
@@ -221,7 +221,7 @@ public class OrderDaoTest extends AbstractTestNGSpringContextTests {
                 orderDao.getOrdersCreatedBetweenWithState(
                         date1,
                         date2,
-                        OrderState.CANCELED
+                        OrderState.CANCELLED
                 ).size(),
                 0
         );
@@ -245,7 +245,7 @@ public class OrderDaoTest extends AbstractTestNGSpringContextTests {
                 orderDao.getOrdersCreatedBetweenWithState(
                         date3,
                         date2,
-                        OrderState.CANCELED
+                        OrderState.CANCELLED
                 ),
                 temp
         );

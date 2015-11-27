@@ -150,11 +150,11 @@ public class OrderServiceImpl implements OrderService {
             throws ShippedOrderException, CancelledOrderException, ClosedOrderException {
         if (order.getState().equals(OrderState.RECEIVED))
             order.setState(OrderState.SHIPPED);
-        if (order.getState().equals(OrderState.SHIPPED))
+        else if (order.getState().equals(OrderState.SHIPPED))
             throw new ShippedOrderException("Order: " + order.getId() + " was already shipped");
-        if (order.getState().equals(OrderState.CANCELED))
+        else if (order.getState().equals(OrderState.CANCELLED))
             throw new CancelledOrderException("Order: " + order.getId() + " is cancelled");
-        if (order.getState().equals(OrderState.CLOSED))
+        else if (order.getState().equals(OrderState.CLOSED))
             throw new ClosedOrderException("Order: " + order.getId() + " is closed");
     }
 
@@ -163,21 +163,21 @@ public class OrderServiceImpl implements OrderService {
             throws UnprocessedOrderException, CancelledOrderException, ClosedOrderException {
         if (order.getState().equals(OrderState.SHIPPED))
             order.setState(OrderState.CLOSED);
-        if (order.getState().equals(OrderState.CLOSED))
+        else if (order.getState().equals(OrderState.CLOSED))
             throw new ClosedOrderException("Order: " + order.getId() + " was already closed");
-        if (order.getState().equals(OrderState.CANCELED))
+        else if (order.getState().equals(OrderState.CANCELLED))
             throw new CancelledOrderException("Order: " + order.getId() + " is cancelled");
-        if (order.getState().equals(OrderState.RECEIVED))
+        else if (order.getState().equals(OrderState.RECEIVED))
             throw new UnprocessedOrderException("Order: " + order.getId() + " is closed");
     }
 
     @Override
     public void cancelOrder(Order order) throws CancelledOrderException, ClosedOrderException {
         if (order.getState().equals(OrderState.RECEIVED) || order.getState().equals(OrderState.SHIPPED))
-            order.setState(OrderState.CANCELED);
-        if (order.getState().equals(OrderState.CLOSED))
+            order.setState(OrderState.CANCELLED);
+        else if (order.getState().equals(OrderState.CLOSED))
             throw new ClosedOrderException("Order: " + order.getId() + " is already closed");
-        if (order.getState().equals(OrderState.CANCELED))
+        else if (order.getState().equals(OrderState.CANCELLED))
             throw new CancelledOrderException("Order: " + order.getId() + " is cancelled");
     }
 }
