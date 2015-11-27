@@ -12,6 +12,7 @@ public abstract class PersonDTO {
     private String surname;
     private String phone;
     private LocalDate registrationDate;
+    private String passwordHash;
 
     public String getEmail() {
         return email;
@@ -61,4 +62,11 @@ public abstract class PersonDTO {
         this.registrationDate = registrationDate;
     }
 
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
 }
