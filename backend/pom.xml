@@ -12,12 +12,6 @@
     <artifactId>delivery-service-backend</artifactId>
 
     <dependencies>
-        <!-- Api -->
-        <dependency>
-            <artifactId>delivery-service-api</artifactId>
-            <groupId>cz.muni.fi.pa165.deliveryservice</groupId>
-            <version>${project.parent.version}</version>
-        </dependency>
 
         <!-- Spring -->
         <dependency>
@@ -103,6 +97,11 @@
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
             <version>10.12.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
         </dependency>
     </dependencies>
 </project>
