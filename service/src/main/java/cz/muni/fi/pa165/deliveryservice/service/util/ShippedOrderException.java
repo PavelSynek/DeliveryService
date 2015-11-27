@@ -9,7 +9,8 @@ package cz.muni.fi.pa165.deliveryservice.service.util;
  */
 
 /**
- * Occurs when there is aan attempt to ship already shipped order
+ * Occurs when there is an attempt to ship already shipped order
+ *
  * @author Matej Leško
  */
 public class ShippedOrderException extends IllegalStateException {
