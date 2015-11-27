@@ -41,6 +41,8 @@ public abstract class DBPerson extends DBEntity {
     @NotNull
     private LocalDate registrationDate;
 
+    private String passwordHash;
+
     /**
      * @return email of the person.
      */
@@ -109,5 +111,13 @@ public abstract class DBPerson extends DBEntity {
      */
     public void setRegistrationDate(LocalDate registrationDate) {
         this.registrationDate = registrationDate;
+    }
+
+    public String getPasswordHash() {
+        return passwordHash;
+    }
+
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 }
