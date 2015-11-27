@@ -10,6 +10,7 @@ public class ProductDTO {
     private long id;
     private String name;
     private LocalDate addedDate;
+    private int price;
 
     public long getId() {
         return id;
@@ -35,6 +36,14 @@ public class ProductDTO {
         this.addedDate = addedDate;
     }
 
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -42,16 +51,16 @@ public class ProductDTO {
 
         ProductDTO that = (ProductDTO) o;
 
-        if (id != that.id) return false;
+        if (price != that.price) return false;
         if (!name.equals(that.name)) return false;
-        return !(addedDate != null ? !addedDate.equals(that.addedDate) : that.addedDate != null);
+        return addedDate.equals(that.addedDate);
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + name.hashCode();
-        result = 31 * result + (addedDate != null ? addedDate.hashCode() : 0);
+        int result = name.hashCode();
+        result = 31 * result + addedDate.hashCode();
+        result = 31 * result + price;
         return result;
     }
 
