@@ -32,6 +32,10 @@ public class OrderServiceImpl implements OrderService {
     @Inject
     private OrderDao orderDao;
 
+    public OrderDao getOrderDao() {
+        return orderDao;
+    }
+
     @Override
     public void createOrder(Order order) throws OrderAlreadyExistsException {
         OrderState backup = order.getState();

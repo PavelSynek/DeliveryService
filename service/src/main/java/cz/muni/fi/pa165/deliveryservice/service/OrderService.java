@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.deliveryservice.service;
 
 import cz.muni.fi.pa165.deliveryservice.api.service.util.*;
+import cz.muni.fi.pa165.deliveryservice.persist.dao.OrderDao;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Order;
 import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
 import cz.muni.fi.pa165.deliveryservice.api.dao.util.*;
@@ -159,5 +160,7 @@ public interface OrderService {
      * @return
      */
     int getTotalPrice(long id) throws NotFoundException;
+
+    OrderDao getOrderDao();
 }
 
