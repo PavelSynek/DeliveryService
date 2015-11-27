@@ -13,22 +13,22 @@ public interface CustomerFacade {
     /**
      * Get customer by given ID.
      */
-    CustomerDTO findCustomerById(Long customerId);
+    CustomerDTO findById(Long customerId);
 
     /**
      * Get customer by given email.
      */
-    CustomerDTO findCustomerByEmail(String email);
+    CustomerDTO findByEmail(String email);
 
     /**
      * Register the given customer with the given unencrypted password.
      */
-    void createCustomer(CustomerDTO u, String unencryptedPassword);
+    void create(CustomerDTO customerDTO, String unencryptedPassword);
 
     /**
      * Get all registered customers.
      */
-    Collection<CustomerDTO> getAllCustomers();
+    Collection<CustomerDTO> getAll();
 
     /**
      * Try to authenticate a customer. Return true only if the hashed password matches the records.

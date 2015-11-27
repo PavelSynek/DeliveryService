@@ -13,22 +13,22 @@ public interface EmployeeFacade {
     /**
      * Get employee by given ID.
      */
-    EmployeeDTO findEmployeeById(Long employeeId);
+    EmployeeDTO findById(Long employeeId);
 
     /**
      * Get employee by given email.
      */
-    EmployeeDTO findEmployeeByEmail(String email);
+    EmployeeDTO findByEmail(String email);
 
     /**
      * Register the given employee with the given unencrypted password.
      */
-    void createEmployee(EmployeeDTO u, String unencryptedPassword);
+    void create(EmployeeDTO u, String unencryptedPassword);
 
     /**
      * Get all registered employees
      */
-    Collection<EmployeeDTO> getAllEmployees();
+    Collection<EmployeeDTO> getAll();
 
     /**
      * Try to authenticate a employee. Return true only if the hashed password matches the records.
