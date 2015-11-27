@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.deliveryservice.persist.dao.access;
 
 import cz.muni.fi.pa165.deliveryservice.persist.dao.*;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.DBEntity;
+import cz.muni.fi.pa165.deliveryservice.persist.util.ViolentDataAccessException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -47,8 +48,11 @@ public class DBHandler<E extends DBEntity> {
     /**
      * @see EntityTemplate#findById(Long)
      */
-    public E findById(Long id) {
-        return em.find(eClass, id);
+    public E findById(Long id) throws ViolentDataAccessException{
+        E entity = em.find(eClass, id);
+        if (entity == null)
+            throw new ViolentDataAccessException("Entity: " + id + " does not exist");
+        return entity;
     }
 
     /**
