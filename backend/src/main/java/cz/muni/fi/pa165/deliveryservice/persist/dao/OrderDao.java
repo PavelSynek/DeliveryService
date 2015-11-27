@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.deliveryservice.persist.dao;
 
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Order;
 import cz.muni.fi.pa165.deliveryservice.persist.enums.OrderState;
+import cz.muni.fi.pa165.deliveryservice.persist.util.ViolentDataAccessException;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,7 +23,7 @@ public interface OrderDao extends EntityTemplate<Order> {
      * @return list of entities representing orders of specific customer.
      * @see List
      */
-    List<Order> findByCustomer(long customerId);
+    List<Order> findByCustomer(long customerId) throws ViolentDataAccessException;
 
     /**
      * List of all orders with particular state
