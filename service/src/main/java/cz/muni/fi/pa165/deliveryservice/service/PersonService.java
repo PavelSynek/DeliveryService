@@ -36,4 +36,11 @@ public interface PersonService<T extends DBPerson, E extends PersonTemplate> {
      * Get person by given email.
      */
     T findByEmail(String email);
+
+    /**
+     * Find and remove person in the system.
+     */
+    void delete(T person);
+
+    List<T> findByName(String name);
 }

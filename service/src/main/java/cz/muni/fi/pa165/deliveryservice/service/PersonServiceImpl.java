@@ -52,6 +52,16 @@ public abstract class PersonServiceImpl<T extends DBPerson, E extends PersonTemp
         return (T) personDao.findByEmail(email);
     }
 
+    @Override
+    public void delete(T person) {
+        personDao.remove(person);
+    }
+
+    @Override
+    public List<T> findByName(String name) {
+        return (List<T>) personDao.findByName(name);
+    }
+
     //see  https://crackstation.net/hashing-security.htm#javasourcecode
     private static String createHash(String password) {
         final int SALT_BYTE_SIZE = 24;
