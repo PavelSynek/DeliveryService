@@ -6,6 +6,7 @@ import cz.muni.fi.pa165.deliveryservice.persist.dao.OrderDao;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Customer;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Order;
 import cz.muni.fi.pa165.deliveryservice.persist.enums.OrderState;
+import cz.muni.fi.pa165.deliveryservice.persist.util.ViolentDataAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -127,7 +128,7 @@ public class OrderDaoTest extends AbstractTestNGSpringContextTests {
         customerDao.update(happyCustomer);
     }
 
-    @Test
+    @Test(expectedExceptions = ViolentDataAccessException.class)
     public void nonExistentReturnsNullTest() {
         Assert.assertNull(orderDao.findById(99999l));
     }
@@ -156,7 +157,7 @@ public class OrderDaoTest extends AbstractTestNGSpringContextTests {
         assertEquals(found.getCustomer().getEmail(), happyCustomer.getEmail());
     }
 
-    @Test
+    @Test(expectedExceptions = ViolentDataAccessException.class)
     public void removeTest() {
         assertNotNull(orderDao.findById(order1.getId()));
         orderDao.remove(order1);

@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.deliveryservice.persist.tests.dao;
 import cz.muni.fi.pa165.deliveryservice.persist.PersistenceApplicationContext;
 import cz.muni.fi.pa165.deliveryservice.persist.dao.EmployeeDao;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Employee;
+import cz.muni.fi.pa165.deliveryservice.persist.util.ViolentDataAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -64,7 +65,7 @@ public class EmployeeDaoTest extends AbstractTestNGSpringContextTests {
         assertEquals(employeeDao.findById(courier.getId()), courier);
     }
 
-    @Test
+    @Test(expectedExceptions = ViolentDataAccessException.class)
     public void removeTest() {
         assertNotNull(employeeDao.findById(accountant.getId()));
         employeeDao.remove(accountant);
