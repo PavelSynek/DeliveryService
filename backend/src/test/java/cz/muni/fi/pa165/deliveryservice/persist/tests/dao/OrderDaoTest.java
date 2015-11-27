@@ -166,7 +166,7 @@ public class OrderDaoTest extends AbstractTestNGSpringContextTests {
     @Test
     public void updateTest() {
         Order found = orderDao.findById(order1.getId());
-        found.setState(OrderState.DONE);
+        found.setState(OrderState.CLOSED);
         orderDao.update(found);
 
         Order found2 = orderDao.findById(found.getId());

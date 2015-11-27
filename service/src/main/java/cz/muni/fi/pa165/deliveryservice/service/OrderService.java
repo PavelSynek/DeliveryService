@@ -1,9 +1,9 @@
 package cz.muni.fi.pa165.deliveryservice.service;
 
-import cz.muni.fi.pa165.deliveryservice.persist.entity.Customer;
-import cz.muni.fi.pa165.deliveryservice.persist.entity.Employee;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Order;
 import cz.muni.fi.pa165.deliveryservice.persist.enums.OrderState;
+import cz.muni.fi.pa165.deliveryservice.service.util.*;
+import cz.muni.fi.pa165.deliveryservice.persist.entity.Customer;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,7 +22,7 @@ public interface OrderService {
      *
      * @param order entity representing Order in real world
      */
-    void createOrder(Order order);
+    void createOrder(Order order) throws OrderAlreadyExistsException;
 
     /**
      * List orders of specific customer
@@ -44,36 +44,42 @@ public interface OrderService {
 
     /**
      * Get all orders saved within last month that have the given state.
+     *
      * @return list of orders
      */
     List<Order> getOrdersLastMonthWithState(OrderState state);
 
     /**
      * Get all orders saved within last week that have the given state.
+     *
      * @return list of orders
      */
     List<Order> getOrdersLastWeekWithState(OrderState state);
 
     /**
      * Get all orders saved within last day that have the given state.
+     *
      * @return list of orders
      */
     List<Order> getOrdersLastDayWithState(OrderState state);
 
     /**
      * Get all orders saved within last month.
+     *
      * @return list of orders
      */
     List<Order> getOrdersLastMonth();
 
     /**
      * Get all orders saved within last week.
+     *
      * @return list of orders
      */
     List<Order> getOrdersLastWeek();
 
     /**
      * Get all orders saved within last day.
+     *
      * @return list of orders
      */
     List<Order> getOrdersLastDay();
@@ -117,21 +123,24 @@ public interface OrderService {
      *
      * @param order
      */
-    void shipOrder(Order order);
+    void shipOrder(Order order)
+            throws ShippedOrderException, CancelledOrderException, ClosedOrderException;
 
     /**
-     * Let customer finish the order and store it to the sytem
+     * Close order - {@link Customer} received his package.
      *
      * @param order
      */
-    void finishOrder(Order order);
+    void closeOrder(Order order)
+            throws UnprocessedOrderException, CancelledOrderException, ClosedOrderException;
 
     /**
      * Cancels order made in system
      *
      * @param order
      */
-    void deleteOrder(Order order);
+    void cancelOrder(Order order)
+            throws CancelledOrderException, ClosedOrderException;
 
     /**
      * Check order in the system by its ID
@@ -139,7 +148,7 @@ public interface OrderService {
      * @param id unique identifier for order
      * @return Entity representing {@link Order}
      */
-    Order findById(long id);
+    Order findById(long id) throws NotFoundException;
 
     /**
      * Return total price of the order.
@@ -148,6 +157,6 @@ public interface OrderService {
      * @param id unique identifier for order
      * @return
      */
-    int getTotalPrice(long id);
+    int getTotalPrice(long id) throws NotFoundException;
 }
 

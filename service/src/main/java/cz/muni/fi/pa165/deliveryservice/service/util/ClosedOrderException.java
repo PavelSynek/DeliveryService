@@ -9,11 +9,11 @@ package cz.muni.fi.pa165.deliveryservice.service.util;
  */
 
 /**
- * Occurs when there is aan attempt to ship already shipped order
+ * Occurs when there is an attempt to ship already closed order
  * @author Matej Leško
  */
-public class AlreadyShippedException extends IllegalStateException {
-    public AlreadyShippedException(String desc) {
+public class ClosedOrderException extends IllegalStateException {
+    public ClosedOrderException(String desc) {
         super(desc);
     }
 }
