@@ -44,5 +44,10 @@
             <version>1.8.4</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>cz.muni.fi.pa165.deliveryservice</groupId>
+            <artifactId>delivery-service-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 </project>
