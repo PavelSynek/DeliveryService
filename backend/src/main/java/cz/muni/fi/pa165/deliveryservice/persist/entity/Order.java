@@ -27,7 +27,7 @@ public class Order extends DBEntity {
 
     @OneToMany
     @NotNull
-    private List<OrderItem> orderItems = new ArrayList<OrderItem>();
+    private List<Product> products = new ArrayList<>();
 
     @NotNull
     private LocalDate created;
@@ -44,12 +44,12 @@ public class Order extends DBEntity {
         this.customer = customer;
     }
 
-    public List<OrderItem> getOrderItems() {
-        return Collections.unmodifiableList(orderItems);
+    public List<Product> getProducts() {
+        return Collections.unmodifiableList(products);
     }
 
-    public void addOrderItem(OrderItem p) {
-        orderItems.add(p);
+    public void addProduct(Product p) {
+        products.add(p);
     }
 
     public LocalDate getCreated() {
