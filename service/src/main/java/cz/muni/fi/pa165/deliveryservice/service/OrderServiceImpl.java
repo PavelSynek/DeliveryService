@@ -1,12 +1,11 @@
 package cz.muni.fi.pa165.deliveryservice.service;
 
+import cz.muni.fi.pa165.deliveryservice.api.service.util.*;
 import cz.muni.fi.pa165.deliveryservice.persist.dao.OrderDao;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Order;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Product;
-import cz.muni.fi.pa165.deliveryservice.persist.enums.OrderState;
-import cz.muni.fi.pa165.deliveryservice.persist.util.ViolentDataAccessException;
-import cz.muni.fi.pa165.deliveryservice.service.util.*;
-import org.springframework.dao.DataAccessException;
+import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
+import cz.muni.fi.pa165.deliveryservice.api.dao.util.ViolentDataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;

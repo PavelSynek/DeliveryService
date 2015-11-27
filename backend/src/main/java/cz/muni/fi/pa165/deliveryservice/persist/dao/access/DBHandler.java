@@ -1,8 +1,8 @@
 package cz.muni.fi.pa165.deliveryservice.persist.dao.access;
 
-import cz.muni.fi.pa165.deliveryservice.persist.dao.*;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.DBEntity;
-import cz.muni.fi.pa165.deliveryservice.persist.util.ViolentDataAccessException;
+import cz.muni.fi.pa165.deliveryservice.persist.dao.*;
+import cz.muni.fi.pa165.deliveryservice.api.dao.util.ViolentDataAccessException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -15,7 +15,7 @@ import java.util.List;
  * Created by Matej Leško on 2015-10-26.
  * Email: lesko.matej.pu@gmail.com, mlesko@redhat.com
  * Phone: +421 949 478 066
- * <p/>
+ * <p>
  * Project: delivery-service
  */
 
@@ -48,7 +48,7 @@ public class DBHandler<E extends DBEntity> {
     /**
      * @see EntityTemplate#findById(Long)
      */
-    public E findById(Long id) throws ViolentDataAccessException{
+    public E findById(Long id) throws ViolentDataAccessException {
         E entity = em.find(eClass, id);
         if (entity == null)
             throw new ViolentDataAccessException("Entity: " + id + " does not exist");

@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.deliveryservice.persist.entity;
 
-import cz.muni.fi.pa165.deliveryservice.persist.enums.OrderState;
+import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

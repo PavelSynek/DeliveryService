@@ -2,7 +2,7 @@ package cz.muni.fi.pa165.deliveryservice.persist.dao;
 
 import cz.muni.fi.pa165.deliveryservice.persist.dao.access.DBHandler;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.DBEntity;
-import cz.muni.fi.pa165.deliveryservice.persist.util.ViolentDataAccessException;
+import cz.muni.fi.pa165.deliveryservice.api.dao.util.ViolentDataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

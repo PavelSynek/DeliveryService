@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.deliveryservice.api.dto;
 
-import cz.muni.fi.pa165.deliveryservice.persist.enums.OrderState;
+import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.deliveryservice.persist.dao;
 
 import cz.muni.fi.pa165.deliveryservice.persist.entity.*;
-import cz.muni.fi.pa165.deliveryservice.persist.dao.util.ViolentDataAccessException;
+import cz.muni.fi.pa165.deliveryservice.api.dao.util.ViolentDataAccessException;
 
 import java.util.List;
 

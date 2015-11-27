@@ -1,8 +1,9 @@
 package cz.muni.fi.pa165.deliveryservice.service;
 
+import cz.muni.fi.pa165.deliveryservice.api.service.util.*;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Order;
 import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
-import cz.muni.fi.pa165.deliveryservice.service.util.*;
+import cz.muni.fi.pa165.deliveryservice.api.dao.util.*;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Customer;
 import org.springframework.stereotype.Service;
 

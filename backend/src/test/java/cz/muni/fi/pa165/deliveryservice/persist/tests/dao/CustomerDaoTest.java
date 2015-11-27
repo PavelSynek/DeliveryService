@@ -3,7 +3,7 @@ package cz.muni.fi.pa165.deliveryservice.persist.tests.dao;
 import cz.muni.fi.pa165.deliveryservice.persist.PersistenceApplicationContext;
 import cz.muni.fi.pa165.deliveryservice.persist.dao.CustomerDao;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Customer;
-import cz.muni.fi.pa165.deliveryservice.persist.util.ViolentDataAccessException;
+import cz.muni.fi.pa165.deliveryservice.api.dao.util.ViolentDataAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;

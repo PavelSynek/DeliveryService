@@ -1,6 +1,6 @@
 package cz.muni.fi.pa165.deliveryservice.service;
 
-import cz.muni.fi.pa165.deliveryservice.service.dao.PersonTemplate;
+import cz.muni.fi.pa165.deliveryservice.persist.dao.PersonTemplate;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.DBPerson;
 import org.springframework.stereotype.Service;
 
