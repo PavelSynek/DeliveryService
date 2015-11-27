@@ -4,7 +4,9 @@ import cz.muni.fi.pa165.deliveryservice.persist.dao.OrderDao;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Order;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Product;
 import cz.muni.fi.pa165.deliveryservice.persist.enums.OrderState;
+import cz.muni.fi.pa165.deliveryservice.persist.util.ViolentDataAccessException;
 import cz.muni.fi.pa165.deliveryservice.service.util.*;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
@@ -33,13 +35,15 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void createOrder(Order order) throws OrderAlreadyExistsException {
-
-        if (orderDao.findById(order.getId()) != null)
+        OrderState backup = order.getState();
+        try {
+            order.setState(OrderState.RECEIVED);
+            orderDao.create(order);
+        } catch (ViolentDataAccessException e) {
+            order.setState(backup);
             throw new OrderAlreadyExistsException("Order: " + order.getId() + " already exists");
+        }
 
-        order.setState(OrderState.RECEIVED);
-
-        orderDao.create(order);
     }
 
     @Override
@@ -116,19 +120,30 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order findById(long id) throws NotFoundException {
-        Order found = orderDao.findById(id);
-        if (found == null)
+        Order found;
+        try {
+            found = orderDao.findById(id);
+        } catch (ViolentDataAccessException e) {
             throw new NotFoundException("Order: " + id + " does not exists");
+        }
         return found;
     }
 
     @Override
-    public int getTotalPrice(long id) {
+    public int getTotalPrice(long id) throws NotFoundException {
         int price = 0;
-        Order order = orderDao.findById(id);
+        Order order;
+
+        try {
+            order = orderDao.findById(id);
+        } catch (ViolentDataAccessException e) {
+            throw new NotFoundException("Order: " + id + " does not exists");
+        }
+
         for (Product product : order.getProducts()) {
             price += product.getPrice();
         }
+
         return price;
     }
 
