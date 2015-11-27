@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,10 +37,14 @@ public class ProductDaoTest extends AbstractTestNGSpringContextTests {
     public void setUp() {
         car = new Product();
         car.setName("Audi");
+        car.setAddedDate(LocalDate.of(2015, 1, 1));
+        car.setPrice(1000000);
         productDao.create(car);
 
         plane = new Product();
         plane.setName("Boeing");
+        plane.setAddedDate(LocalDate.of(2014, 12, 24));
+        plane.setPrice(10000000);
         productDao.create(plane);
 
         productDao.initDBAccessHandlers();
