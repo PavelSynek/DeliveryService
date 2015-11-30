@@ -5,7 +5,7 @@ import cz.muni.fi.pa165.deliveryservice.api.dto.PersonAuthenticateDTO;
 import cz.muni.fi.pa165.deliveryservice.api.facade.EmployeeFacade;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Employee;
 import cz.muni.fi.pa165.deliveryservice.service.BeanMappingService;
-import cz.muni.fi.pa165.deliveryservice.service.EmployeeServiceImpl;
+import cz.muni.fi.pa165.deliveryservice.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +21,7 @@ import java.util.List;
 public class EmployeeFacadeImpl implements EmployeeFacade {
 
     @Autowired
-    private EmployeeServiceImpl employeeService;
+    private EmployeeService employeeService;
 
     @Autowired
     private BeanMappingService beanMappingService;
