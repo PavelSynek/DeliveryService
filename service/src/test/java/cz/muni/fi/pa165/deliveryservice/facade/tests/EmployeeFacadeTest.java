@@ -6,15 +6,11 @@ import cz.muni.fi.pa165.deliveryservice.api.facade.EmployeeFacade;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Employee;
 import cz.muni.fi.pa165.deliveryservice.service.BeanMappingService;
 import cz.muni.fi.pa165.deliveryservice.service.EmployeeService;
-import cz.muni.fi.pa165.deliveryservice.service.config.ServiceConfiguration;
+import cz.muni.fi.pa165.deliveryservice.service.facade.EmployeeFacadeImpl;
 import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.Spy;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -30,17 +26,14 @@ import static org.mockito.Mockito.when;
 /**
  * Created by Tomas Milota on 27.11.2015.
  */
-@ContextConfiguration(classes = ServiceConfiguration.class)
-public class EmployeeFacadeTest extends AbstractTestNGSpringContextTests {
+public class EmployeeFacadeTest {
 
     @Mock
     private EmployeeService employeeService;
 
-    @Autowired
-    @Spy
+    @Mock
     private BeanMappingService beanMappingService;
 
-    @Autowired
     @InjectMocks
     private EmployeeFacade employeeFacade;
 
@@ -49,6 +42,7 @@ public class EmployeeFacadeTest extends AbstractTestNGSpringContextTests {
 
     @BeforeClass
     public void setUp() throws ServiceException {
+        employeeFacade = new EmployeeFacadeImpl();
         MockitoAnnotations.initMocks(this);
     }
 
