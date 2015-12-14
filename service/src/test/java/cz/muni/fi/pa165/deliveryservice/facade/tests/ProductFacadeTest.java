@@ -17,6 +17,10 @@ import org.testng.annotations.Test;
 
 import java.time.LocalDate;
 
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.testng.Assert.assertEquals;
+
 /**
  * Created by Pavel on 27. 11. 2015.
  */
@@ -71,6 +75,11 @@ public class ProductFacadeTest {
 
     @Test
     public void create() {
-        productFacade.createProduct(carCreateDTO);
+        when(beanMappingService.mapTo(carCreateDTO, Product.class)).thenReturn(car);
+        when(productService.createProduct(car)).thenReturn(car);
+
+        Long expected = productFacade.createProduct(carCreateDTO);
+        verify(productService).createProduct(car);
+        assertEquals(expected, car.getId());
     }
 }
