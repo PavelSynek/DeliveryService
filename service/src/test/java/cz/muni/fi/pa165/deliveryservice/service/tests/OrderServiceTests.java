@@ -4,7 +4,7 @@ package cz.muni.fi.pa165.deliveryservice.service.tests;
  * Created by Matej Leško on 2015-11-27.
  * Email: lesko.matej.pu@gmail.com, mlesko@redhat.com
  * Phone: +421 949 478 066
- * <p/>
+ * <p>
  * Project: DeliveryService
  */
 
@@ -504,6 +504,31 @@ public class OrderServiceTests extends AbstractTestNGSpringContextTests {
         Assert.assertEquals(found.getProducts(), productList);
         Assert.assertEquals(price, expectedPrice);
 
+    }
+
+    @Test(expectedExceptions = NotFoundException.class)
+    public void testFindByCustomerIdNotFoundException() throws NotFoundException {
+        long id = 30;
+//        when(orderDao.findById(any())).thenThrow(new ViolentDataAccessException(any()));
+        when(orderDao.findByCustomer(anyLong())).thenThrow(new ViolentDataAccessException(any()));
+        List<Order> orders = orderService.findByCustomer(id);
+    }
+
+    public void testFindByCustomerId() throws NotFoundException {
+        Order order = new Order();
+        Product product = new Product();
+        long customerId = 3;
+        long orderId = 30;
+        long productId = 40;
+        order.setId(orderId);
+        product.setId(productId);
+        order.addProduct(product);
+        when(orderDao.findByCustomer(anyLong())).thenReturn(Collections.singletonList(order));
+        List<Order> orders = orderService.findByCustomer(orderId);
+
+        Order foundOrder = orders.get(0);
+
+        Assert.assertEquals(foundOrder, order);
     }
 
 }
