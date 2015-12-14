@@ -50,8 +50,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<Order> findByCustomer(long customerId) {
-        return orderDao.findByCustomer(customerId);
+    public List<Order> findByCustomer(long customerId) throws NotFoundException {
+        List<Order> list;
+        try {
+            list = orderDao.findByCustomer(customerId);
+        } catch (ViolentDataAccessException e) {
+            throw new NotFoundException("Customer: " + customerId + " was not found");
+        }
+        return list;
     }
 
     @Override

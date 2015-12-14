@@ -33,7 +33,7 @@ public interface OrderService {
      * @return list of entities representing orders of specific customer.
      * @see List
      */
-    List<Order> findByCustomer(long customerId);
+    List<Order> findByCustomer(long customerId) throws NotFoundException;
 
     /**
      * List all orders delivered by employee
