@@ -55,9 +55,15 @@ public class OrderFacadeImpl implements OrderFacade {
 
     @Override
     public List<OrderDTO> findByCustomer(long customerId) {
-        return beanMappingService.mapTo(
-                orderService.findByCustomer(customerId), OrderDTO.class
-        );
+        List<OrderDTO> list = null;
+        try {
+            list = beanMappingService.mapTo(
+                    orderService.findByCustomer(customerId), OrderDTO.class
+            );
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     @Override
