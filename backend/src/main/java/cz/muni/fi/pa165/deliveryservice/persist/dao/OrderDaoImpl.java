@@ -1,10 +1,11 @@
 package cz.muni.fi.pa165.deliveryservice.persist.dao;
 
-import cz.muni.fi.pa165.deliveryservice.persist.dao.access.DBHandler;
+import cz.muni.fi.pa165.deliveryservice.api.dao.util.ViolentDataAccessException;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Customer;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Employee;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Order;
 import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,8 +27,13 @@ import java.util.List;
 @Transactional
 public class OrderDaoImpl extends Entity<Order> implements OrderDao {
 
-    private DBHandler<Customer> customerDBHandler;
-    private DBHandler<Employee> employeeDBHandler;
+//    private DBHandler<Customer> customerDBHandler;
+//    private DBHandler<Employee> employeeDBHandler;
+
+    @Autowired
+    private CustomerDao customerDao;
+    @Autowired
+    private EmployeeDao employeeDao;
 
     public OrderDaoImpl(Class<Order> orderClass) {
         super(orderClass);
@@ -38,14 +44,14 @@ public class OrderDaoImpl extends Entity<Order> implements OrderDao {
     }
 
     @Override
-    public List<Order> findByCustomer(long customerId) {
-        Customer customer = customerDBHandler.findById(customerId);
+    public List<Order> findByCustomer(long customerId) throws ViolentDataAccessException {
+        Customer customer = customerDao.findById(customerId);
         return customer.getOrders();
     }
 
     @Override
     public List<Order> findByEmployee(long employeeId) {
-        Employee employee = employeeDBHandler.findById(employeeId);
+        Employee employee = employeeDao.findById(employeeId);
         return employee.getOrders();
     }
 
@@ -85,7 +91,9 @@ public class OrderDaoImpl extends Entity<Order> implements OrderDao {
     @Override
     public void initDBAccessHandlers() {
         super.initDBAccessHandlers();
-        customerDBHandler = new DBHandler<>(em, Customer.class);
-        employeeDBHandler = new DBHandler<>(em, Employee.class);
+        customerDao.initDBAccessHandlers();
+        employeeDao.initDBAccessHandlers();
+//        customerDBHandler = new DBHandler<>(em, Customer.class);
+//        employeeDBHandler = new DBHandler<>(em, Employee.class);
     }
 }
