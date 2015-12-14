@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.deliveryservice.facade.tests;
 
 import cz.muni.fi.pa165.deliveryservice.api.dto.CustomerDTO;
-import cz.muni.fi.pa165.deliveryservice.api.dto.OrderDTO;
 import cz.muni.fi.pa165.deliveryservice.api.dto.PersonAuthenticateDTO;
 import cz.muni.fi.pa165.deliveryservice.api.facade.CustomerFacade;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Customer;
@@ -12,6 +11,7 @@ import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -37,6 +37,7 @@ public class CustomerFacadeTest extends AbstractTestNGSpringContextTests {
     private CustomerService customerService;
 
     @Autowired
+    @Spy
     private BeanMappingService beanMappingService;
 
     @Autowired
@@ -57,14 +58,14 @@ public class CustomerFacadeTest extends AbstractTestNGSpringContextTests {
         customerDTO.setEmail("example@gmail.com");
         customerDTO.setFirstName("Joe");
         customerDTO.setSurname("Smith");
-        customerDTO.setOrders(new ArrayList<OrderDTO>());
+        customerDTO.setOrders(new ArrayList<>());
         customerDTO.setRegistrationDate(LocalDate.now());
 
         anotherCustomerDTO = new CustomerDTO();
         anotherCustomerDTO.setEmail("other@gmail.com");
         anotherCustomerDTO.setFirstName("Adam");
         anotherCustomerDTO.setSurname("Smith");
-        anotherCustomerDTO.setOrders(new ArrayList<OrderDTO>());
+        anotherCustomerDTO.setOrders(new ArrayList<>());
         anotherCustomerDTO.setRegistrationDate(LocalDate.now());
     }
 

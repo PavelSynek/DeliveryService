@@ -11,6 +11,7 @@ import org.hibernate.service.spi.ServiceException;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -36,14 +37,15 @@ public class EmployeeFacadeTest extends AbstractTestNGSpringContextTests {
     private EmployeeService employeeService;
 
     @Autowired
+    @Spy
     private BeanMappingService beanMappingService;
 
     @Autowired
     @InjectMocks
     private EmployeeFacade employeeFacade;
 
-    EmployeeDTO employeeDTO;
-    EmployeeDTO anotherEmployeeDTO;
+    private EmployeeDTO employeeDTO;
+    private EmployeeDTO anotherEmployeeDTO;
 
     @BeforeClass
     public void setUp() throws ServiceException {
@@ -53,7 +55,7 @@ public class EmployeeFacadeTest extends AbstractTestNGSpringContextTests {
     @BeforeMethod
     public void createEmployees() {
         employeeDTO = new EmployeeDTO();
-        employeeDTO.setEmail("employeeDTO@gmail.com");
+        employeeDTO.setEmail("employeedto@gmail.com");
         employeeDTO.setFirstName("Joe");
         employeeDTO.setSurname("Smith");
         employeeDTO.setRegistrationDate(LocalDate.now());
@@ -70,6 +72,7 @@ public class EmployeeFacadeTest extends AbstractTestNGSpringContextTests {
         Employee c = beanMappingService.mapTo(employeeDTO, Employee.class);
 
         employeeFacade.create(employeeDTO, "password");
+        verify(beanMappingService).mapTo(employeeDTO, Employee.class);
         verify(employeeService).create(c, "password");
     }
 
