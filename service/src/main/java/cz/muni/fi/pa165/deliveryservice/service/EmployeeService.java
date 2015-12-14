@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.deliveryservice.service;
 
-import cz.muni.fi.pa165.deliveryservice.persist.dao.EmployeeDao;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Employee;
 import org.springframework.stereotype.Service;
 
@@ -8,5 +7,5 @@ import org.springframework.stereotype.Service;
  * Created by Tomas Milota on 27.11.2015.
  */
 @Service
-public interface EmployeeService extends PersonService<Employee, EmployeeDao> {
+public interface EmployeeService extends PersonService<Employee> {
 }

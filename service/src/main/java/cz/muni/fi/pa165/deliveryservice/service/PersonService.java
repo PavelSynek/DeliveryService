@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.deliveryservice.service;
 
-import cz.muni.fi.pa165.deliveryservice.persist.dao.PersonTemplate;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.DBPerson;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +9,7 @@ import java.util.List;
  * Created by Tomas Milota on 27.11.2015.
  */
 @Service
-public interface PersonService<T extends DBPerson, E extends PersonTemplate> {
+public interface PersonService<T extends DBPerson> {
 
     /**
      * Register the given person with the given unencrypted password.

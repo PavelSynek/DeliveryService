@@ -16,7 +16,7 @@ import java.util.List;
  * Created by Tomas Milota on 27.11.2015.
  */
 @Service
-public abstract class PersonServiceImpl<T extends DBPerson, E extends PersonTemplate> implements PersonService<T, E> {
+public abstract class PersonServiceImpl<T extends DBPerson, E extends PersonTemplate> implements PersonService<T> {
 
     @Autowired
     private E personDao;
