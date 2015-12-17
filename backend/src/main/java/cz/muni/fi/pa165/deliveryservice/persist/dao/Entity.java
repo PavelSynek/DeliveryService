@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TransactionRequiredException;
 import java.util.List;
 
 /**
@@ -68,8 +69,12 @@ public abstract class Entity<E extends DBEntity> implements EntityTemplate<E> {
     }
 
     @Override
-    public E update(E entity) {
-        return em.merge(entity);
+    public E update(E entity) throws ViolentDataAccessException {
+        try {
+            return em.merge(entity);
+        } catch (IllegalArgumentException|TransactionRequiredException e) {
+            throw new ViolentDataAccessException("Entity with ID: " + entity.getId() + " cannot be updated");
+        }
     }
 
     @Override
