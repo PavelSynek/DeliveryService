@@ -15,7 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
-import java.security.InvalidParameterException;
 import java.util.Collections;
 import java.util.List;
 
@@ -140,24 +139,33 @@ public class ProductsController {
     }
 
     /**
-     * Add a new category by POST Method
+     * Update the weight for one product by PUT method curl -X PUT -i -H
+     * "Content-Type: application/json" --data '{"weight":"1.33"}'
+     * http://localhost:8080/pa165/rest/products/3
      *
-     * @param id       the identifier of the Product to have the Category added
-     * @param category the category to be added
-     * @return the updated product as defined by ProductDTO
-     * @throws InvalidParameterException
+     * @param id        identified of the product to be updated
+     * @param newWeight price to be set
+     * @return the updated product ProductDTO
+     * @throws ResourceNotFoundException
      */
-    @RequestMapping(value = "/{id}/categories", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE,
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public final ProductDTO addCategory(@PathVariable("id") long id, @RequestBody CategoryDTO category) throws Exception {
+    public final ProductDTO changeWeight(@PathVariable("id") long id, @RequestBody Long newWeight) throws ResourceNotFoundException {
 
-        logger.debug("rest addCategory({})", id);
+        logger.debug("rest changePrice({})", id);
 
         try {
-            productFacade.addCategory(id, category.getId());
+            ProductDTO productDTO = productFacade.getProductWithId(id);
+            productDTO.setWeight(newWeight);
+            productFacade.updateProduct(productDTO);
             return productFacade.getProductWithId(id);
-        } catch (Exception ex) {
-            throw new InvalidParameterException();
+        } catch (NotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        } catch (FailedUpdateException e) {
+            throw new ResourceUpdateException(id);
+        } catch (InvalidWeightException e) {
+            throw new InvalidResourceStateException(id, "price");
         }
+
     }
 }
