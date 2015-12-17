@@ -12,8 +12,8 @@ package cz.muni.fi.pa165.deliveryservice.api.service.util;
  * Occurs when there is an attempt create already existing order
  * @author Matej Leško
  */
-public class OrderAlreadyExistsException extends Exception {
-    public OrderAlreadyExistsException(String desc) {
+public class AlreadyExistsException extends Exception {
+    public AlreadyExistsException(String desc) {
         super(desc);
     }
 }
