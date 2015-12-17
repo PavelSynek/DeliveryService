@@ -1,7 +1,9 @@
 package cz.muni.fi.pa165.deliveryservice.facade.tests;
 
 import cz.muni.fi.pa165.deliveryservice.api.dto.EmployeeDTO;
+import cz.muni.fi.pa165.deliveryservice.api.dto.PersonAuthenticateDTO;
 import cz.muni.fi.pa165.deliveryservice.api.facade.EmployeeFacade;
+import cz.muni.fi.pa165.deliveryservice.persist.entity.Employee;
 import cz.muni.fi.pa165.deliveryservice.service.BeanMappingService;
 import cz.muni.fi.pa165.deliveryservice.service.EmployeeService;
 import cz.muni.fi.pa165.deliveryservice.service.facade.EmployeeFacadeImpl;
@@ -13,7 +15,13 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static org.testng.Assert.assertEquals;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Tomas Milota on 27.11.2015.
@@ -31,6 +39,7 @@ public class EmployeeFacadeTest {
 
     private EmployeeDTO employeeDTO;
     private EmployeeDTO anotherEmployeeDTO;
+    private Employee employee, anotherEmployee;
 
     @BeforeClass
     public void setUp() throws ServiceException {
@@ -40,6 +49,18 @@ public class EmployeeFacadeTest {
 
     @BeforeMethod
     public void createEmployees() {
+        employee = new Employee();
+        employee.setEmail("employeedto@gmail.com");
+        employee.setFirstName("Joe");
+        employee.setSurname("Smith");
+        employee.setRegistrationDate(LocalDate.now());
+
+        anotherEmployee = new Employee();
+        anotherEmployee.setEmail("other@gmail.com");
+        anotherEmployee.setFirstName("Adam");
+        anotherEmployee.setSurname("Smith");
+        anotherEmployee.setRegistrationDate(LocalDate.now());
+
         employeeDTO = new EmployeeDTO();
         employeeDTO.setEmail("employeedto@gmail.com");
         employeeDTO.setFirstName("Joe");
@@ -55,70 +76,76 @@ public class EmployeeFacadeTest {
 
     @Test
     public void createTest() {
-        /*Employee c = beanMappingService.mapTo(employeeDTO, Employee.class);
+        when(beanMappingService.mapTo(employeeDTO, Employee.class)).thenReturn(employee);
+
+        Employee e = beanMappingService.mapTo(employeeDTO, Employee.class);
 
         employeeFacade.create(employeeDTO, "password");
-        verify(beanMappingService).mapTo(employeeDTO, Employee.class);
-        verify(employeeService).create(c, "password");*/
+        verify(employeeService).create(e, "password");
     }
 
     @Test
     public void deleteTest() {
-        /*Employee c = beanMappingService.mapTo(employeeDTO, Employee.class);
+        when(employeeService.findById(employee.getId())).thenReturn(employee);
 
         employeeFacade.delete(employeeDTO.getId());
-        verify(employeeService).delete(c);*/
+        verify(employeeService).delete(employee);
     }
 
     @Test
     public void findByEmailTest() {
-        /*Employee c = beanMappingService.mapTo(employeeDTO, Employee.class);
-        when(employeeService.findByEmail(employeeDTO.getEmail())).thenReturn(c);
+        Employee e = beanMappingService.mapTo(employeeDTO, Employee.class);
+        when(employeeService.findByEmail(employeeDTO.getEmail())).thenReturn(e);
+        when(beanMappingService.mapTo(e, EmployeeDTO.class)).thenReturn(employeeDTO);
 
         employeeFacade.create(employeeDTO, "password");
-        assertEquals(employeeFacade.findByEmail(employeeDTO.getEmail()), employeeDTO);*/
+        assertEquals(employeeFacade.findByEmail(employeeDTO.getEmail()), employeeDTO);
     }
 
     @Test
     public void findByNameTest() {
-        /*List<EmployeeDTO> expected = new ArrayList<>();
+        List<EmployeeDTO> expected = new ArrayList<>();
         expected.add(employeeDTO);
         List<Employee> list = beanMappingService.mapTo(expected, Employee.class);
+
+        when(beanMappingService.mapTo(list, EmployeeDTO.class)).thenReturn(expected);
         when(employeeService.findByName(employeeDTO.getFirstName() + " " + employeeDTO.getSurname())).thenReturn(list);
 
-        employeeFacade.create(employeeDTO, "password");
-        assertEquals(employeeFacade.findByName("Joe Smith"), expected);*/
+        assertEquals(employeeFacade.findByName("Joe Smith"), expected);
     }
 
     @Test
     public void findByIdTest() {
-        /*Employee c = beanMappingService.mapTo(employeeDTO, Employee.class);
+        Employee c = beanMappingService.mapTo(employeeDTO, Employee.class);
         when(employeeService.findById(employeeDTO.getId())).thenReturn(c);
 
-        employeeFacade.create(employeeDTO, "password");
-        assertEquals(employeeFacade.findById(employeeDTO.getId()), employeeDTO);*/
+        assertEquals(employeeFacade.findById(employeeDTO.getId()), employeeDTO);
     }
 
     @Test
     public void getAllTest() {
-        /*List<EmployeeDTO> expected = new ArrayList<>();
+        List<EmployeeDTO> expected = new ArrayList<>();
         expected.add(employeeDTO);
         expected.add(anotherEmployeeDTO);
-        List<Employee> list = beanMappingService.mapTo(expected, Employee.class);
-        when(employeeService.getAll()).thenReturn(list);
+        List<Employee> employees = new ArrayList<>();
+        employees.add(employee);
+        employees.add(anotherEmployee);
 
-        assertEquals(employeeFacade.getAll(), expected);*/
+        when(beanMappingService.mapTo(employees, EmployeeDTO.class)).thenReturn(expected);
+        when(employeeService.getAll()).thenReturn(employees);
+
+        assertEquals(employeeFacade.getAll(), expected);
     }
 
     @Test
     public void authenticateTest() {
-        /*Employee c = beanMappingService.mapTo(employeeDTO, Employee.class);
+        Employee c = beanMappingService.mapTo(employeeDTO, Employee.class);
 
         PersonAuthenticateDTO p = new PersonAuthenticateDTO();
         p.setPersonId(employeeDTO.getId());
         p.setPassword("password");
 
         employeeFacade.authenticate(p);
-        verify(employeeService).authenticate(c, "password");*/
+        verify(employeeService).authenticate(c, "password");
     }
 }

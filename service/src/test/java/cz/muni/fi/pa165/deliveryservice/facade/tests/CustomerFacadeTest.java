@@ -85,38 +85,41 @@ public class CustomerFacadeTest {
 
     @Test
     public void createTest() {
-        /*Customer c = beanMappingService.mapTo(customerDTO, Customer.class);
+        when(beanMappingService.mapTo(customerDTO, Customer.class)).thenReturn(customer);
+
+        Customer c = beanMappingService.mapTo(customerDTO, Customer.class);
 
         customerFacade.create(customerDTO, "password");
-        verify(customerService).create(c, "password");*/
+        verify(customerService).create(c, "password");
     }
 
     @Test
     public void deleteTest() {
-        /*Customer c = beanMappingService.mapTo(customerDTO, Customer.class);
+        when(customerService.findById(customer.getId())).thenReturn(customer);
 
         customerFacade.delete(customerDTO.getId());
-        verify(customerService).delete(c);*/
+        verify(customerService).delete(customer);
     }
 
     @Test
     public void findByEmailTest() {
-        /*Customer c = beanMappingService.mapTo(customerDTO, Customer.class);
+        Customer c = beanMappingService.mapTo(customerDTO, Customer.class);
         when(customerService.findByEmail(customerDTO.getEmail())).thenReturn(c);
+        when(beanMappingService.mapTo(c, CustomerDTO.class)).thenReturn(customerDTO);
 
-        customerFacade.create(customerDTO, "password");
-        assertEquals(customerFacade.findByEmail(customerDTO.getEmail()), customerDTO);*/
+        assertEquals(customerFacade.findByEmail(customerDTO.getEmail()), customerDTO);
     }
 
     @Test
     public void findByNameTest() {
-        /*List<CustomerDTO> expected = new ArrayList<>();
+        List<CustomerDTO> expected = new ArrayList<>();
         expected.add(customerDTO);
-        List<Customer> list = beanMappingService.mapTo(expected, Customer.class);
-        when(customerService.findByName(customerDTO.getFirstName() + " " + customerDTO.getSurname())).thenReturn(list);
 
-        customerFacade.create(customerDTO, "password");
-        assertEquals(customerFacade.findByName("Joe Smith"), expected);*/
+        List<Customer> list = beanMappingService.mapTo(expected, Customer.class);
+        when(beanMappingService.mapTo(list, CustomerDTO.class)).thenReturn(expected);
+        when(customerService.findByName("Joe Smith")).thenReturn(list);
+
+        assertEquals(customerFacade.findByName("Joe Smith"), expected);
     }
 
     @Test
