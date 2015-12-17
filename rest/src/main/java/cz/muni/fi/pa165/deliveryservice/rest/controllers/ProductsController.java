@@ -2,30 +2,27 @@ package cz.muni.fi.pa165.deliveryservice.rest.controllers;
 
 import cz.muni.fi.pa165.deliveryservice.api.dto.ProductCreateDTO;
 import cz.muni.fi.pa165.deliveryservice.api.dto.ProductDTO;
+import cz.muni.fi.pa165.deliveryservice.api.dto.utils.InvalidPriceException;
+import cz.muni.fi.pa165.deliveryservice.api.dto.utils.InvalidWeightException;
 import cz.muni.fi.pa165.deliveryservice.api.facade.ProductFacade;
-import cz.muni.fi.pa165.deliveryservice.api.rest.util.ResourceAlreadyExistsException;
-import cz.muni.fi.pa165.deliveryservice.api.rest.util.ResourceNotFoundException;
-import cz.muni.fi.pa165.deliveryservice.api.rest.util.UriSpecification;
+import cz.muni.fi.pa165.deliveryservice.api.rest.util.*;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.AlreadyExistsException;
+import cz.muni.fi.pa165.deliveryservice.api.service.util.FailedUpdateException;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.MediaType;
-
+import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.security.InvalidParameterException;
 import java.util.Collections;
 import java.util.List;
 
 /**
  * REST Controller for Products
  *
- * @author brossi
+ * @author Matej Leško
  */
 @RestController
 @RequestMapping(UriSpecification.ROOT_URI_PRODUCTS)
@@ -117,22 +114,27 @@ public class ProductsController {
      * http://localhost:8080/pa165/rest/products/4
      *
      * @param id       identified of the product to be updated
-     * @param newPrice va
+     * @param newPrice price to be set
      * @return the updated product ProductDTO
-     * @throws InvalidParameterException
+     * @throws ResourceNotFoundException
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public final ProductDTO changePrice(@PathVariable("id") long id, @RequestBody Long newPrice) throws Exception {
+    public final ProductDTO changePrice(@PathVariable("id") long id, @RequestBody Long newPrice) throws ResourceNotFoundException {
 
         logger.debug("rest changePrice({})", id);
 
         try {
             ProductDTO productDTO = productFacade.getProductWithId(id);
             productDTO.setPrice(newPrice);
+            productFacade.updateProduct(productDTO);
             return productFacade.getProductWithId(id);
-        } catch (EshopServiceException esse) {
-            throw new InvalidParameterException();
+        } catch (NotFoundException e) {
+            throw new ResourceNotFoundException(id);
+        } catch (FailedUpdateException e) {
+            throw new ResourceUpdateException(id);
+        } catch (InvalidPriceException e) {
+            throw new InvalidResourceStateException(id, "price");
         }
 
     }
