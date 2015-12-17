@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.deliveryservice.service;
 
+import cz.muni.fi.pa165.deliveryservice.api.service.util.AlreadyExistsException;
+import cz.muni.fi.pa165.deliveryservice.api.service.util.NotFoundException;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Product;
 import org.springframework.stereotype.Service;
 
@@ -7,6 +9,8 @@ import java.util.List;
 
 /**
  * Created by Pavel on 25. 11. 2015.
+ * @author Pavel
+ * @author Matej Leško
  */
 @Service
 public interface ProductService {
@@ -16,14 +20,14 @@ public interface ProductService {
      *
      * @param product product to be added
      */
-    Product createProduct(Product product);
+    Product createProduct(Product product) throws AlreadyExistsException;
 
     /**
      * Removes product with given id
      *
      * @param id id of product to be deleted
      */
-    void deleteProduct(Long id);
+    void deleteProduct(Long id) throws NotFoundException;
 
     /**
      * Gets all products
@@ -35,5 +39,7 @@ public interface ProductService {
      *
      * @param id id of product to be found
      */
-    Product findById(Long id);
+    Product findById(Long id) throws NotFoundException;
+
+    void updateProduct(Product updatedProduct) throws NotFoundException;
 }
