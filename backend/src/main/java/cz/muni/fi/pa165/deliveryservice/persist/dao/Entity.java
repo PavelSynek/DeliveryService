@@ -55,7 +55,7 @@ public abstract class Entity<E extends DBEntity> implements EntityTemplate<E> {
     }
 
     @Override
-    public void create(E entity) {
+    public void create(E entity) throws ViolentDataAccessException{
         if (entity.getId() == null)
             em.persist(entity);
         else
@@ -63,7 +63,7 @@ public abstract class Entity<E extends DBEntity> implements EntityTemplate<E> {
     }
 
     @Override
-    public void remove(E entity) {
+    public void remove(E entity) throws ViolentDataAccessException {
         em.remove(findById(entity.getId()));
     }
 
