@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.deliveryservice.service.facade;
 
 import cz.muni.fi.pa165.deliveryservice.api.dto.OrderCreateDTO;
 import cz.muni.fi.pa165.deliveryservice.api.dto.OrderDTO;
-import cz.muni.fi.pa165.deliveryservice.api.dto.ProductDTO;
 import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
 import cz.muni.fi.pa165.deliveryservice.api.facade.OrderFacade;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.*;
@@ -37,7 +36,7 @@ public class OrderFacadeImpl implements OrderFacade {
 
     //TODO - refactor this to use custom builder
     @Override
-    public long createOrder(OrderCreateDTO order) throws OrderAlreadyExistsException {
+    public long createOrder(OrderCreateDTO order) throws AlreadyExistsException {
         Order pOrder = new Order();
         pOrder.setCreated(LocalDate.now());
 

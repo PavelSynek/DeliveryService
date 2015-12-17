@@ -37,14 +37,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void createOrder(Order order) throws OrderAlreadyExistsException {
+    public void createOrder(Order order) throws AlreadyExistsException {
         OrderState backup = order.getState();
         try {
             order.setState(OrderState.RECEIVED);
             orderDao.create(order);
         } catch (ViolentDataAccessException e) {
             order.setState(backup);
-            throw new OrderAlreadyExistsException("Order: " + order.getId() + " already exists");
+            throw new AlreadyExistsException("Order: " + order.getId() + " already exists");
         }
 
     }

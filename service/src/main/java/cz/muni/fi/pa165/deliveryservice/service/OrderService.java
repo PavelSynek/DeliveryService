@@ -4,7 +4,6 @@ import cz.muni.fi.pa165.deliveryservice.api.service.util.*;
 import cz.muni.fi.pa165.deliveryservice.persist.dao.OrderDao;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Order;
 import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
-import cz.muni.fi.pa165.deliveryservice.api.dao.util.*;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Customer;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +23,7 @@ public interface OrderService {
      *
      * @param order entity representing Order in real world
      */
-    void createOrder(Order order) throws OrderAlreadyExistsException;
+    void createOrder(Order order) throws AlreadyExistsException;
 
     /**
      * List orders of specific customer

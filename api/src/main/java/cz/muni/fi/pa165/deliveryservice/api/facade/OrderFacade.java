@@ -11,7 +11,6 @@ package cz.muni.fi.pa165.deliveryservice.api.facade;
 import cz.muni.fi.pa165.deliveryservice.api.dto.OrderCreateDTO;
 import cz.muni.fi.pa165.deliveryservice.api.dto.OrderDTO;
 import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
-import cz.muni.fi.pa165.deliveryservice.api.dao.util.*;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.*;
 
 import java.time.LocalDate;
@@ -26,7 +25,7 @@ public interface OrderFacade {
      *
      * @param order entity representing Order in real world
      */
-    long createOrder(OrderCreateDTO order) throws OrderAlreadyExistsException;
+    long createOrder(OrderCreateDTO order) throws AlreadyExistsException;
 
     /**
      * List orders of specific customer
@@ -128,7 +127,7 @@ public interface OrderFacade {
      * @param order
      */
     void shipOrder(OrderDTO order)
-        throws ShippedOrderException, CancelledOrderException, ClosedOrderException;
+            throws ShippedOrderException, CancelledOrderException, ClosedOrderException;
 
     /**
      * Close order - {@link OrderDTO} received his package.
