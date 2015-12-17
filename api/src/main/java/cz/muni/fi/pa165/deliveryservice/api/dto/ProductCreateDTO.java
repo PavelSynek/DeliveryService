@@ -1,11 +1,15 @@
 package cz.muni.fi.pa165.deliveryservice.api.dto;
 
 
+import cz.muni.fi.pa165.deliveryservice.api.dto.utils.InvalidPriceException;
+
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 /**
  * Created by Pavel on 25. 11. 2015.
+ * @author Pavel
+ * @author Matej Leško
  */
 public class ProductCreateDTO {
 
@@ -15,7 +19,8 @@ public class ProductCreateDTO {
     @NotNull
     private LocalDate addedDate;
 
-    private int price;
+    private Long price;
+
 
     public String getName() {
         return name;
@@ -28,7 +33,7 @@ public class ProductCreateDTO {
 
         ProductCreateDTO that = (ProductCreateDTO) o;
 
-        if (price != that.price) return false;
+        if (!price.equals(that.price)) return false;
         if (!name.equals(that.name)) return false;
         return addedDate.equals(that.addedDate);
     }
@@ -37,7 +42,7 @@ public class ProductCreateDTO {
     public int hashCode() {
         int result = name.hashCode();
         result = 31 * result + addedDate.hashCode();
-        result = 31 * result + price;
+        result = 31 * result + price.hashCode();
         return result;
     }
 
@@ -53,11 +58,13 @@ public class ProductCreateDTO {
         this.addedDate = addedDate;
     }
 
-    public int getPrice() {
+    public long getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(long price) throws InvalidPriceException {
+        if (price < 0)
+            throw new InvalidPriceException();
         this.price = price;
     }
 }

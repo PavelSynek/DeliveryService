@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.deliveryservice.persist.entity;
 
+import cz.muni.fi.pa165.deliveryservice.api.dao.util.InvalidPriceException;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.validation.constraints.NotNull;
@@ -7,6 +9,8 @@ import java.time.LocalDate;
 
 /**
  * Created by Pavel on 21. 10. 2015.
+ * @author Pavel
+ * @author Matej Leško
  */
 
 @Entity
@@ -18,7 +22,8 @@ public class Product extends DBEntity {
     @NotNull
     private LocalDate addedDate;
 
-    private int price;
+    private Long price = 0l;
+
 
     public String getName() {
         return name;
@@ -36,11 +41,13 @@ public class Product extends DBEntity {
         this.addedDate = addedDate;
     }
 
-    public int getPrice() {
+    public long getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(long price) throws InvalidPriceException {
+        if (price < 0)
+            throw new InvalidPriceException();
         this.price = price;
     }
 
@@ -51,7 +58,7 @@ public class Product extends DBEntity {
 
         Product product = (Product) o;
 
-        if (price != product.price) return false;
+        if (!price.equals(product.price)) return false;
         if (!name.equals(product.name)) return false;
         return addedDate.equals(product.addedDate);
     }
@@ -60,7 +67,7 @@ public class Product extends DBEntity {
     public int hashCode() {
         int result = name.hashCode();
         result = 31 * result + addedDate.hashCode();
-        result = 31 * result + price;
+        result = 31 * result + price.hashCode();
         return result;
     }
 }
