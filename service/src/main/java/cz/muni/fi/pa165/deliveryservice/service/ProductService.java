@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.deliveryservice.service;
 
 import cz.muni.fi.pa165.deliveryservice.api.service.util.AlreadyExistsException;
+import cz.muni.fi.pa165.deliveryservice.api.service.util.FailedUpdateException;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.NotFoundException;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Product;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import java.util.List;
 
 /**
  * Created by Pavel on 25. 11. 2015.
+ *
  * @author Pavel
  * @author Matej Leško
  */
@@ -41,5 +43,10 @@ public interface ProductService {
      */
     Product findById(Long id) throws NotFoundException;
 
-    void updateProduct(Product updatedProduct) throws NotFoundException;
+    /**
+     * Update product, use if product already exists in database, exception will be thrown otherwise
+     *
+     * @param updatedProduct product that has changed attributes to reflect to its entity
+     */
+    void updateProduct(Product updatedProduct) throws FailedUpdateException;
 }

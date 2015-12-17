@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.deliveryservice.service;
 
 import cz.muni.fi.pa165.deliveryservice.api.dao.util.ViolentDataAccessException;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.AlreadyExistsException;
+import cz.muni.fi.pa165.deliveryservice.api.service.util.FailedUpdateException;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.NotFoundException;
 import cz.muni.fi.pa165.deliveryservice.persist.dao.ProductDao;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Product;
@@ -12,6 +13,7 @@ import java.util.List;
 
 /**
  * Created by Pavel on 25. 11. 2015.
+ *
  * @author Pavel
  * @author Matej Leško
  */
@@ -50,5 +52,14 @@ public class ProductServiceImpl implements ProductService {
             throw new NotFoundException("Product with ID: " + id + " was not found in the database");
         }
         return product;
+    }
+
+    @Override
+    public void updateProduct(Product updatedProduct) throws FailedUpdateException {
+        try {
+            productDao.update(updatedProduct);
+        } catch (ViolentDataAccessException e) {
+            new FailedUpdateException();
+        }
     }
 }

@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.deliveryservice.api.dto.ProductCreateDTO;
 import cz.muni.fi.pa165.deliveryservice.api.dto.ProductDTO;
 import cz.muni.fi.pa165.deliveryservice.api.facade.ProductFacade;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.AlreadyExistsException;
+import cz.muni.fi.pa165.deliveryservice.api.service.util.FailedUpdateException;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.NotFoundException;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Product;
 import cz.muni.fi.pa165.deliveryservice.service.BeanMappingService;
@@ -15,6 +16,7 @@ import java.util.List;
 
 /**
  * Created by Pavel on 25. 11. 2015.
+ *
  * @author Pavel
  * @author Matej Leško
  */
@@ -49,7 +51,7 @@ public class ProductFacadeImpl implements ProductFacade {
     }
 
     @Override
-    public void updateProduct(ProductDTO updatedProduct) throws NotFoundException {
+    public void updateProduct(ProductDTO updatedProduct) throws FailedUpdateException {
         Product mappedProduct = beanMappingService.mapTo(updatedProduct, Product.class);
         productService.updateProduct(mappedProduct);
     }

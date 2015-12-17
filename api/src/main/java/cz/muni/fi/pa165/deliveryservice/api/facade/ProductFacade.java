@@ -3,12 +3,14 @@ package cz.muni.fi.pa165.deliveryservice.api.facade;
 import cz.muni.fi.pa165.deliveryservice.api.dto.ProductCreateDTO;
 import cz.muni.fi.pa165.deliveryservice.api.dto.ProductDTO;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.AlreadyExistsException;
+import cz.muni.fi.pa165.deliveryservice.api.service.util.FailedUpdateException;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.NotFoundException;
 
 import java.util.List;
 
 /**
  * Created by Pavel on 25. 11. 2015.
+ *
  * @author Pavel
  * @author Matej Leško
  */
@@ -45,5 +47,5 @@ public interface ProductFacade {
      *
      * @param updatedProduct product that has changed attributes to reflect to its entity
      */
-    void updateProduct(ProductDTO updatedProduct) throws NotFoundException;
+    void updateProduct(ProductDTO updatedProduct) throws FailedUpdateException;
 }
