@@ -1,5 +1,8 @@
 package cz.muni.fi.pa165.deliveryservice.service.tests;
 
+import cz.muni.fi.pa165.deliveryservice.api.dao.util.InvalidPriceException;
+import cz.muni.fi.pa165.deliveryservice.api.service.util.AlreadyExistsException;
+import cz.muni.fi.pa165.deliveryservice.api.service.util.NotFoundException;
 import cz.muni.fi.pa165.deliveryservice.persist.dao.ProductDao;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Product;
 import cz.muni.fi.pa165.deliveryservice.service.ProductService;
@@ -44,7 +47,7 @@ public class ProductServiceTest extends AbstractTestNGSpringContextTests {
     }
 
     @BeforeMethod
-    public void createProducts() {
+    public void createProducts() throws InvalidPriceException {
         car = new Product();
         car.setId(1l);
         car.setName("Car");
@@ -59,20 +62,20 @@ public class ProductServiceTest extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void create() {
+    public void create() throws AlreadyExistsException {
         productService.createProduct(car);
         verify(productDao).create(car);
     }
 
     @Test
-    public void delete() {
+    public void delete() throws NotFoundException {
         when(productDao.findById(car.getId())).thenReturn(car);
         productService.deleteProduct(car.getId());
         verify(productDao).remove(car);
     }
 
     @Test
-    public void findById() {
+    public void findById() throws NotFoundException {
         when(productDao.findById(car.getId())).thenReturn(car);
         Product found = productService.findById(car.getId());
         assertEquals(found, car);

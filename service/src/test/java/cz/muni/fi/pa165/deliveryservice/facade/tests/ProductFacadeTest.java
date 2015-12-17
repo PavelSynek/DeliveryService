@@ -1,8 +1,10 @@
 package cz.muni.fi.pa165.deliveryservice.facade.tests;
 
+import cz.muni.fi.pa165.deliveryservice.api.dao.util.InvalidPriceException;
 import cz.muni.fi.pa165.deliveryservice.api.dto.ProductCreateDTO;
 import cz.muni.fi.pa165.deliveryservice.api.dto.ProductDTO;
 import cz.muni.fi.pa165.deliveryservice.api.facade.ProductFacade;
+import cz.muni.fi.pa165.deliveryservice.api.service.util.AlreadyExistsException;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Product;
 import cz.muni.fi.pa165.deliveryservice.service.BeanMappingService;
 import cz.muni.fi.pa165.deliveryservice.service.BeanMappingServiceImpl;
@@ -48,7 +50,7 @@ public class ProductFacadeTest {
     }
 
     @BeforeMethod
-    public void createProducts() {
+    public void createProducts() throws InvalidPriceException, cz.muni.fi.pa165.deliveryservice.api.dto.utils.InvalidPriceException {
         car = new Product();
         car.setId(1l);
         car.setName("Car");
@@ -74,7 +76,7 @@ public class ProductFacadeTest {
     }
 
     @Test
-    public void create() {
+    public void create() throws AlreadyExistsException {
         when(beanMappingService.mapTo(carCreateDTO, Product.class)).thenReturn(car);
         when(productService.createProduct(car)).thenReturn(car);
 

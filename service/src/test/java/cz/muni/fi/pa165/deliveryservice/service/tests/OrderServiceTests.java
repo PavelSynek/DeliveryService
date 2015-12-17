@@ -8,6 +8,7 @@ package cz.muni.fi.pa165.deliveryservice.service.tests;
  * Project: DeliveryService
  */
 
+import cz.muni.fi.pa165.deliveryservice.api.dao.util.InvalidPriceException;
 import cz.muni.fi.pa165.deliveryservice.api.dao.util.ViolentDataAccessException;
 import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.*;
@@ -471,7 +472,7 @@ public class OrderServiceTests extends AbstractTestNGSpringContextTests {
     }
 
     @Test
-    public void testTotalPrice() {
+    public void testTotalPrice() throws InvalidPriceException {
         List<Product> productList = new ArrayList<>();
         Product a = new Product();
         Product b = new Product();
