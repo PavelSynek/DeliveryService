@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.deliveryservice.api.dto;
 
 
 import cz.muni.fi.pa165.deliveryservice.api.dto.utils.InvalidPriceException;
+import cz.muni.fi.pa165.deliveryservice.api.dto.utils.InvalidWeightException;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
@@ -21,6 +22,7 @@ public class ProductCreateDTO {
 
     private Long price;
 
+    private Long weight;
 
     public String getName() {
         return name;
@@ -35,6 +37,7 @@ public class ProductCreateDTO {
 
         if (!price.equals(that.price)) return false;
         if (!name.equals(that.name)) return false;
+        if (!weight.equals(that.weight)) return false;
         return addedDate.equals(that.addedDate);
     }
 
@@ -43,6 +46,7 @@ public class ProductCreateDTO {
         int result = name.hashCode();
         result = 31 * result + addedDate.hashCode();
         result = 31 * result + price.hashCode();
+        result = 31 * result + weight.hashCode();
         return result;
     }
 
@@ -66,5 +70,15 @@ public class ProductCreateDTO {
         if (price < 0)
             throw new InvalidPriceException();
         this.price = price;
+    }
+
+    public long getWeight() {
+        return weight;
+    }
+
+    public void setWeight(long weight) throws InvalidWeightException {
+        if (weight < 0)
+            throw new InvalidWeightException();
+        this.weight = weight;
     }
 }

@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.deliveryservice.persist.entity;
 
 import cz.muni.fi.pa165.deliveryservice.api.dao.util.InvalidPriceException;
+import cz.muni.fi.pa165.deliveryservice.api.dao.util.InvalidWeightException;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,6 +25,7 @@ public class Product extends DBEntity {
 
     private Long price = 0l;
 
+    private Long weight = 0l;
 
     public String getName() {
         return name;
@@ -60,6 +62,7 @@ public class Product extends DBEntity {
 
         if (!price.equals(product.price)) return false;
         if (!name.equals(product.name)) return false;
+        if (!weight.equals(product.weight)) return false;
         return addedDate.equals(product.addedDate);
     }
 
@@ -68,6 +71,17 @@ public class Product extends DBEntity {
         int result = name.hashCode();
         result = 31 * result + addedDate.hashCode();
         result = 31 * result + price.hashCode();
+        result = 31 * result + weight.hashCode();
         return result;
+    }
+
+    public Long getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Long weight) throws InvalidWeightException {
+        if (weight < 0)
+            throw new InvalidWeightException();
+        this.weight = weight;
     }
 }
