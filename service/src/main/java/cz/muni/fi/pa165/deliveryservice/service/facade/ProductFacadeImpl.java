@@ -47,4 +47,10 @@ public class ProductFacadeImpl implements ProductFacade {
     public ProductDTO getProductWithId(Long id) throws NotFoundException {
         return beanMappingService.mapTo(productService.findById(id), ProductDTO.class);
     }
+
+    @Override
+    public void updateProduct(ProductDTO updatedProduct) throws NotFoundException {
+        Product mappedProduct = beanMappingService.mapTo(updatedProduct, Product.class);
+        productService.updateProduct(mappedProduct);
+    }
 }

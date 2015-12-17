@@ -40,4 +40,10 @@ public interface ProductFacade {
      */
     ProductDTO getProductWithId(Long id) throws NotFoundException;
 
+    /**
+     * Update product, use if product already exists in database, exception will be thrown otherwise
+     *
+     * @param updatedProduct product that has changed attributes to reflect to its entity
+     */
+    void updateProduct(ProductDTO updatedProduct) throws NotFoundException;
 }
