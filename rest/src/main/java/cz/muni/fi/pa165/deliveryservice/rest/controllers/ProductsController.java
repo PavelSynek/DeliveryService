@@ -152,7 +152,7 @@ public class ProductsController {
             produces = MediaType.APPLICATION_JSON_VALUE)
     public final ProductDTO changeWeight(@PathVariable("id") long id, @RequestBody Long newWeight) throws ResourceNotFoundException {
 
-        logger.debug("rest changePrice({})", id);
+        logger.debug("rest changeWeight({})", id);
 
         try {
             ProductDTO productDTO = productFacade.getProductWithId(id);
