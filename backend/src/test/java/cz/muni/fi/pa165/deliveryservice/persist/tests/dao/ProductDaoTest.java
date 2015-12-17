@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.deliveryservice.persist.tests.dao;
 
+import cz.muni.fi.pa165.deliveryservice.api.dao.util.InvalidPriceException;
+import cz.muni.fi.pa165.deliveryservice.api.dao.util.InvalidWeightException;
 import cz.muni.fi.pa165.deliveryservice.persist.PersistenceApplicationContext;
 import cz.muni.fi.pa165.deliveryservice.persist.dao.ProductDao;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Product;
@@ -34,7 +36,7 @@ public class ProductDaoTest extends AbstractTestNGSpringContextTests {
     private Product plane;
 
     @BeforeClass
-    public void setUp() {
+    public void setUp() throws InvalidPriceException {
         car = new Product();
         car.setName("Audi");
         car.setAddedDate(LocalDate.of(2015, 1, 1));
@@ -71,5 +73,17 @@ public class ProductDaoTest extends AbstractTestNGSpringContextTests {
         List<Product> expected = new ArrayList<>();
         expected.add(car);
         assertEquals(productDao.findAll(), expected);
+    }
+
+    @Test(expectedExceptions = InvalidWeightException.class)
+    public void invalidWeight() throws InvalidWeightException {
+        Product product = productDao.findById(car.getId());
+        product.setWeight(-10l);
+    }
+
+    @Test(expectedExceptions = InvalidPriceException.class)
+    public void invalidPrice() throws InvalidPriceException {
+        Product product = productDao.findById(car.getId());
+        product.setPrice(-10l);
     }
 }
