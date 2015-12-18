@@ -180,6 +180,15 @@ public class OrderServiceImpl implements OrderService {
         return weight;
     }
 
+    @Override
+    public void updateOrder(Order updatedOrder) throws FailedUpdateException {
+        try {
+            orderDao.update(updatedOrder);
+        } catch (ViolentDataAccessException e) {
+            throw new FailedUpdateException();
+        }
+    }
+
     public void shipOrder(Order order)
             throws ShippedOrderException, CancelledOrderException, ClosedOrderException {
         if (order.getState().equals(OrderState.RECEIVED))
@@ -207,6 +216,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void cancelOrder(Order order) throws CancelledOrderException, ClosedOrderException {
+        order.setProducts(null);
+        orderDao.update(order);
         if (order.getState().equals(OrderState.RECEIVED) || order.getState().equals(OrderState.SHIPPED))
             order.setState(OrderState.CANCELLED);
         else if (order.getState().equals(OrderState.CLOSED))

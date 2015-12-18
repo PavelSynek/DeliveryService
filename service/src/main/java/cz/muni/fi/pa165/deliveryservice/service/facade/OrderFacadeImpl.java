@@ -178,4 +178,10 @@ public class OrderFacadeImpl implements OrderFacade {
         return orderService.getTotalWeight(id);
     }
 
+    @Override
+    public void updateOrder(OrderDTO updatedOrder) throws FailedUpdateException {
+        Order mappedProduct = beanMappingService.mapTo(updatedOrder, Order.class);
+        orderService.updateOrder(mappedProduct);
+    }
+
 }

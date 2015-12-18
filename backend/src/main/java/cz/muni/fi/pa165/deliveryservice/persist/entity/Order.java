@@ -61,7 +61,8 @@ public class Order extends DBEntity {
     }
 
     public List<Product> getProducts() {
-        return Collections.unmodifiableList(products);
+//        return Collections.unmodifiableList(products);
+        return products;
     }
 
     public void addProduct(Product p) {

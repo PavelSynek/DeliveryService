@@ -169,6 +169,13 @@ public interface OrderService {
      */
     int getTotalWeight(long id) throws NotFoundException;
 
+    /**
+     * Update order, use if order already exists in database, exception will be thrown otherwise
+     *
+     * @param updatedOrder product that has changed attributes to reflect to its entity
+     */
+    void updateOrder(Order updatedOrder) throws FailedUpdateException;
+
     OrderDao getOrderDao();
 }
 

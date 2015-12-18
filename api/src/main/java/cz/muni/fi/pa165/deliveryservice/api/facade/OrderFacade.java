@@ -170,4 +170,11 @@ public interface OrderFacade {
      * @return
      */
     int getTotalWeight(long id) throws NotFoundException;
+
+    /**
+     * Update order, use if order already exists in database, exception will be thrown otherwise
+     *
+     * @param updatedOrder product that has changed attributes to reflect to its entity
+     */
+    void updateOrder(OrderDTO updatedOrder) throws FailedUpdateException;
 }
