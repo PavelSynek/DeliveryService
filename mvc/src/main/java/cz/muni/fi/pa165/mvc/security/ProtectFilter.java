@@ -68,7 +68,7 @@ public class ProtectFilter implements Filter {
     private void response401(HttpServletResponse response) throws IOException {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setHeader("WWW-Authenticate", "Basic realm=\"type email and password\"");
-        response.getWriter().println("<html><body><h1>401 Unauthorized</h1> Go away ...</body></html>");
+        response.getWriter().println("<html><body><h1>401 Unauthorized</h1> Try again</body></html>");
     }
 
     @Override
