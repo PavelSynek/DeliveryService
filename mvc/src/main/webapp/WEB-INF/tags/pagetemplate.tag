@@ -35,7 +35,6 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><my:a href="/shopping/show"><f:message key="navigation.deliveryservice"/></my:a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><f:message key="navigation.admin"/><b
                             class="caret"></b></a>
@@ -67,7 +66,10 @@
             <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <c:out value="${authenticatedUser.givenName} ${authenticatedUser.surname}"/>
+                        <p>
+                            <small>Authenticated user:</small>
+                        </p>
+                        <p><c:out value="${authenticatedUser.firstName} ${authenticatedUser.surname}"/></p>
                     </div>
                 </div>
             </div>

@@ -5,13 +5,13 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<my:pagetemplate>
+<my:pagetemplate title="DeliveryService">
 <jsp:attribute name="body">
 
     <div class="jumbotron">
         <h1>Delivery Service</h1>
         <p class="lead">Log in to continue</p>
-        <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/customer/list"
+        <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/order/list"
               role="button">Login</a></p>
     </div>
 
