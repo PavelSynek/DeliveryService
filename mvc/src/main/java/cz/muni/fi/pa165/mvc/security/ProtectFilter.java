@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import javax.persistence.NoResultException;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
@@ -35,7 +36,13 @@ public class ProtectFilter implements Filter {
 
         //get Spring context and UserFacade from it
         EmployeeFacade employeeFacade = WebApplicationContextUtils.getWebApplicationContext(r.getServletContext()).getBean(EmployeeFacade.class);
-        EmployeeDTO matchingUser = employeeFacade.findByEmail(logname);
+
+        EmployeeDTO matchingUser = null;
+        try {
+            matchingUser = employeeFacade.findByEmail(logname);
+        } catch (NoResultException e) {
+            // nothing
+        }
         if (matchingUser == null) {
             log.warn("no user with email {}", logname);
             response401(response);
