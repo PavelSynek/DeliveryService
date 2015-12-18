@@ -180,7 +180,7 @@ public class ProductsController {
         } catch (FailedUpdateException e) {
             throw new ResourceUpdateException(id);
         } catch (InvalidWeightException e) {
-            throw new InvalidResourceStateException(id, "price");
+            throw new InvalidResourceStateException(id, "weight");
         }
 
     }
