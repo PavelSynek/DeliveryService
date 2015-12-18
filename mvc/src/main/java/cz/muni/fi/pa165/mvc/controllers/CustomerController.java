@@ -17,8 +17,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.time.LocalDate;
-import java.util.ArrayList;
 
 /**
  * Created by pavelsynek, tomasmilota on 18/12/15.
@@ -93,15 +91,6 @@ public class CustomerController {
     @RequestMapping(value = "/detail/id={id}", method = RequestMethod.GET)
     public String detailById(@PathVariable long id, Model model) {
         log.trace("detailById({})", id);
-
-        CustomerDTO customerDTO = new CustomerDTO();
-        customerDTO.setId(1l);
-        customerDTO.setEmail("example@gmail.com");
-        customerDTO.setFirstName("Joe");
-        customerDTO.setSurname("Smith");
-        customerDTO.setOrders(new ArrayList<>());
-        customerDTO.setRegistrationDate(LocalDate.of(2015, 1, 1));
-        customerDTO.setId(customerFacade.create(customerDTO, "password"));
 
         CustomerDTO c = customerFacade.findById(id);
         model.addAttribute("customer", c);
