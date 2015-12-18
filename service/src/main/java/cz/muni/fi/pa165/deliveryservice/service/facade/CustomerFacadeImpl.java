@@ -39,10 +39,12 @@ public class CustomerFacadeImpl implements CustomerFacade {
     }
 
     @Override
-    public void create(CustomerDTO customerDTO, String unencryptedPassword) {
+    public Long create(CustomerDTO customerDTO, String unencryptedPassword) {
         Customer customer = beanMappingService.mapTo(customerDTO, Customer.class);
         customerService.create(customer, unencryptedPassword);
         customerDTO.setId(customer.getId());
+
+        return customerDTO.getId();
     }
 
     @Override

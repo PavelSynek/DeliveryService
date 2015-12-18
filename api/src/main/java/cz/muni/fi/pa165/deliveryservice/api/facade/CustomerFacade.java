@@ -24,7 +24,7 @@ public interface CustomerFacade {
     /**
      * Register the given customer with the given unencrypted password.
      */
-    void create(CustomerDTO customerDTO, String unencryptedPassword);
+    Long create(CustomerDTO customerDTO, String unencryptedPassword);
 
     /**
      * Get all registered customers.
