@@ -38,11 +38,11 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         Employee ee = employee("Employee", "Ne-admin", "admin@admin.cz", "112567000");
         Customer c = customer("Pavel", "Synek", "pavel.synek@gmail.com", "112567000");
 
-        Product car = product("Car", 100, 100000);
-        Product plane = product("Plane", 100, 100000);
-        Product train = product("Train", 100, 100000);
+        Product car = product("Car", 10000, 10000);
+        Product plane = product("Plane", 1000000, 10000000);
+        Product train = product("Train", 1000, 1000000);
 
-        Order order = order(c, e, car, plane, train);
+        //Order order = order(c, e, car, plane, train);
     }
 
     private Employee employee(String firstname, String surname, String email, String phone) {
@@ -75,6 +75,11 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
             product.setPrice(price);
             product.setWeight(weight);
         } catch (InvalidPriceException | InvalidWeightException e) {
+            // ignore
+        }
+        try {
+            productService.createProduct(product);
+        } catch (AlreadyExistsException e) {
             // ignore
         }
         return product;

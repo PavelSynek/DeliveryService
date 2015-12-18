@@ -1,8 +1,8 @@
 package cz.muni.fi.pa165.deliveryservice.persist.dao;
 
+import cz.muni.fi.pa165.deliveryservice.api.dao.util.ViolentDataAccessException;
 import cz.muni.fi.pa165.deliveryservice.persist.dao.access.DBHandler;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.DBEntity;
-import cz.muni.fi.pa165.deliveryservice.api.dao.util.ViolentDataAccessException;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -80,6 +80,6 @@ public abstract class Entity<E extends DBEntity> implements EntityTemplate<E> {
     @Override
     public void initDBAccessHandlers() {
         if (dbHandler == null)
-            dbHandler = new DBHandler<E>(em, eClass);
+            dbHandler = new DBHandler<>(em, eClass);
     }
 }
