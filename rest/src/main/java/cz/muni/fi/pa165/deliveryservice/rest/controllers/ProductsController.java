@@ -124,7 +124,7 @@ public class ProductsController {
 
     /**
      * Update the price for one product by PUT method curl -X PUT -i -H
-     * "Content-Type: application/json" --data '{"price":"16.33"}'
+     * "Content-Type: application/json" --data '3'
      * http://localhost:8080/pa165/rest/products/4
      *
      * @param id       identified of the product to be updated
@@ -132,7 +132,7 @@ public class ProductsController {
      * @return the updated product ProductDTO
      * @throws ResourceNotFoundException
      */
-    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
+    @RequestMapping(value = "/{id}/price", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public final ProductDTO changePrice(@PathVariable("id") long id, @RequestBody Long newPrice) throws ResourceNotFoundException {
 
