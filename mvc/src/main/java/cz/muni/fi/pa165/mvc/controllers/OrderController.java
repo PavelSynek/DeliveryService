@@ -71,9 +71,6 @@ public class OrderController {
     @RequestMapping(value = "list", method = RequestMethod.GET)
     public String list(Model model) {
         log.debug("list()");
-
-        orderFacade.init();
-
         model.addAttribute("orders", orderFacade.findAll());
         return "order/list";
     }

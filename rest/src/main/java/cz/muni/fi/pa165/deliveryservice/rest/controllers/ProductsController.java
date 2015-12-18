@@ -33,13 +33,13 @@ public class ProductsController {
     @Inject
     private ProductFacade productFacade;
 
-    private Boolean initialized = false;
-
-    private void init() {
-        if (!initialized)
-            productFacade.init();
-        initialized = true;
-    }
+//    private Boolean initialized = false;
+//
+//    private void init() {
+//        if (!initialized)
+//            productFacade.init();
+//        initialized = true;
+//    }
 
     /**
      * Get list of Products curl -i -X GET
@@ -50,7 +50,7 @@ public class ProductsController {
     @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final List<ProductDTO> getAllProducts() {
         logger.debug("rest getAllProducts()");
-        init();
+//        init();
         return Collections.unmodifiableList(productFacade.getAllProducts());
     }
 
@@ -65,7 +65,7 @@ public class ProductsController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public final ProductDTO getProduct(@PathVariable("id") long id) throws ResourceNotFoundException {
         logger.debug("rest getProduct({})", id);
-        init();
+//        init();
         try {
             return productFacade.getProductWithId(id);
         } catch (NotFoundException e) {
@@ -83,7 +83,7 @@ public class ProductsController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public final void deleteProduct(@PathVariable("id") long id) throws ResourceNotFoundException {
         logger.debug("rest deleteProduct({})", id);
-        init();
+//        init();
         try {
             productFacade.deleteProduct(id);
         } catch (NotFoundException ex) {
@@ -108,7 +108,7 @@ public class ProductsController {
         logger.debug("rest createProduct()");
 
         Long id = null;
-        init();
+//        init();
 
         try {
             if (product.getAddedDate() == null)
@@ -137,7 +137,7 @@ public class ProductsController {
     public final ProductDTO changePrice(@PathVariable("id") long id, @RequestBody Long newPrice) throws ResourceNotFoundException {
 
         logger.debug("rest changePrice({})", id);
-        init();
+//        init();
 
         try {
             ProductDTO productDTO = productFacade.getProductWithId(id);

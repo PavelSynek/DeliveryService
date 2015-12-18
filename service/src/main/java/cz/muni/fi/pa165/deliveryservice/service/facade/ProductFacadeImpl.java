@@ -59,9 +59,4 @@ public class ProductFacadeImpl implements ProductFacade {
         Product mappedProduct = beanMappingService.mapTo(updatedProduct, Product.class);
         productService.updateProduct(mappedProduct);
     }
-
-    @Override
-    public void init() {
-        productService.init();
-    }
 }

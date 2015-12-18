@@ -50,9 +50,4 @@ public interface ProductService {
      */
     void updateProduct(Product updatedProduct) throws FailedUpdateException;
 
-    /**
-     * This method is mandatory for proper initialization of lower layers.
-     * Need to be called manually (gosh ... no time)
-     */
-    void init();
 }

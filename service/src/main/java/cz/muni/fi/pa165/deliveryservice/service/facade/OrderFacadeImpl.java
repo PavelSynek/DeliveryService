@@ -173,9 +173,4 @@ public class OrderFacadeImpl implements OrderFacade {
     public int getTotalPrice(long id) throws NotFoundException {
         return orderService.getTotalPrice(id);
     }
-
-    @Override
-    public void init() {
-        orderService.init();
-    }
 }
