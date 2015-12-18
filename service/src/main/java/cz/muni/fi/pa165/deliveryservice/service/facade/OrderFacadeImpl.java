@@ -10,6 +10,8 @@ import cz.muni.fi.pa165.deliveryservice.persist.entity.Order;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Product;
 import cz.muni.fi.pa165.deliveryservice.service.BeanMappingService;
 import cz.muni.fi.pa165.deliveryservice.service.OrderService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.time.LocalDate;
@@ -26,6 +28,8 @@ import java.util.List;
 /**
  * @author Matej Leško
  */
+@Service
+@Transactional
 public class OrderFacadeImpl implements OrderFacade {
 
     @Inject

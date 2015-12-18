@@ -10,6 +10,8 @@ import cz.muni.fi.pa165.deliveryservice.persist.entity.Product;
 import cz.muni.fi.pa165.deliveryservice.service.BeanMappingService;
 import cz.muni.fi.pa165.deliveryservice.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.inject.Inject;
 import java.util.List;
@@ -20,6 +22,8 @@ import java.util.List;
  * @author Pavel
  * @author Matej Leško
  */
+@Service
+@Transactional
 public class ProductFacadeImpl implements ProductFacade {
 
     @Inject
