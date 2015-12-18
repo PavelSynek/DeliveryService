@@ -23,9 +23,9 @@ public class Product extends DBEntity {
     @NotNull
     private LocalDate addedDate;
 
-    private Long price = 0l;
+    private Long price = 0L;
 
-    private Long weight = 0l;
+    private Long weight = 0L;
 
     public String getName() {
         return name;
