@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.deliveryservice.api.dao.util.InvalidPriceException;
 import cz.muni.fi.pa165.deliveryservice.api.dao.util.InvalidWeightException;
 import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.AlreadyExistsException;
+import cz.muni.fi.pa165.deliveryservice.api.service.util.NotFoundException;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Customer;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Employee;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Order;
@@ -33,7 +34,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     private ProductService productService;
 
     @Override
-    public void loadData() {
+    public void loadData() throws AlreadyExistsException, NotFoundException {
         Employee e = employee("Admin", "Admin", "admin@admin.cz", "112567000");
         Customer c = customer("Pavel", "Synek", "pavel.synek@gmail.com", "112567000");
 
@@ -46,25 +47,29 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
     private Employee employee(String firstname, String surname, String email, String phone) {
         Employee employee = new Employee();
+        String password = firstname + "_employee";
         employee.setFirstName(firstname);
         employee.setSurname(surname);
         employee.setEmail(email);
         employee.setRegistrationDate(getRandomDate());
         employee.setPhone(phone);
-        return employee;
+        employeeService.create(employee, password);
+        return employeeService.findById(employee.getId());
     }
 
     private Customer customer(String firstname, String surname, String email, String phone) {
+        String password = firstname + "_customer";
         Customer customer = new Customer();
         customer.setFirstName(firstname);
         customer.setSurname(surname);
         customer.setEmail(email);
         customer.setRegistrationDate(getRandomDate());
         customer.setPhone(phone);
-        return customer;
+        customerService.create(customer, password);
+        return customerService.findById(customer.getId());
     }
 
-    private Product product(String name, long price, long weight) {
+    private Product product(String name, long price, long weight) throws AlreadyExistsException, NotFoundException {
         Product product = new Product();
         product.setAddedDate(getRandomDate());
         product.setName(name);
@@ -74,10 +79,11 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         } catch (InvalidPriceException | InvalidWeightException e) {
             // ignore
         }
-        return product;
+        productService.createProduct(product);
+        return productService.findById(product.getId());
     }
 
-    private Order order(Customer customer, Employee employee, Product... products) {
+    private Order order(Customer customer, Employee employee, Product... products) throws NotFoundException, AlreadyExistsException {
         Order order = new Order();
         for (Product product : products) {
             order.addProduct(product);
@@ -87,13 +93,13 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         order.setEmployee(employee);
         order.setCustomer(customer);
 
-        try {
+//        try {
             orderService.createOrder(order);
-        } catch (AlreadyExistsException e) {
-            // ignore
-        }
+//        } catch (AlreadyExistsException e) {
+//            // ignore
+//        }
 
-        return order;
+        return orderService.findById(order.getId());
     }
 
     private static Random randomGenerator = new Random();
