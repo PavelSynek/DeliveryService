@@ -42,9 +42,9 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         Employee e = employee("Admin", "Admin", "admin@admin.cz", "112567000");
         Customer c = customer("Pavel", "Synek", "pavel.synek@gmail.com", "112567000");
 
-        Product car = product("Car", 10000, 10000);
-        Product plane = product("Plane", 1000000, 10000000);
-        Product train = product("Train", 1000, 1000000);
+        Product car = product("Car", 4000, 10720);
+        Product plane = product("Plane", 10098600, 800700250);
+        Product train = product("Train", 1520, 1073100);
 
         Order order = order(c, e, car, plane, train);
     }
