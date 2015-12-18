@@ -1,13 +1,17 @@
 package cz.muni.fi.deliveryservice.data;
 
+import cz.muni.fi.pa165.deliveryservice.api.dao.util.InvalidPriceException;
+import cz.muni.fi.pa165.deliveryservice.api.dao.util.InvalidWeightException;
+import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
+import cz.muni.fi.pa165.deliveryservice.api.service.util.AlreadyExistsException;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Customer;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Employee;
+import cz.muni.fi.pa165.deliveryservice.persist.entity.Order;
+import cz.muni.fi.pa165.deliveryservice.persist.entity.Product;
 import cz.muni.fi.pa165.deliveryservice.service.CustomerService;
 import cz.muni.fi.pa165.deliveryservice.service.EmployeeService;
 import cz.muni.fi.pa165.deliveryservice.service.OrderService;
 import cz.muni.fi.pa165.deliveryservice.service.ProductService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,10 +20,8 @@ import java.time.LocalDate;
 import java.util.Random;
 
 @Component
-@Transactional //transactions are handled on facade layer
+@Transactional
 public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
-
-    final static Logger log = LoggerFactory.getLogger(SampleDataLoadingFacadeImpl.class);
 
     @Autowired
     private OrderService orderService;
@@ -35,6 +37,12 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         Employee e = employee("Admin", "Admin", "admin@admin.cz", "112567000");
         Employee ee = employee("Employee", "Ne-admin", "admin@admin.cz", "112567000");
         Customer c = customer("Pavel", "Synek", "pavel.synek@gmail.com", "112567000");
+
+        Product car = product("Car", 100, 100000);
+        Product plane = product("Plane", 100, 100000);
+        Product train = product("Train", 100, 100000);
+
+        Order order = order(c, e, car, plane, train);
     }
 
     private Employee employee(String firstname, String surname, String email, String phone) {
@@ -57,6 +65,38 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         customer.setPhone(phone);
         customerService.create(customer, "password");
         return customer;
+    }
+
+    private Product product(String name, long price, long weight) {
+        Product product = new Product();
+        product.setAddedDate(getRandomDate());
+        product.setName(name);
+        try {
+            product.setPrice(price);
+            product.setWeight(weight);
+        } catch (InvalidPriceException | InvalidWeightException e) {
+            // ignore
+        }
+        return product;
+    }
+
+    private Order order(Customer customer, Employee employee, Product... products) {
+        Order order = new Order();
+        for (Product product : products) {
+            order.addProduct(product);
+        }
+        order.setCreated(getRandomDate());
+        order.setState(OrderState.SHIPPED);
+        order.setEmployee(employee);
+        order.setCustomer(customer);
+
+        try {
+            orderService.createOrder(order);
+        } catch (AlreadyExistsException e) {
+            // ignore
+        }
+
+        return order;
     }
 
     private static Random randomGenerator = new Random();
