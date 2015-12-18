@@ -3,10 +3,12 @@
 # Delivery Service
 
 ## REST
-To properly use REST layer as an example, please run:
+To properly use REST layer as an example, please run in second terminal:
+```sh
 1. mvn clean install from root directory
 2. cd rest
 3. mvn tomcat7:run
+```
 
 ### REST example usage
 To create product:
