@@ -27,6 +27,9 @@
                 <td><c:out value="${customer.surname}"/></td>
                 <td><c:out value="${customer.email}"/></td>
                 <td><c:out value="${customer.phone}"/></td>
+                <td>
+                    <my:a href="/customer/detail/id=${customer.id}" class="btn btn-primary">View</my:a>
+                </td>
             </tr>
         </c:forEach>
         </tbody>
