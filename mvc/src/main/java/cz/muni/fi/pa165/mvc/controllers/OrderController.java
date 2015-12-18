@@ -2,8 +2,12 @@ package cz.muni.fi.pa165.mvc.controllers;
 
 import cz.muni.fi.pa165.deliveryservice.api.dto.OrderCreateDTO;
 import cz.muni.fi.pa165.deliveryservice.api.dto.OrderDTO;
+import cz.muni.fi.pa165.deliveryservice.api.dto.ProductDTO;
+import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
 import cz.muni.fi.pa165.deliveryservice.api.facade.OrderFacade;
+import cz.muni.fi.pa165.deliveryservice.api.facade.ProductFacade;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.AlreadyExistsException;
+import cz.muni.fi.pa165.deliveryservice.api.service.util.FailedUpdateException;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +23,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import javax.ws.rs.DELETE;
+import java.util.List;
 
 /**
  * Created by pavelsynek, tomasmilota, Matej Lesko on 18/12/15.
@@ -31,6 +37,9 @@ public class OrderController {
 
     @Autowired
     private OrderFacade orderFacade;
+
+    @Autowired
+    private ProductFacade productFacade;
 
     /**
      * Prepares an empty form.
@@ -90,5 +99,33 @@ public class OrderController {
         model.addAttribute("weight", orderFacade.getTotalWeight(id));
         model.addAttribute("products", c.getProducts());
         return "order/detail";
+    }
+
+    @DELETE
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
+    public String cancelById(@PathVariable long id, Model model) throws NotFoundException, FailedUpdateException {
+        log.trace("cancelById({})", id);
+
+        OrderDTO orderDTO = null;
+        try {
+            orderDTO = orderFacade.findById(id);
+        } catch (NotFoundException e) {
+            e.printStackTrace(); // TODO
+        }
+
+
+        List<ProductDTO> backup = orderDTO.getProducts();
+        orderFacade.cancelOrder(orderDTO);
+        orderFacade.updateOrder(orderDTO);
+
+        for (ProductDTO product:backup) {
+            productFacade.deleteProduct(product.getId());
+        }
+
+//        model.addAttribute("order", orderDTO);
+//        model.addAttribute("price", orderFacade.getTotalPrice(id));
+//        model.addAttribute("weight", orderFacade.getTotalWeight(id));
+//        model.addAttribute("products", orderDTO.getProducts());
+        return "order/list";
     }
 }
