@@ -12,7 +12,6 @@
         <module>backend</module>
         <module>service</module>
         <module>api</module>
-        <module>web</module>
         <module>rest</module>
     </modules>
     <properties>
