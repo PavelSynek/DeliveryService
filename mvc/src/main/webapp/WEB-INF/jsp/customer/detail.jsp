@@ -21,7 +21,6 @@
             <th>surname</th>
             <th>email</th>
             <th>phone</th>
-            <th>address</th>
             <th>registration date</th>
         </tr>
         </thead>
@@ -32,8 +31,7 @@
             <td><c:out value="${customer.surname}"/></td>
             <td><c:out value="${customer.email}"/></td>
             <td><c:out value="${customer.phone}"/></td>
-            <td><c:out value="${customer.address}"/></td>
-            <td><fmt:formatDate value="${customer.registrationDate}" pattern="yyyy-MM-dd"/></td>
+            <td><my:LocalDate date="${customer.registrationDate}"/></td>
         </tr>
         </tbody>
     </table>
