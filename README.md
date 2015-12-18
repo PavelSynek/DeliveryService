@@ -10,19 +10,31 @@ To properly use REST layer as an example, please run:
 
 ### REST example usage
 To create product:
+```sh
     curl -X POST -i -H "Content-Type: application/json" --data '{"name":"test2", "price":"200", "weight":"215"}' http://localhost:8080/pa165/rest/products/create
+```
 
 To change price of product with id=1:
+```sh
     curl -X PUT -i -H "Content-Type: application/json" --data '3' http://localhost:8080/pa165/rest/products/1/price
+```
 
 To change weight of product with id=1:
+```sh
     curl -X PUT -i -H "Content-Type: application/json" --data '45' http://localhost:8080/pa165/rest/products/1/weight
+```
 
 To list all products:
+```sh
     curl -i -X GET  http://localhost:8080/pa165/rest/products
+```
 
 To list only product with id=1:
+```sh
     curl -i -X GET  http://localhost:8080/pa165/rest/products/1
+```
 
 To delete only product with id=1:
+```sh
     curl -i -X DELETE  http://localhost:8080/pa165/rest/products/1
+```
