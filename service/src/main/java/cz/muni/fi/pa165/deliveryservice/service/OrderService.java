@@ -1,10 +1,10 @@
 package cz.muni.fi.pa165.deliveryservice.service;
 
+import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.*;
 import cz.muni.fi.pa165.deliveryservice.persist.dao.OrderDao;
-import cz.muni.fi.pa165.deliveryservice.persist.entity.Order;
-import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Customer;
+import cz.muni.fi.pa165.deliveryservice.persist.entity.Order;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -161,5 +161,11 @@ public interface OrderService {
     int getTotalPrice(long id) throws NotFoundException;
 
     OrderDao getOrderDao();
+
+    /**
+     * This method is mandatory for proper initialization of lower layers.
+     * Need to be called manually (gosh ... no time)
+     */
+    void init();
 }
 

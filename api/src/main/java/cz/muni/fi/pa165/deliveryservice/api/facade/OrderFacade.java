@@ -161,4 +161,10 @@ public interface OrderFacade {
      * @return
      */
     int getTotalPrice(long id) throws NotFoundException;
+
+    /**
+     * This method is mandatory for proper initialization of lower layers.
+     * Need to be called manually (gosh ... no time)
+     */
+    void init();
 }
