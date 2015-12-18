@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <my:pagetemplate title="Order">
 <jsp:attribute name="body">
@@ -12,24 +13,65 @@
         <button type="submit" class="btn btn-primary">Delete</button>
     </form>
 
+    <%--<th>products</th>--%>
+    <%--<c:forEach begin="0" end="${fn:length(centralityList) - 1}" var="index">--%>
+    <%--<tr>--%>
+    <%--<td><c:out value="${centralityList[index]}"/></td>--%>
+    <%--<td><c:out value="${labelList[index]}"/></td>--%>
+    <%--</tr>--%>
+    <%--</c:forEach>--%>
+
+
     <table class="table">
+        <caption>Summary</caption>
         <thead>
         <tr>
-            <th>id</th>
-            <th>products</th>
-            <th>added date</th>
-            <th>weight</th>
-            <th>price</th>
+            <th>Unique ID</th>
+            <th>Assigned Employee</th>
+            <th>State</th>
+            <th>Customer</th>
+            <th>Date of Creation</th>
+            <th>Total Weight</th>
+            <th>Total Price</th>
         </tr>
         </thead>
         <tbody>
         <tr>
             <td>${order.id}</td>
-            <td><c:out value="${order.name}"/></td>
-            <td><my:LocalDate date="${order.addedDate}"/></td>
-            <td><c:out value="${order.weight}"/></td>
-            <td><c:out value="${order.price}"/></td>
+            <td><c:out value="${order.employee.firstName} ${order.employee.surname}"/></td>
+            <td><c:out value="${order.state}"/></td>
+            <td><c:out value="${order.customer.firstName} ${order.customer.surname}"/></td>
+            <td><my:LocalDate date="${order.created}"/></td>
+            <td>${weight}</td>
+            <td>${price}</td>
         </tr>
+        </tbody>
+    </table>
+
+    <table class="table">
+        <caption>Ordered Products</caption>
+        <thead>
+        <tr>
+            <th>Unique ID</th>
+            <th>Product Name</th>
+            <th>Date of Takeover</th>
+            <th>Weight</th>
+            <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <c:forEach items="${products}" var="product">
+            <tr>
+                <td>${product.id}</td>
+                <td><c:out value="${product.name}"/></td>
+                <td><my:LocalDate date="${product.addedDate}"/></td>
+                <td><c:out value="${product.weight}"/></td>
+                <td><c:out value="${product.price}"/></td>
+                <td>
+                    <my:a href="/product/detail/id=${product.id}" class="btn btn-primary">View</my:a>
+                </td>
+            </tr>
+        </c:forEach>
         </tbody>
     </table>
 
