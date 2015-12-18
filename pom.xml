@@ -13,6 +13,8 @@
         <module>service</module>
         <module>api</module>
         <module>rest</module>
+        <module>mvc</module>
+        <module>data</module>
     </modules>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
