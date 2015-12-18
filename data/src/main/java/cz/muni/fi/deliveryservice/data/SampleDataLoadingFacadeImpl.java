@@ -20,6 +20,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.Random;
 
+/**
+ * @author Pavel
+ * @author Matej Leško
+ */
 @Component
 @Transactional
 public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {

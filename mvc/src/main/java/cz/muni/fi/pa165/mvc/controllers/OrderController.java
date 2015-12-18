@@ -21,7 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 /**
- * Created by pavelsynek, tomasmilota on 18/12/15.
+ * Created by pavelsynek, tomasmilota, Matej Lesko on 18/12/15.
  */
 @Controller
 @RequestMapping("/order")
