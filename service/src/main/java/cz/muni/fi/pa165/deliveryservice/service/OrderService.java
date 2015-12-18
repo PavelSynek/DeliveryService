@@ -161,11 +161,5 @@ public interface OrderService {
     int getTotalPrice(long id) throws NotFoundException;
 
     OrderDao getOrderDao();
-
-    /**
-     * This method is mandatory for proper initialization of lower layers.
-     * Need to be called manually (gosh ... no time)
-     */
-    void init();
 }
 

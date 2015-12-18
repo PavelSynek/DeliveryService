@@ -9,7 +9,7 @@
 <jsp:attribute name="body">
 
     <table class="table">
-        <caption>products</caption>
+        <caption>Orders</caption>
         <thead>
         <tr>
             <th>id</th>
@@ -20,14 +20,14 @@
         </tr>
         </thead>
         <tbody>
-        <c:forEach items="${order}" var="order">
+        <c:forEach items="${orders}" var="order">
             <tr>
                 <td>${order.id}</td>
-                <td><c:out value="${order.employee.name}"/></td>
+                <td><c:out value="${order.employee.firstName} ${order.employee.surname}"/></td>
                 <td><my:LocalDate date="${order.created}"/></td>
-                <td><c:out value="${order.orderState}"/></td>
-                <td><c:out value="${order.price}"/></td>
-                <td><c:out value="${order.customer.name}"/></td>
+                <td><c:out value="${order.state}"/></td>
+                <%--<td><c:out value="${order.price}"/></td>--%>
+                <td><c:out value="${order.customer.firstName} ${order.customer.surname}"/></td>
                 <td>
                     <my:a href="/order/detail/id=${order.id}" class="btn btn-primary">View</my:a>
                 </td>

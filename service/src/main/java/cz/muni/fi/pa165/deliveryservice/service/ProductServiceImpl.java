@@ -68,8 +68,4 @@ public class ProductServiceImpl implements ProductService {
             throw new FailedUpdateException();
         }
     }
-
-    public void init() {
-        productDao.initDBAccessHandlers();
-    }
 }

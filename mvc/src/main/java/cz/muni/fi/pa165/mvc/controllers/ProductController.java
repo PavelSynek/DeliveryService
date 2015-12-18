@@ -72,8 +72,6 @@ public class ProductController {
     public String list(Model model) {
         log.debug("list()");
 
-        productFacade.init();
-
         model.addAttribute("products", productFacade.getAllProducts());
         return "product/list";
     }

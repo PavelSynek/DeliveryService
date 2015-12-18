@@ -8,6 +8,7 @@ import cz.muni.fi.pa165.deliveryservice.persist.entity.Order;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Product;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.time.LocalDate;
 import java.util.List;
@@ -36,8 +37,8 @@ public class OrderServiceImpl implements OrderService {
         return orderDao;
     }
 
-    @Override
-    public void init() {
+    @PostConstruct
+    public void initDBAccessHandlers() {
         orderDao.initDBAccessHandlers();
     }
 
