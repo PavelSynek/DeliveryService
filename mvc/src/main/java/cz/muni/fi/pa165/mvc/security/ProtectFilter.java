@@ -8,13 +8,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.*;
-import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.bind.DatatypeConverter;
 import java.io.IOException;
 
-@WebFilter(urlPatterns = {"/order/*", "/employee/*", "/customer/*", "/product/*"})
+//@WebFilter(urlPatterns = {"/order/*", "/employee/*", "/customer/*", "/product/*"})
 public class ProtectFilter implements Filter {
 
     final static Logger log = LoggerFactory.getLogger(ProtectFilter.class);

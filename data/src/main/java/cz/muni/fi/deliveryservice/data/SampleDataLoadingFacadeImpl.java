@@ -32,7 +32,8 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
     @Override
     public void loadData() {
-        Employee e = employee("Pavel", "Synek", "pavel.synek@gmail.com", "112567000");
+        Employee e = employee("Admin", "Admin", "admin@admin.cz", "112567000");
+        Employee ee = employee("Employee", "Ne-admin", "admin@admin.cz", "112567000");
         Customer c = customer("Pavel", "Synek", "pavel.synek@gmail.com", "112567000");
     }
 
