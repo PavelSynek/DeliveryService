@@ -41,7 +41,7 @@
                             class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <li><my:a href="/order/list"><f:message key="navigation.admin.orders"/></my:a></li>
-                        <li><my:a href="/user/list"><f:message key="navigation.admin.customers"/></my:a></li>
+                        <li><my:a href="/customer/list"><f:message key="navigation.admin.customers"/></my:a></li>
                         <li><my:a href="/product/list"><f:message key="navigation.admin.products"/></my:a></li>
                         <li><my:a href="/employee/list"><f:message key="navigation.admin.employees"/></my:a></li>
                     </ul>
