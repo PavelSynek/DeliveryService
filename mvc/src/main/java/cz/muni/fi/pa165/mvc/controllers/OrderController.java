@@ -76,7 +76,7 @@ public class OrderController {
     }
 
     @RequestMapping(value = "/detail/id={id}", method = RequestMethod.GET)
-    public String detailById(@PathVariable long id, Model model) {
+    public String detailById(@PathVariable long id, Model model) throws NotFoundException {
         log.trace("detailById({})", id);
 
         OrderDTO c = null;
@@ -86,6 +86,9 @@ public class OrderController {
             e.printStackTrace(); // TODO
         }
         model.addAttribute("order", c);
+        model.addAttribute("price", orderFacade.getTotalPrice(id));
+        model.addAttribute("weight", orderFacade.getTotalWeight(id));
+        model.addAttribute("products", c.getProducts());
         return "order/detail";
     }
 }
