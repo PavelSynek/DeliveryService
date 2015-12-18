@@ -62,4 +62,8 @@ public class ProductServiceImpl implements ProductService {
             new FailedUpdateException();
         }
     }
+
+    public void init() {
+        productDao.initDBAccessHandlers();
+    }
 }

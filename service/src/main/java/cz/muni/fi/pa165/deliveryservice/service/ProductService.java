@@ -49,4 +49,10 @@ public interface ProductService {
      * @param updatedProduct product that has changed attributes to reflect to its entity
      */
     void updateProduct(Product updatedProduct) throws FailedUpdateException;
+
+    /**
+     * This method is mandatory for proper initialization of lower layers.
+     * Need to be called manually (gosh ... no time)
+     */
+    void init();
 }
