@@ -24,7 +24,7 @@ public interface EmployeeFacade {
     /**
      * Register the given employee with the given unencrypted password.
      */
-    void create(EmployeeDTO u, String unencryptedPassword);
+    Long create(EmployeeDTO u, String unencryptedPassword);
 
     /**
      * Get all registered employees

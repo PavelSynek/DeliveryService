@@ -39,10 +39,11 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
     }
 
     @Override
-    public void create(EmployeeDTO employeeDTO, String unencryptedPassword) {
+    public Long create(EmployeeDTO employeeDTO, String unencryptedPassword) {
         Employee employee = beanMappingService.mapTo(employeeDTO, Employee.class);
         employeeService.create(employee, unencryptedPassword);
         employeeDTO.setId(employee.getId());
+        return employeeDTO.getId();
     }
 
     @Override
