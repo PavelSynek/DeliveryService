@@ -15,6 +15,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import javax.inject.Inject;
+import java.time.LocalDate;
 import java.util.Collections;
 import java.util.List;
 
@@ -110,6 +111,8 @@ public class ProductsController {
         init();
 
         try {
+            if (product.getAddedDate() == null)
+                product.setAddedDate(LocalDate.now());
             id = productFacade.createProduct(product);
             return productFacade.getProductWithId(id);
         } catch (NotFoundException ex) {
