@@ -1,7 +1,7 @@
 package cz.muni.fi.pa165.mvc.config;
 
 
-import cz.muni.fi.deliveryservice.data.EshopWithSampleDataConfiguration;
+import cz.muni.fi.deliveryservice.data.SampleDataConfiguration;
 import cz.muni.fi.pa165.mvc.controllers.CustomerController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,7 +32,7 @@ import javax.validation.Validator;
 
 @EnableWebMvc
 @Configuration
-@Import({EshopWithSampleDataConfiguration.class})
+@Import({SampleDataConfiguration.class})
 @ComponentScan(basePackageClasses = CustomerController.class)
 public class MySpringMvcConfig extends WebMvcConfigurerAdapter {
 
