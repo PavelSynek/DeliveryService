@@ -40,3 +40,7 @@ To delete only product with id=1:
 ```sh
     curl -i -X DELETE  http://localhost:8080/pa165/rest/products/1
 ```
+
+## Spring MVC
+Username: admin@admin.cz
+Password: Admin_employee
