@@ -102,7 +102,7 @@ public interface OrderFacade {
      * @param end   a date till are orders taken
      * @return list of orders between two dates
      */
-    public List<OrderDTO> getOrdersCreatedBetween(LocalDate start, LocalDate end);
+    List<OrderDTO> getOrdersCreatedBetween(LocalDate start, LocalDate end);
 
     /**
      * List all orders between two dates and state.
@@ -112,7 +112,7 @@ public interface OrderFacade {
      * @param state state in which actual order exist in time.
      * @return list of orders between two dates with given state.
      */
-    public List<OrderDTO> getOrdersCreatedBetweenWithState(LocalDate start, LocalDate end, OrderState state);
+    List<OrderDTO> getOrdersCreatedBetweenWithState(LocalDate start, LocalDate end, OrderState state);
 
     /**
      * Find all orders in the system and return them
