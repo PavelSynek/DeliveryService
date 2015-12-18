@@ -43,4 +43,5 @@ To delete only product with id=1:
 
 ## Spring MVC
 Username: admin@admin.cz
+
 Password: Admin_employee
