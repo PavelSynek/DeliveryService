@@ -12,11 +12,11 @@
         <caption>Orders</caption>
         <thead>
         <tr>
-            <th>id</th>
-            <th>employee</th>
-            <th>created</th>
-            <th>state</th>
-            <th>customer</th>
+            <th>Unique ID</th>
+            <th>Assigned Employee</th>
+            <th>Date of Creation</th>
+            <th>State</th>
+            <th>Customer</th>
         </tr>
         </thead>
         <tbody>
