@@ -24,6 +24,10 @@ public class ProductCreateDTO {
 
     private Long weight;
 
+    public ProductCreateDTO() {
+        addedDate = LocalDate.now();
+    }
+
     public String getName() {
         return name;
     }
