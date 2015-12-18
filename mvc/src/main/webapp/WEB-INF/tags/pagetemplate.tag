@@ -35,7 +35,7 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li><my:a href="/shopping/show"><f:message key="navigation.deliveryService"/></my:a></li>
+                <li><my:a href="/shopping/show"><f:message key="navigation.deliveryservice"/></my:a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><f:message key="navigation.admin"/><b
                             class="caret"></b></a>
