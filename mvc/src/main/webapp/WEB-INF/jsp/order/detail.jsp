@@ -16,7 +16,7 @@
         <thead>
         <tr>
             <th>id</th>
-            <th>name</th>
+            <th>products</th>
             <th>added date</th>
             <th>weight</th>
             <th>price</th>
