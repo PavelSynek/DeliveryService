@@ -10,7 +10,7 @@
 <jsp:attribute name="body">
 
     <form method="post" action="${pageContext.request.contextPath}/order/delete/${order.id}">
-        <button type="submit" class="btn btn-primary">Delete</button>
+        <button type="submit" class="btn btn-primary">Cancel Order</button>
     </form>
 
     <%--<th>products</th>--%>
