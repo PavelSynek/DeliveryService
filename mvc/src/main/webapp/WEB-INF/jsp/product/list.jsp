@@ -12,11 +12,11 @@
         <caption>products</caption>
         <thead>
         <tr>
-            <th>id</th>
-            <th>name</th>
-            <th>added date</th>
-            <th>weight</th>
-            <th>price</th>
+            <th>Unique ID</th>
+            <th>Product Name</th>
+            <th>Date of Takeover</th>
+            <th>Weight</th>
+            <th>Price</th>
         </tr>
         </thead>
         <tbody>
