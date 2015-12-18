@@ -67,4 +67,9 @@ public class EmployeeFacadeImpl implements EmployeeFacade {
         List<Employee> employees = employeeService.findByName(name);
         return beanMappingService.mapTo(employees, EmployeeDTO.class);
     }
+
+    @Override
+    public boolean isAdmin(EmployeeDTO employeeDTO) {
+        return true; // TODO
+    }
 }

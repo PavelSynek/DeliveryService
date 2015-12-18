@@ -45,4 +45,6 @@ public interface EmployeeFacade {
      * Get all employees with specific name.
      */
     List<EmployeeDTO> findByName(String name);
+
+    boolean isAdmin(EmployeeDTO employeeDTO);
 }
