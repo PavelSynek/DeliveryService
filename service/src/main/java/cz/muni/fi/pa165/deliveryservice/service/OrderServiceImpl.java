@@ -162,6 +162,24 @@ public class OrderServiceImpl implements OrderService {
         return price;
     }
 
+    @Override
+    public int getTotalWeight(long id) throws NotFoundException {
+        int weight = 0;
+        Order order;
+
+        try {
+            order = orderDao.findById(id);
+        } catch (ViolentDataAccessException e) {
+            throw new NotFoundException("Order: " + id + " does not exists");
+        }
+
+        for (Product product : order.getProducts()) {
+            weight += product.getWeight();
+        }
+
+        return weight;
+    }
+
     public void shipOrder(Order order)
             throws ShippedOrderException, CancelledOrderException, ClosedOrderException {
         if (order.getState().equals(OrderState.RECEIVED))

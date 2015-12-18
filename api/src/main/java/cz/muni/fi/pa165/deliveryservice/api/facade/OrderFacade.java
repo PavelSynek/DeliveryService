@@ -161,4 +161,13 @@ public interface OrderFacade {
      * @return
      */
     int getTotalPrice(long id) throws NotFoundException;
+
+    /**
+     * Return total weight of the order.
+     * Order can have additional expenses, use it for final checkout.
+     *
+     * @param id unique identifier for order
+     * @return
+     */
+    int getTotalWeight(long id) throws NotFoundException;
 }
