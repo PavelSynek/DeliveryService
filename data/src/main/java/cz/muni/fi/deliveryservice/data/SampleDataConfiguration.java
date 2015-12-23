@@ -1,6 +1,7 @@
 package cz.muni.fi.deliveryservice.data;
 
 import cz.muni.fi.pa165.deliveryservice.api.service.util.AlreadyExistsException;
+import cz.muni.fi.pa165.deliveryservice.api.service.util.FailedUpdateException;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.NotFoundException;
 import cz.muni.fi.pa165.deliveryservice.service.config.ServiceConfiguration;
 import org.slf4j.Logger;
@@ -29,7 +30,7 @@ public class SampleDataConfiguration {
     SampleDataLoadingFacade sampleDataLoadingFacade;
 
     @PostConstruct
-    public void dataLoading() throws IOException, AlreadyExistsException, NotFoundException {
+    public void dataLoading() throws IOException, AlreadyExistsException, NotFoundException, FailedUpdateException {
         log.debug("dataLoading()");
         sampleDataLoadingFacade.loadData();
     }

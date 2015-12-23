@@ -4,6 +4,7 @@ import cz.muni.fi.pa165.deliveryservice.api.dao.util.InvalidPriceException;
 import cz.muni.fi.pa165.deliveryservice.api.dao.util.InvalidWeightException;
 import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.AlreadyExistsException;
+import cz.muni.fi.pa165.deliveryservice.api.service.util.FailedUpdateException;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.NotFoundException;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Customer;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Employee;
@@ -38,7 +39,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     private ProductService productService;
 
     @Override
-    public void loadData() throws AlreadyExistsException, NotFoundException {
+    public void loadData() throws AlreadyExistsException, NotFoundException, FailedUpdateException {
         Employee e = employee("Admin", "Admin", "admin@admin.cz", "112567000");
         Customer c = customer("Pavel", "Synek", "pavel.synek@gmail.com", "112567000");
 
@@ -83,22 +84,25 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
         } catch (InvalidPriceException | InvalidWeightException e) {
             // ignore
         }
-        productService.createProduct(product);
-        return productService.findById(product.getId());
+        return product;
     }
 
-    private Order order(Customer customer, Employee employee, Product... products) throws NotFoundException, AlreadyExistsException {
+    private Order order(Customer customer, Employee employee, Product... products) throws NotFoundException, AlreadyExistsException, FailedUpdateException {
         Order order = new Order();
-        for (Product product : products) {
-            order.addProduct(product);
-        }
+
         order.setCreated(getRandomDate());
         order.setState(OrderState.SHIPPED);
         order.setEmployee(employee);
         order.setCustomer(customer);
 
 //        try {
-            orderService.createOrder(order);
+        orderService.createOrder(order);
+        for (Product product : products) {
+            order.addProduct(product);
+            productService.createProduct(product);
+//            Product ret = productService.findById(product.getId());
+        }
+        orderService.updateOrder(order);
 //        } catch (AlreadyExistsException e) {
 //            // ignore
 //        }
