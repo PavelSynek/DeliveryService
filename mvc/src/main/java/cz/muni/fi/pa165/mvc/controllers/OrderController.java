@@ -116,16 +116,6 @@ public class OrderController {
 
         List<ProductDTO> backup = orderDTO.getProducts();
         orderFacade.cancelOrder(orderDTO);
-        orderFacade.updateOrder(orderDTO);
-
-        for (ProductDTO product:backup) {
-            productFacade.deleteProduct(product.getId());
-        }
-
-//        model.addAttribute("order", orderDTO);
-//        model.addAttribute("price", orderFacade.getTotalPrice(id));
-//        model.addAttribute("weight", orderFacade.getTotalWeight(id));
-//        model.addAttribute("products", orderDTO.getProducts());
         return "order/list";
     }
 }
