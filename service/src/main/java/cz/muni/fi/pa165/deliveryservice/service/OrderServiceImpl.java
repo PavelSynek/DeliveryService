@@ -191,6 +191,7 @@ public class OrderServiceImpl implements OrderService {
 
     public void shipOrder(Order o)
             throws ShippedOrderException, CancelledOrderException, ClosedOrderException, FailedUpdateException, NotFoundException {
+        Order order = findById(o.getId());
         if (order.getState().equals(OrderState.RECEIVED))
             order.setState(OrderState.SHIPPED);
         else if (order.getState().equals(OrderState.SHIPPED))
@@ -199,11 +200,13 @@ public class OrderServiceImpl implements OrderService {
             throw new CancelledOrderException("Order: " + order.getId() + " is cancelled");
         else if (order.getState().equals(OrderState.CLOSED))
             throw new ClosedOrderException("Order: " + order.getId() + " is closed");
+        updateOrder(order);
     }
 
     @Override
     public void closeOrder(Order o)
             throws UnprocessedOrderException, CancelledOrderException, ClosedOrderException, FailedUpdateException, NotFoundException {
+        Order order = findById(o.getId());
         if (order.getState().equals(OrderState.SHIPPED))
             order.setState(OrderState.CLOSED);
         else if (order.getState().equals(OrderState.CLOSED))
@@ -212,15 +215,18 @@ public class OrderServiceImpl implements OrderService {
             throw new CancelledOrderException("Order: " + order.getId() + " is cancelled");
         else if (order.getState().equals(OrderState.RECEIVED))
             throw new UnprocessedOrderException("Order: " + order.getId() + " is closed");
+        updateOrder(order);
     }
 
     @Override
     public void cancelOrder(Order o) throws CancelledOrderException, ClosedOrderException, FailedUpdateException, NotFoundException {
+        Order order = findById(o.getId());
         if (order.getState().equals(OrderState.RECEIVED) || order.getState().equals(OrderState.SHIPPED))
             order.setState(OrderState.CANCELLED);
         else if (order.getState().equals(OrderState.CLOSED))
             throw new ClosedOrderException("Order: " + order.getId() + " is already closed");
         else if (order.getState().equals(OrderState.CANCELLED))
             throw new CancelledOrderException("Order: " + order.getId() + " is cancelled");
+        updateOrder(order);
     }
 }
