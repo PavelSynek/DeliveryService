@@ -17,7 +17,7 @@ import java.util.List;
  * Created by Matej Leško on 2015-11-26.
  * Email: lesko.matej.pu@gmail.com, mlesko@redhat.com
  * Phone: +421 949 478 066
- * <p>
+ * <p/>
  * Project: DeliveryService
  */
 
@@ -189,8 +189,8 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    public void shipOrder(Order order)
-            throws ShippedOrderException, CancelledOrderException, ClosedOrderException {
+    public void shipOrder(Order o)
+            throws ShippedOrderException, CancelledOrderException, ClosedOrderException, FailedUpdateException, NotFoundException {
         if (order.getState().equals(OrderState.RECEIVED))
             order.setState(OrderState.SHIPPED);
         else if (order.getState().equals(OrderState.SHIPPED))
@@ -202,8 +202,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void closeOrder(Order order)
-            throws UnprocessedOrderException, CancelledOrderException, ClosedOrderException {
+    public void closeOrder(Order o)
+            throws UnprocessedOrderException, CancelledOrderException, ClosedOrderException, FailedUpdateException, NotFoundException {
         if (order.getState().equals(OrderState.SHIPPED))
             order.setState(OrderState.CLOSED);
         else if (order.getState().equals(OrderState.CLOSED))
@@ -215,9 +215,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void cancelOrder(Order order) throws CancelledOrderException, ClosedOrderException {
-        order.setProducts(null);
-        orderDao.update(order);
+    public void cancelOrder(Order o) throws CancelledOrderException, ClosedOrderException, FailedUpdateException, NotFoundException {
         if (order.getState().equals(OrderState.RECEIVED) || order.getState().equals(OrderState.SHIPPED))
             order.setState(OrderState.CANCELLED);
         else if (order.getState().equals(OrderState.CLOSED))

@@ -125,7 +125,7 @@ public interface OrderService {
      * @param order
      */
     void shipOrder(Order order)
-            throws ShippedOrderException, CancelledOrderException, ClosedOrderException;
+            throws ShippedOrderException, CancelledOrderException, ClosedOrderException, FailedUpdateException, NotFoundException;
 
     /**
      * Close order - {@link Customer} received his package.
@@ -133,7 +133,7 @@ public interface OrderService {
      * @param order
      */
     void closeOrder(Order order)
-            throws UnprocessedOrderException, CancelledOrderException, ClosedOrderException;
+            throws UnprocessedOrderException, CancelledOrderException, ClosedOrderException, FailedUpdateException, NotFoundException;
 
     /**
      * Cancels order made in system
@@ -141,7 +141,7 @@ public interface OrderService {
      * @param order
      */
     void cancelOrder(Order order)
-            throws CancelledOrderException, ClosedOrderException;
+            throws CancelledOrderException, ClosedOrderException, FailedUpdateException, NotFoundException;
 
     /**
      * Check order in the system by its ID

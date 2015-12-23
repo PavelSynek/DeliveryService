@@ -127,7 +127,7 @@ public interface OrderFacade {
      * @param order
      */
     void shipOrder(OrderDTO order)
-            throws ShippedOrderException, CancelledOrderException, ClosedOrderException;
+            throws ShippedOrderException, CancelledOrderException, ClosedOrderException, FailedUpdateException, NotFoundException;
 
     /**
      * Close order - {@link OrderDTO} received his package.
@@ -135,7 +135,7 @@ public interface OrderFacade {
      * @param order
      */
     void closeOrder(OrderDTO order)
-            throws UnprocessedOrderException, CancelledOrderException, ClosedOrderException;
+            throws UnprocessedOrderException, CancelledOrderException, ClosedOrderException, FailedUpdateException, NotFoundException;
 
     /**
      * Cancels order made in system
@@ -143,7 +143,7 @@ public interface OrderFacade {
      * @param order
      */
     void cancelOrder(OrderDTO order)
-            throws CancelledOrderException, ClosedOrderException;
+            throws CancelledOrderException, ClosedOrderException, NotFoundException, FailedUpdateException;
 
     /**
      * Check order in the system by its ID

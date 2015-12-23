@@ -147,19 +147,19 @@ public class OrderFacadeImpl implements OrderFacade {
     }
 
     @Override
-    public void shipOrder(OrderDTO order) throws ShippedOrderException, CancelledOrderException, ClosedOrderException {
+    public void shipOrder(OrderDTO order) throws ShippedOrderException, CancelledOrderException, ClosedOrderException, FailedUpdateException, NotFoundException {
         Order pOrder = beanMappingService.mapTo(order, Order.class);
         orderService.shipOrder(pOrder);
     }
 
     @Override
-    public void closeOrder(OrderDTO order) throws UnprocessedOrderException, CancelledOrderException, ClosedOrderException {
+    public void closeOrder(OrderDTO order) throws UnprocessedOrderException, CancelledOrderException, ClosedOrderException, FailedUpdateException, NotFoundException {
         Order pOrder = beanMappingService.mapTo(order, Order.class);
         orderService.closeOrder(pOrder);
     }
 
     @Override
-    public void cancelOrder(OrderDTO order) throws CancelledOrderException, ClosedOrderException {
+    public void cancelOrder(OrderDTO order) throws CancelledOrderException, ClosedOrderException, NotFoundException, FailedUpdateException {
         Order pOrder = beanMappingService.mapTo(order, Order.class);
         orderService.cancelOrder(pOrder);
     }
