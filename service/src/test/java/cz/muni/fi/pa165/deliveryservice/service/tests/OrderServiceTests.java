@@ -4,7 +4,7 @@ package cz.muni.fi.pa165.deliveryservice.service.tests;
  * Created by Matej Leško on 2015-11-27.
  * Email: lesko.matej.pu@gmail.com, mlesko@redhat.com
  * Phone: +421 949 478 066
- * <p>
+ * <p/>
  * Project: DeliveryService
  */
 
@@ -383,80 +383,91 @@ public class OrderServiceTests extends AbstractTestNGSpringContextTests {
 */
 
     @Test
-    public void testShipping_Received() {
+    public void testShipping_Received() throws FailedUpdateException, NotFoundException {
+        when(orderDao.findById(anyLong())).thenReturn(orderReceived);
         orderService.shipOrder(orderReceived);
         Assert.assertEquals(orderReceived.getState(), OrderState.SHIPPED);
     }
 
     @Test(expectedExceptions = ShippedOrderException.class)
-    public void testShipping_Shipped() {
+    public void testShipping_Shipped() throws FailedUpdateException, NotFoundException {
+        when(orderDao.findById(anyLong())).thenReturn(orderShipped);
         OrderState bak = orderShipped.getState();
         orderService.shipOrder(orderShipped);
         Assert.assertEquals(orderShipped.getState(), bak);
     }
 
     @Test(expectedExceptions = CancelledOrderException.class)
-    public void testShipping_Cancelled() {
+    public void testShipping_Cancelled() throws FailedUpdateException, NotFoundException {
+        when(orderDao.findById(anyLong())).thenReturn(orderCancelled);
         OrderState bak = orderCancelled.getState();
         orderService.shipOrder(orderCancelled);
         Assert.assertEquals(orderCancelled.getState(), bak);
     }
 
     @Test(expectedExceptions = ClosedOrderException.class)
-    public void testShipping_Closed() {
+    public void testShipping_Closed() throws FailedUpdateException, NotFoundException {
+        when(orderDao.findById(anyLong())).thenReturn(orderClosed);
         OrderState bak = orderClosed.getState();
         orderService.shipOrder(orderClosed);
         Assert.assertEquals(orderClosed.getState(), bak);
     }
 
     @Test(expectedExceptions = UnprocessedOrderException.class)
-    public void testClosing_Received() {
+    public void testClosing_Received() throws FailedUpdateException, NotFoundException {
+        when(orderDao.findById(anyLong())).thenReturn(orderReceived);
         OrderState bak = orderReceived.getState();
         orderService.closeOrder(orderReceived);
         Assert.assertEquals(orderReceived.getState(), bak);
     }
 
     @Test
-    public void testClosing_Shipped() {
+    public void testClosing_Shipped() throws FailedUpdateException, NotFoundException {
+        when(orderDao.findById(anyLong())).thenReturn(orderShipped);
         orderService.closeOrder(orderShipped);
         Assert.assertEquals(orderShipped.getState(), OrderState.CLOSED);
     }
 
     @Test(expectedExceptions = CancelledOrderException.class)
-    public void testClosing_Cancelled() {
+    public void testClosing_Cancelled() throws FailedUpdateException, NotFoundException {
         OrderState bak = orderCancelled.getState();
         orderService.closeOrder(orderCancelled);
         Assert.assertEquals(orderCancelled.getState(), bak);
     }
 
     @Test(expectedExceptions = ClosedOrderException.class)
-    public void testClosing_Closed() {
+    public void testClosing_Closed() throws FailedUpdateException, NotFoundException {
+        when(orderDao.findById(anyLong())).thenReturn(orderClosed);
         OrderState bak = orderClosed.getState();
         orderService.closeOrder(orderClosed);
         Assert.assertEquals(orderClosed.getState(), bak);
     }
 
     @Test
-    public void testCancelling_Received() {
+    public void testCancelling_Received() throws FailedUpdateException, NotFoundException {
+        when(orderDao.findById(anyLong())).thenReturn(orderReceived);
         orderService.cancelOrder(orderReceived);
         Assert.assertEquals(orderReceived.getState(), OrderState.CANCELLED);
     }
 
     @Test
-    public void testCancelling_Shipped() {
+    public void testCancelling_Shipped() throws FailedUpdateException, NotFoundException {
+        when(orderDao.findById(anyLong())).thenReturn(orderShipped);
         orderService.cancelOrder(orderShipped);
         Assert.assertEquals(orderShipped.getState(), OrderState.CANCELLED);
     }
 
     @Test(expectedExceptions = CancelledOrderException.class)
-    public void testCancelling_Cancelled() {
+    public void testCancelling_Cancelled() throws FailedUpdateException, NotFoundException {
+        when(orderDao.findById(anyLong())).thenReturn(orderCancelled);
         OrderState bak = orderCancelled.getState();
         orderService.cancelOrder(orderCancelled);
         Assert.assertEquals(orderCancelled.getState(), bak);
     }
 
     @Test(expectedExceptions = ClosedOrderException.class)
-    public void testCancelling_Closed() {
+    public void testCancelling_Closed() throws FailedUpdateException, NotFoundException {
+        when(orderDao.findById(anyLong())).thenReturn(orderClosed);
         OrderState bak = orderClosed.getState();
         orderService.cancelOrder(orderClosed);
         Assert.assertEquals(orderClosed.getState(), bak);
