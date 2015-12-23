@@ -67,6 +67,7 @@ public class Order extends DBEntity {
 
     public void addProduct(Product p) {
         products.add(p);
+        p.setOrder(this);
     }
 
     public LocalDate getCreated() {
