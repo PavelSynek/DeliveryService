@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.deliveryservice.api.dao.util.InvalidWeightException;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -26,6 +27,10 @@ public class Product extends DBEntity {
     private Long price = 0L;
 
     private Long weight = 0L;
+
+    @NotNull //TODO add order_product to tests
+    @ManyToOne
+    private Order order;
 
     public String getName() {
         return name;
@@ -63,6 +68,7 @@ public class Product extends DBEntity {
         if (!price.equals(product.price)) return false;
         if (!name.equals(product.name)) return false;
         if (!weight.equals(product.weight)) return false;
+        if (!order.equals(product.order)) return false;
         return addedDate.equals(product.addedDate);
     }
 
@@ -72,6 +78,7 @@ public class Product extends DBEntity {
         result = 31 * result + addedDate.hashCode();
         result = 31 * result + price.hashCode();
         result = 31 * result + weight.hashCode();
+        result = 31 * result + order.hashCode();
         return result;
     }
 
@@ -83,5 +90,13 @@ public class Product extends DBEntity {
         if (weight < 0)
             throw new InvalidWeightException();
         this.weight = weight;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }

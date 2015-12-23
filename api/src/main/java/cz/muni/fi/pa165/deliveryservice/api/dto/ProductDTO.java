@@ -19,6 +19,8 @@ public class ProductDTO {
 
     private Long weight;
 
+    private OrderDTO order;
+
     public long getId() {
         return id;
     }
@@ -63,6 +65,7 @@ public class ProductDTO {
         if (!price.equals(that.price)) return false;
         if (!name.equals(that.name)) return false;
         if (!weight.equals(that.weight)) return false;
+        if (!order.equals(that.order)) return false;
         return addedDate.equals(that.addedDate);
     }
 
@@ -72,6 +75,7 @@ public class ProductDTO {
         result = 31 * result + addedDate.hashCode();
         result = 31 * result + price.hashCode();
         result = 31 * result + weight.hashCode();
+        result = 31 * result + order.hashCode();
         return result;
     }
 
@@ -83,6 +87,7 @@ public class ProductDTO {
                 ", addedDate=" + addedDate +
                 ", price=" + price +
                 ", weight=" + weight +
+                ", order=" + order +
                 '}';
     }
 
@@ -94,5 +99,13 @@ public class ProductDTO {
         if (weight < 0)
             throw new InvalidWeightException();
         this.weight = weight;
+    }
+
+    public OrderDTO getOrder() {
+        return order;
+    }
+
+    public void setOrder(OrderDTO order) {
+        this.order = order;
     }
 }
