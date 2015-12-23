@@ -2,6 +2,7 @@ package cz.muni.fi.pa165.deliveryservice.service.facade;
 
 import cz.muni.fi.pa165.deliveryservice.api.dto.OrderCreateDTO;
 import cz.muni.fi.pa165.deliveryservice.api.dto.OrderDTO;
+import cz.muni.fi.pa165.deliveryservice.api.dto.ProductDTO;
 import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
 import cz.muni.fi.pa165.deliveryservice.api.facade.OrderFacade;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.*;
@@ -10,6 +11,7 @@ import cz.muni.fi.pa165.deliveryservice.persist.entity.Order;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Product;
 import cz.muni.fi.pa165.deliveryservice.service.BeanMappingService;
 import cz.muni.fi.pa165.deliveryservice.service.OrderService;
+import cz.muni.fi.pa165.deliveryservice.service.ProductService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +36,9 @@ public class OrderFacadeImpl implements OrderFacade {
 
     @Inject
     private OrderService orderService;
+
+    @Inject
+    private ProductService productService;
 
     @Inject
     private BeanMappingService beanMappingService;
@@ -162,6 +167,12 @@ public class OrderFacadeImpl implements OrderFacade {
     public void cancelOrder(OrderDTO order) throws CancelledOrderException, ClosedOrderException, NotFoundException, FailedUpdateException {
         Order pOrder = beanMappingService.mapTo(order, Order.class);
         orderService.cancelOrder(pOrder);
+        pOrder = orderService.findById(order.getId());
+        pOrder.getProducts().clear();
+        orderService.updateOrder(pOrder);
+        for (ProductDTO product: order.getProducts()) {
+            productService.deleteProduct(product.getId());
+        }
     }
 
     @Override
