@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.deliveryservice.rest;
 
+import cz.muni.fi.deliveryservice.data.SampleDataConfiguration;
 import cz.muni.fi.pa165.deliveryservice.service.config.ServiceConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +15,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  */
 @EnableWebMvc
 @Configuration
-@Import({ServiceConfiguration.class})
+@Import({ServiceConfiguration.class, SampleDataConfiguration.class})
 @ComponentScan(basePackages = {"cz.muni.fi.pa165.deliveryservice.rest.controllers"})
 public class RootWebContext extends WebMvcConfigurerAdapter {
 

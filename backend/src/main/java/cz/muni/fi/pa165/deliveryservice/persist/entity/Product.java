@@ -68,7 +68,7 @@ public class Product extends DBEntity {
         if (!price.equals(product.price)) return false;
         if (!name.equals(product.name)) return false;
         if (!weight.equals(product.weight)) return false;
-        if (!order.equals(product.order)) return false;
+//        if (!order.equals(product.order)) return false;
         return addedDate.equals(product.addedDate);
     }
 
@@ -78,7 +78,7 @@ public class Product extends DBEntity {
         result = 31 * result + addedDate.hashCode();
         result = 31 * result + price.hashCode();
         result = 31 * result + weight.hashCode();
-        result = 31 * result + order.hashCode();
+//        result = 31 * result + order.hashCode();
         return result;
     }
 
