@@ -29,7 +29,7 @@ public class Order extends DBEntity {
     @ManyToOne // at the time of creating order, no employee can be free to process it
     private Employee employee;
 
-    @OneToMany
+    @OneToMany(mappedBy = "order")
     @NotNull
     private List<Product> products = new ArrayList<>();
 
