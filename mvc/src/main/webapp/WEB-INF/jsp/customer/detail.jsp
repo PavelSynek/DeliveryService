@@ -42,7 +42,6 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Number of items</th>
                     <th>Created</th>
                     <th>State</th>
                 </tr>
@@ -51,11 +50,10 @@
                 <c:forEach items="${orders}" var="order">
                     <tr>
                         <td>${order.id}</td>
-                        <td><c:out value="${order.products.lenght()}"/></td>
-                        <td><fmt:formatDate value="${order.created}" pattern="yyyy-MM-dd"/></td>
+                        <td><my:LocalDate date="${order.created}"/></td>
                         <td><c:out value="${order.state}"/></td>
                         <td>
-                            <my:a href="/order/detail/${order.id}" class="btn btn-primary">View</my:a>
+                            <my:a href="/order/detail/id=${order.id}" class="btn btn-primary">View</my:a>
                         </td>
                     </tr>
                 </c:forEach>
