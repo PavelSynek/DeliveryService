@@ -1,8 +1,6 @@
 package cz.muni.fi.pa165.mvc.controllers;
 
-import cz.muni.fi.pa165.deliveryservice.api.dto.OrderCreateDTO;
-import cz.muni.fi.pa165.deliveryservice.api.dto.OrderDTO;
-import cz.muni.fi.pa165.deliveryservice.api.dto.ProductDTO;
+import cz.muni.fi.pa165.deliveryservice.api.dto.*;
 import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
 import cz.muni.fi.pa165.deliveryservice.api.facade.OrderFacade;
 import cz.muni.fi.pa165.deliveryservice.api.facade.ProductFacade;
@@ -22,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import javax.ws.rs.DELETE;
 import java.util.List;
@@ -78,14 +77,21 @@ public class OrderController {
     }
 
     @RequestMapping(value = "list", method = RequestMethod.GET)
-    public String list(Model model) {
+    public String list(Model model, HttpServletRequest request) {
         log.debug("list()");
-        model.addAttribute("orders", orderFacade.findAll());
+        HttpSession session = request.getSession();
+        PersonDTO user = (PersonDTO) session.getAttribute("authenticatedUser");
+        if (user.getClass() == EmployeeDTO.class) {
+            model.addAttribute("orders", orderFacade.findAll());
+        }
+        if (user.getClass() == CustomerDTO.class) {
+            model.addAttribute("orders", orderFacade.findByCustomer(user.getId()));
+        }
         return "order/list";
     }
 
     @RequestMapping(value = "/detail/id={id}", method = RequestMethod.GET)
-    public String detailById(@PathVariable long id, Model model) throws NotFoundException {
+    public String detailById(@PathVariable long id, Model model, HttpServletRequest request) throws NotFoundException {
         log.trace("detailById({})", id);
 
         OrderDTO c = null;
@@ -94,6 +100,14 @@ public class OrderController {
         } catch (NotFoundException e) {
             e.printStackTrace(); // TODO
         }
+
+        HttpSession session = request.getSession();
+        PersonDTO user = (PersonDTO) session.getAttribute("authenticatedUser");
+        if (user.getClass() != EmployeeDTO.class){
+            if(!orderFacade.findByCustomer(user.getId()).contains(c))
+                return "home";  // TODO
+        }
+
         model.addAttribute("order", c);
         model.addAttribute("price", orderFacade.getTotalPrice(id));
         model.addAttribute("weight", orderFacade.getTotalWeight(id));
@@ -103,7 +117,7 @@ public class OrderController {
 
     @DELETE
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
-    public String cancelById(@PathVariable long id, Model model) throws NotFoundException, FailedUpdateException {
+    public String cancelById(@PathVariable long id, Model model, HttpServletRequest request) throws NotFoundException, FailedUpdateException {
         log.trace("cancelById({})", id);
 
         OrderDTO orderDTO = null;
@@ -111,6 +125,13 @@ public class OrderController {
             orderDTO = orderFacade.findById(id);
         } catch (NotFoundException e) {
             e.printStackTrace(); // TODO
+        }
+
+        HttpSession session = request.getSession();
+        PersonDTO user = (PersonDTO) session.getAttribute("authenticatedUser");
+        if (user.getClass() != EmployeeDTO.class){
+            if(!orderFacade.findByCustomer(user.getId()).contains(orderDTO))
+                return "home";  // TODO
         }
 
 
