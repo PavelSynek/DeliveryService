@@ -62,6 +62,11 @@ public abstract class PersonServiceImpl<T extends DBPerson, E extends PersonTemp
         return (List<T>) personDao.findByName(name);
     }
 
+    @Override
+    public void update(T person) {
+        personDao.update(person);
+    }
+
     //see  https://crackstation.net/hashing-security.htm#javasourcecode
     private static String createHash(String password) {
         final int SALT_BYTE_SIZE = 24;

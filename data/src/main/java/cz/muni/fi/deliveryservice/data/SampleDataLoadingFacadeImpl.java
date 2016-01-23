@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -42,6 +43,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     public void loadData() throws AlreadyExistsException, NotFoundException, FailedUpdateException {
         Employee e = employee("Admin", "Admin", "admin@admin.cz", "112567000");
         Customer c = customer("Pavel", "Synek", "pavel.synek@gmail.com", "112567000");
+        customer("Customer", "Customer", "customer@customer.cz", "112567000");
 
         Product car = product("Car", 4000, 10720);
         Product plane = product("Plane", 10098600, 800700250);
@@ -102,6 +104,12 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
             productService.createProduct(product);
 //            Product ret = productService.findById(product.getId());
         }
+        ArrayList<Order> orders = new ArrayList<>();
+        orders.add(order);
+        employee.setOrders(orders);
+        employeeService.update(employee);
+        customer.setOrders(orders);
+        customerService.update(customer);
         orderService.updateOrder(order);
 //        } catch (AlreadyExistsException e) {
 //            // ignore

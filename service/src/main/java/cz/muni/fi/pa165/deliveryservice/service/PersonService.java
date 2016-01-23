@@ -42,4 +42,6 @@ public interface PersonService<T extends DBPerson> {
     void delete(T person);
 
     List<T> findByName(String name);
+
+    void update(T person);
 }
