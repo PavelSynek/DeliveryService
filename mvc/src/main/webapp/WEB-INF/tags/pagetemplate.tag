@@ -5,6 +5,7 @@
 <%@ taglib tagdir="/WEB-INF/tags" prefix="my" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="f" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <!DOCTYPE html>
 <html lang="${pageContext.request.locale}">
@@ -15,8 +16,8 @@
     <title><c:out value="${title}"/></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
           crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"
-          crossorigin="anonymous">
+    <spring:url value="/resources/css/theme.min.css" var="theme"/>
+    <link href="${theme}" rel="stylesheet"/>
     <jsp:invoke fragment="head"/>
 </head>
 <body>
@@ -97,7 +98,7 @@
 
     <!-- footer -->
     <footer class="footer">
-        <p>&copy;&nbsp;<%=java.time.Year.now().toString()%>&nbsp;Masaryk University</p>
+        <p>&copy;&nbsp;<%=java.time.Year.now().toString()%>&nbsp;Matěj Leško, Tomáš Milota, Pavel Synek</p>
     </footer>
 </div>
 <!-- javascripts placed at the end of the document so the pages load faster -->
