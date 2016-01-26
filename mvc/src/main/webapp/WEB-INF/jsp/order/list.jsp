@@ -8,6 +8,11 @@
 <my:pagetemplate title="Orders">
 <jsp:attribute name="body">
 
+    <my:a href="/order/new" class="btn btn-primary">
+        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+        New order
+    </my:a>
+
     <table class="table">
         <caption>Orders</caption>
         <thead>
