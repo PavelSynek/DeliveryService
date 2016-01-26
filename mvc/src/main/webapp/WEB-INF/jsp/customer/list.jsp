@@ -8,7 +8,7 @@
 <my:pagetemplate title="Customers">
 <jsp:attribute name="body">
 
-    <table class="table">
+    <table class="table table-striped">
         <caption>Customers</caption>
         <thead>
         <tr>

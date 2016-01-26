@@ -17,7 +17,7 @@
             New product
         </my:a>
 
-        <table class="table">
+        <table class="table table-striped">
             <caption>Products in order:</caption>
             <thead>
             <tr>

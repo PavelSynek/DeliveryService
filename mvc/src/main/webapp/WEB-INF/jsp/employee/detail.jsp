@@ -13,7 +13,7 @@
     </form>
 
 
-    <table class="table">
+    <table class="table table-striped">
         <thead>
         <tr>
             <th>id</th>
@@ -37,7 +37,7 @@
     </table>
 
         <div class="row">
-            <table class="table">
+            <table class="table table-striped">
                 <caption>Orders</caption>
                 <thead>
                 <tr>

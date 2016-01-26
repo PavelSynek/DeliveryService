@@ -22,7 +22,7 @@
     <%--</c:forEach>--%>
 
 
-    <table class="table">
+    <table class="table table-striped">
         <caption>Summary</caption>
         <thead>
         <tr>
@@ -48,7 +48,7 @@
         </tbody>
     </table>
 
-    <table class="table">
+    <table class="table table-striped">
         <caption>Ordered Products</caption>
         <thead>
         <tr>

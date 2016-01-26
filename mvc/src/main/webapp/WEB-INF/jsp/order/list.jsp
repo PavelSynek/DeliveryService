@@ -13,7 +13,7 @@
         New order
     </my:a>
 
-    <table class="table">
+    <table class="table table-striped">
         <caption>Orders</caption>
         <thead>
         <tr>
