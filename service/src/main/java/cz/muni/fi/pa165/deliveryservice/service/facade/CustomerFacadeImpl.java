@@ -69,4 +69,10 @@ public class CustomerFacadeImpl implements CustomerFacade {
         List<Customer> customers = customerService.findByName(name);
         return beanMappingService.mapTo(customers, CustomerDTO.class);
     }
+
+    @Override
+    public void update(CustomerDTO customerDTO) {
+        Customer c = beanMappingService.mapTo(customerDTO, Customer.class);
+        customerService.update(c);
+    }
 }

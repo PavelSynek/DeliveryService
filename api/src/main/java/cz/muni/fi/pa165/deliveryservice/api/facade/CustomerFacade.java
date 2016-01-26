@@ -45,4 +45,6 @@ public interface CustomerFacade {
      * Get all customers with specific name.
      */
     List<CustomerDTO> findByName(String name);
+
+    void update(CustomerDTO customerDTO);
 }
