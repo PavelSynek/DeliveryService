@@ -1,18 +1,20 @@
 package cz.muni.fi.pa165.mvc.controllers;
 
 import cz.muni.fi.pa165.deliveryservice.api.dto.*;
-import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
+import cz.muni.fi.pa165.deliveryservice.api.facade.CustomerFacade;
 import cz.muni.fi.pa165.deliveryservice.api.facade.OrderFacade;
 import cz.muni.fi.pa165.deliveryservice.api.facade.ProductFacade;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.AlreadyExistsException;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.FailedUpdateException;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.NotFoundException;
+import cz.muni.fi.pa165.deliveryservice.persist.entity.Customer;
+import cz.muni.fi.pa165.deliveryservice.service.BeanMappingService;
+import cz.muni.fi.pa165.deliveryservice.service.CustomerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,9 +22,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
 import javax.ws.rs.DELETE;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,6 +43,15 @@ public class OrderController {
     @Autowired
     private ProductFacade productFacade;
 
+    @Autowired
+    private CustomerFacade customerFacade;
+
+    @Autowired
+    private CustomerService customerService;
+
+    @Autowired
+    private BeanMappingService beanMappingService;
+
     /**
      * Prepares an empty form.
      *
@@ -47,22 +59,38 @@ public class OrderController {
      * @return JSP page
      */
     @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public String neworder(Model model) {
+    public String newOrder(Model model, HttpServletRequest req, HttpServletResponse response) {
         log.debug("new()");
-        model.addAttribute("orderDTO", new OrderDTO());
+
+        HttpSession session = req.getSession();
+        if(session.getAttribute("products") == null) {
+            session.setAttribute("products", new ArrayList<ProductCreateDTO>());
+        }
+        model.addAttribute("products", session.getAttribute("products"));
+        //model.addAttribute("orderCreate", new OrderCreateDTO());
+
         return "order/new";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@Valid @ModelAttribute("orderCreate") OrderCreateDTO formBean, Model model,
-                         RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, HttpServletRequest req) {
+    public String create(RedirectAttributes redirectAttributes,
+                         UriComponentsBuilder uriBuilder, HttpServletRequest req) {
+        OrderCreateDTO formBean = new OrderCreateDTO();
         log.debug("create(orderCreate={})", formBean);
-        String pass = (String) req.getAttribute("password");
-        if (pass.length() < 4) {
-            model.addAttribute("password_error", true);
-            log.trace("password_error");
-            return "order/new";
+
+        HttpSession session = req.getSession();
+        PersonDTO user = (PersonDTO) session.getAttribute("authenticatedUser");
+        if (user.getClass() == EmployeeDTO.class) {
+            // TODO
         }
+        if (user.getClass() == CustomerDTO.class) {
+            CustomerDTO customer = customerFacade.findById(user.getId());
+            formBean.setCustomer(customer);
+        }
+
+        List<ProductCreateDTO> products = (List<ProductCreateDTO>) session.getAttribute("products");
+        List<ProductDTO> productDTOs = beanMappingService.mapTo(products, ProductDTO.class);
+        formBean.setProducts(productDTOs);
 
         //create order
         Long id = null;
@@ -71,6 +99,30 @@ public class OrderController {
         } catch (AlreadyExistsException e) {
             e.printStackTrace(); // TODO
         }
+
+        for(ProductCreateDTO p : products) {
+            try {
+                p.setOrder(orderFacade.findById(id));
+                productFacade.createProduct(p);
+            } catch (AlreadyExistsException | NotFoundException e) {
+                e.printStackTrace();
+            }
+        }
+
+        CustomerDTO c = formBean.getCustomer();
+        List<OrderDTO> customersOrders = c.getOrders();
+        try {
+            customersOrders.add(orderFacade.findById(id));
+        } catch (NotFoundException e) {
+            e.printStackTrace();
+        }
+        c.setOrders(customersOrders);
+
+        //customerFacade.update(c);
+        customerService.update(beanMappingService.mapTo(c, Customer.class));
+
+        session.removeAttribute("products");
+
         //report success
         redirectAttributes.addFlashAttribute("alert_success", "order " + id + " was created");
         return "redirect:" + uriBuilder.path("/order/detail/id={id}").buildAndExpand(id).encode().toUriString();

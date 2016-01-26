@@ -3,7 +3,6 @@ package cz.muni.fi.pa165.mvc.controllers;
 import cz.muni.fi.pa165.deliveryservice.api.dto.ProductCreateDTO;
 import cz.muni.fi.pa165.deliveryservice.api.dto.ProductDTO;
 import cz.muni.fi.pa165.deliveryservice.api.facade.ProductFacade;
-import cz.muni.fi.pa165.deliveryservice.api.service.util.AlreadyExistsException;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +17,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  * Created by pavelsynek, tomasmilota on 18/12/15.
@@ -39,33 +41,25 @@ public class ProductController {
      * @return JSP page
      */
     @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public String newproduct(Model model) {
+    public String newProduct(Model model) {
         log.debug("new()");
-        model.addAttribute("productDTO", new ProductDTO());
+        model.addAttribute("productCreate", new ProductCreateDTO());
+
         return "product/new";
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@Valid @ModelAttribute("productCreate") ProductCreateDTO formBean, Model model,
+    public String create(@Valid @ModelAttribute("productCreate") ProductCreateDTO formBean,
                          RedirectAttributes redirectAttributes, UriComponentsBuilder uriBuilder, HttpServletRequest req) {
         log.debug("create(productCreate={})", formBean);
-        String pass = (String) req.getAttribute("password");
-        if (pass.length() < 4) {
-            model.addAttribute("password_error", true);
-            log.trace("password_error");
-            return "product/new";
-        }
 
-        //create product
-        Long id = null;
-        try {
-            id = productFacade.createProduct(formBean);
-        } catch (AlreadyExistsException e) {
-            e.printStackTrace(); // TODO
-        }
+        formBean.setAddedDate(LocalDate.now());
+        HttpSession session = req.getSession();
+        ArrayList<ProductCreateDTO> products = (ArrayList<ProductCreateDTO>) session.getAttribute("products");
+        products.add(formBean);
         //report success
-        redirectAttributes.addFlashAttribute("alert_success", "product " + id + " was created");
-        return "redirect:" + uriBuilder.path("/product/detail/id={id}").buildAndExpand(id).encode().toUriString();
+        redirectAttributes.addFlashAttribute("alert_success", "product " + formBean.getName() + " was created");
+        return "redirect:" + uriBuilder.path("/order/new").build().encode().toUriString();
     }
 
     @RequestMapping(value = "list", method = RequestMethod.GET)
