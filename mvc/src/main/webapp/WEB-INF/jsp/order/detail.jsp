@@ -42,8 +42,8 @@
             <td><c:out value="${order.state}"/></td>
             <td><c:out value="${order.customer.firstName} ${order.customer.surname}"/></td>
             <td><my:LocalDate date="${order.created}"/></td>
-            <td>${weight}</td>
-            <td>${price}</td>
+            <td>${weight} kg</td>
+            <td>${price} €</td>
         </tr>
         </tbody>
     </table>
