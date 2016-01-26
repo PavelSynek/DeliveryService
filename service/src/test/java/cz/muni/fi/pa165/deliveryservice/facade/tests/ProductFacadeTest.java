@@ -65,7 +65,7 @@ public class ProductFacadeTest {
 
         carCreateDTO = new ProductCreateDTO();
         carCreateDTO.setName("Car");
-        carCreateDTO.setPrice(1000000);
+        carCreateDTO.setPrice(1000000L);
         carCreateDTO.setAddedDate(LocalDate.of(2015, 1, 1));
 
         plane = new Product();

@@ -24,6 +24,8 @@ public class ProductCreateDTO {
 
     private Long weight;
 
+    private OrderDTO order;
+
     public ProductCreateDTO() {
         addedDate = LocalDate.now();
     }
@@ -66,23 +68,31 @@ public class ProductCreateDTO {
         this.addedDate = addedDate;
     }
 
-    public long getPrice() {
+    public Long getPrice() {
         return price;
     }
 
-    public void setPrice(long price) throws InvalidPriceException {
+    public void setPrice(Long price) throws InvalidPriceException {
         if (price < 0)
             throw new InvalidPriceException();
         this.price = price;
     }
 
-    public long getWeight() {
+    public Long getWeight() {
         return weight;
     }
 
-    public void setWeight(long weight) throws InvalidWeightException {
+    public void setWeight(Long weight) throws InvalidWeightException {
         if (weight < 0)
             throw new InvalidWeightException();
         this.weight = weight;
+    }
+
+    public OrderDTO getOrder() {
+        return order;
+    }
+
+    public void setOrder(OrderDTO order) {
+        this.order = order;
     }
 }
