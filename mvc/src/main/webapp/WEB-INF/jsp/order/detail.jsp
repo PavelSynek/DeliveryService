@@ -65,8 +65,8 @@
                 <td>${product.id}</td>
                 <td><c:out value="${product.name}"/></td>
                 <td><my:LocalDate date="${product.addedDate}"/></td>
-                <td><c:out value="${product.weight}"/></td>
-                <td><c:out value="${product.price}"/></td>
+                <td><c:out value="${product.weight}"/> kg</td>
+                <td><c:out value="${product.price}"/> €</td>
                 <td>
                     <my:a href="/product/detail/id=${product.id}" class="btn btn-primary">View</my:a>
                 </td>
