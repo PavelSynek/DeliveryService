@@ -193,6 +193,34 @@ public class OrderController {
         }
     }
 
+    @RequestMapping(value = "/ship/{id}", method = RequestMethod.POST)
+    public String ship(@PathVariable long id, RedirectAttributes redirectAttributes,
+                       UriComponentsBuilder uriBuilder, HttpServletRequest req) {
+        log.debug("ship()");
+        HttpSession session = req.getSession();
+        PersonDTO user = (PersonDTO) session.getAttribute("authenticatedUser");
+        if (user instanceof EmployeeDTO) {
+            OrderDTO orderDTO;
+            try {
+                orderDTO = orderFacade.findById(id);
+                orderFacade.shipOrder(orderDTO);
+                //report success
+                redirectAttributes.addFlashAttribute("alert_info", "order " + id + " successfully shipped");
+                return "redirect:" + uriBuilder.path("/order/detail/id={id}").buildAndExpand(id).encode().toUriString();
+
+            } catch (NotFoundException | FailedUpdateException e) {
+                //report failure
+                redirectAttributes.addFlashAttribute("alert_danger", "shipping of order " + id + " failed");
+                return "redirect:" + uriBuilder.path("/order/detail/id={id}").buildAndExpand(id).encode().toUriString();
+            }
+
+        } else {
+            //report failure
+            redirectAttributes.addFlashAttribute("alert_danger", "unauthorized");
+            return "redirect:" + uriBuilder.path("/order/detail/id={id}").buildAndExpand(id).encode().toUriString();
+        }
+    }
+
     @DELETE
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
     public String cancelById(@PathVariable long id, Model model, HttpServletRequest request) throws NotFoundException, FailedUpdateException {
