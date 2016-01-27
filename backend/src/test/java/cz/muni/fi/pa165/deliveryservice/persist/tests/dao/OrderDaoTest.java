@@ -1,12 +1,12 @@
 package cz.muni.fi.pa165.deliveryservice.persist.tests.dao;
 
+import cz.muni.fi.pa165.deliveryservice.api.dao.util.ViolentDataAccessException;
+import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
 import cz.muni.fi.pa165.deliveryservice.persist.PersistenceApplicationContext;
 import cz.muni.fi.pa165.deliveryservice.persist.dao.CustomerDao;
 import cz.muni.fi.pa165.deliveryservice.persist.dao.OrderDao;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Customer;
 import cz.muni.fi.pa165.deliveryservice.persist.entity.Order;
-import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
-import cz.muni.fi.pa165.deliveryservice.api.dao.util.ViolentDataAccessException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
@@ -85,7 +85,7 @@ public class OrderDaoTest extends AbstractTestNGSpringContextTests {
 
         order2 = new Order();
         order2.setCreated(date2);
-        order2.setState(OrderState.RECEIVED);
+        order2.setState(OrderState.PROCESSING);
         order2.setCustomer(happyCustomer);
 
         order3 = new Order();
@@ -97,7 +97,7 @@ public class OrderDaoTest extends AbstractTestNGSpringContextTests {
         order5 = new Order();
 
         order4.setCreated(LocalDate.of(2015, Month.JULY, 10));
-        order4.setState(OrderState.RECEIVED);
+        order4.setState(OrderState.PROCESSING);
         order4.setCustomer(happyCustomer);
 //        order1.addProduct(car);
 
@@ -153,7 +153,7 @@ public class OrderDaoTest extends AbstractTestNGSpringContextTests {
         Order found = orderDao.findById(order2.getId());
 
         assertEquals(found.getCreated(), date2);
-        assertEquals(found.getState(), OrderState.RECEIVED);
+        assertEquals(found.getState(), OrderState.PROCESSING);
         assertEquals(found.getCustomer().getEmail(), happyCustomer.getEmail());
     }
 
@@ -179,7 +179,7 @@ public class OrderDaoTest extends AbstractTestNGSpringContextTests {
         assertEquals(orderDao.getOrdersWithState(OrderState.SHIPPED).size(), 1);
 
         List<Order> canceled = orderDao.getOrdersWithState(OrderState.CANCELLED);
-        List<Order> received = orderDao.getOrdersWithState(OrderState.RECEIVED);
+        List<Order> received = orderDao.getOrdersWithState(OrderState.PROCESSING);
 
         assertEquals(canceled.size(), 2);
         assertEquals(received.size(), 2);
@@ -232,7 +232,7 @@ public class OrderDaoTest extends AbstractTestNGSpringContextTests {
                 orderDao.getOrdersCreatedBetweenWithState(
                         date3,
                         date4,
-                        OrderState.RECEIVED
+                        OrderState.PROCESSING
                 ).size(),
                 1
         );

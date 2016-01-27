@@ -48,7 +48,7 @@ public class OrderFacadeImpl implements OrderFacade {
         Order pOrder = new Order();
         pOrder.setCreated(LocalDate.now());
 
-        pOrder.setState(OrderState.RECEIVED);
+        pOrder.setState(OrderState.PROCESSING);
 
         Customer customer = beanMappingService.mapTo(order.getCustomer(), Customer.class);
         pOrder.setCustomer(customer);

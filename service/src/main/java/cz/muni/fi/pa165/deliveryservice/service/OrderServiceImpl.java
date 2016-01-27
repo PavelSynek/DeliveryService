@@ -46,7 +46,7 @@ public class OrderServiceImpl implements OrderService {
     public void createOrder(Order order) throws AlreadyExistsException {
         OrderState backup = order.getState();
         try {
-            order.setState(OrderState.RECEIVED);
+            order.setState(OrderState.PROCESSING);
             orderDao.create(order);
         } catch (ViolentDataAccessException e) {
             order.setState(backup);
@@ -192,7 +192,7 @@ public class OrderServiceImpl implements OrderService {
     public void shipOrder(Order o)
             throws ShippedOrderException, CancelledOrderException, ClosedOrderException, FailedUpdateException, NotFoundException {
         Order order = findById(o.getId());
-        if (order.getState().equals(OrderState.RECEIVED))
+        if (order.getState().equals(OrderState.PROCESSING))
             order.setState(OrderState.SHIPPED);
         else if (order.getState().equals(OrderState.SHIPPED))
             throw new ShippedOrderException("Order: " + order.getId() + " was already shipped");
@@ -213,7 +213,7 @@ public class OrderServiceImpl implements OrderService {
             throw new ClosedOrderException("Order: " + order.getId() + " was already closed");
         else if (order.getState().equals(OrderState.CANCELLED))
             throw new CancelledOrderException("Order: " + order.getId() + " is cancelled");
-        else if (order.getState().equals(OrderState.RECEIVED))
+        else if (order.getState().equals(OrderState.PROCESSING))
             throw new UnprocessedOrderException("Order: " + order.getId() + " is closed");
         updateOrder(order);
     }
@@ -221,7 +221,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void cancelOrder(Order o) throws CancelledOrderException, ClosedOrderException, FailedUpdateException, NotFoundException {
         Order order = findById(o.getId());
-        if (order.getState().equals(OrderState.RECEIVED) || order.getState().equals(OrderState.SHIPPED))
+        if (order.getState().equals(OrderState.PROCESSING) || order.getState().equals(OrderState.SHIPPED))
             order.setState(OrderState.CANCELLED);
         else if (order.getState().equals(OrderState.CLOSED))
             throw new ClosedOrderException("Order: " + order.getId() + " is already closed");

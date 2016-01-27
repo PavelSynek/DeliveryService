@@ -67,7 +67,7 @@ public class OrderServiceTests extends AbstractTestNGSpringContextTests {
         orderClosed = new Order();
         orderCancelled = new Order();
 
-        orderReceived.setState(OrderState.RECEIVED);
+        orderReceived.setState(OrderState.PROCESSING);
         orderShipped.setState(OrderState.SHIPPED);
         orderClosed.setState(OrderState.CLOSED);
         orderCancelled.setState(OrderState.CANCELLED);
