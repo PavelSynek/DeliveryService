@@ -42,7 +42,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     @Override
     public void loadData() throws AlreadyExistsException, NotFoundException, FailedUpdateException {
         Employee e = employee("Admin", "Admin", "admin@admin.cz", "112567000");
-        Customer c = customer("Pavel", "Synek", "pavel.synek@gmail.com", "112567000");
+        Customer c = customer("Tester", "Zakaznik", "tester@zakaznik.cz", "112567000");
         customer("Customer", "Customer", "customer@customer.cz", "112567000");
 
         Product car = product("Car", 4000, 10720);
@@ -54,7 +54,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
 
     private Employee employee(String firstname, String surname, String email, String phone) {
         Employee employee = new Employee();
-        String password = firstname + "_employee";
+        String password = firstname + "123";
         employee.setFirstName(firstname);
         employee.setSurname(surname);
         employee.setEmail(email);
@@ -65,7 +65,7 @@ public class SampleDataLoadingFacadeImpl implements SampleDataLoadingFacade {
     }
 
     private Customer customer(String firstname, String surname, String email, String phone) {
-        String password = firstname + "_customer";
+        String password = firstname + "123";
         Customer customer = new Customer();
         customer.setFirstName(firstname);
         customer.setSurname(surname);

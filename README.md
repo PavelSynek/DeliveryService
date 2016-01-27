@@ -2,6 +2,18 @@
 
 # Delivery Service
 
+## Spring MVC
+
+The application runs at http://pa165-deliveryservice.herokuapp.com/
+
+### Admin
+Username: admin@admin.cz
+Password: Admin123
+
+### Customer
+Username: tester@zakaznik.cz
+Password: Tester123
+
 ## REST
 To properly use REST layer as an example, please run in second terminal:
 ```sh
@@ -41,6 +53,3 @@ To create product:
 ```
 
 ## Spring MVC
-Username: admin@admin.cz
-
-Password: Admin_employee
