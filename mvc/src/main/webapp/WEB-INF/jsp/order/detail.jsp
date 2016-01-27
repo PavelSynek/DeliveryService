@@ -13,10 +13,18 @@
         <button type="submit" class="btn btn-primary">Cancel Order</button>
     </form>
 
-    <c:if test="${canAssign}">
+    <c:if test="${isEmployee}">
 
         <form method="post" action="${pageContext.request.contextPath}/order/assign/${order.id}">
             <button type="submit" class="btn btn-primary">Assign order</button>
+        </form>
+
+    </c:if>
+
+    <c:if test="${isEmployee && canShip}">
+
+        <form method="post" action="${pageContext.request.contextPath}/order/ship/${order.id}">
+            <button type="submit" class="btn btn-primary">Ship order</button>
         </form>
 
     </c:if>

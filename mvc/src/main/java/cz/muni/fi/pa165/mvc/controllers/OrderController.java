@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.mvc.controllers;
 
 import cz.muni.fi.pa165.deliveryservice.api.dto.*;
+import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
 import cz.muni.fi.pa165.deliveryservice.api.facade.CustomerFacade;
 import cz.muni.fi.pa165.deliveryservice.api.facade.OrderFacade;
 import cz.muni.fi.pa165.deliveryservice.api.facade.ProductFacade;
@@ -140,9 +141,9 @@ public class OrderController {
     public String detailById(@PathVariable long id, Model model, HttpServletRequest request) throws NotFoundException {
         log.trace("detailById({})", id);
 
-        OrderDTO c = null;
+        OrderDTO orderDTO = null;
         try {
-            c = orderFacade.findById(id);
+            orderDTO = orderFacade.findById(id);
         } catch (NotFoundException e) {
             e.printStackTrace(); // TODO
         }
@@ -150,16 +151,16 @@ public class OrderController {
         HttpSession session = request.getSession();
         PersonDTO user = (PersonDTO) session.getAttribute("authenticatedUser");
         if (user.getClass() != EmployeeDTO.class) {
-            if (!orderFacade.findByCustomer(user.getId()).contains(c))
+            if (!orderFacade.findByCustomer(user.getId()).contains(orderDTO))
                 return "home";  // TODO
         }
 
-        model.addAttribute("order", c);
+        model.addAttribute("order", orderDTO);
         model.addAttribute("price", orderFacade.getTotalPrice(id));
         model.addAttribute("weight", orderFacade.getTotalWeight(id));
-        model.addAttribute("products", c.getProducts());
+        model.addAttribute("products", orderDTO.getProducts());
         model.addAttribute("isEmployee", user instanceof EmployeeDTO);
-        model.addAttribute("canShip", c.getEmployee() != null);
+        model.addAttribute("canShip", orderDTO.getEmployee() != null && orderDTO.getState() == OrderState.PROCESSING);
         return "order/detail";
     }
 
