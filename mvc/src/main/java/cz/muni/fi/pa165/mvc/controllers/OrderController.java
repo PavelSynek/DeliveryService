@@ -63,7 +63,7 @@ public class OrderController {
         log.debug("new()");
 
         HttpSession session = req.getSession();
-        if(session.getAttribute("products") == null) {
+        if (session.getAttribute("products") == null) {
             session.setAttribute("products", new ArrayList<ProductCreateDTO>());
         }
         model.addAttribute("products", session.getAttribute("products"));
@@ -100,7 +100,7 @@ public class OrderController {
             e.printStackTrace(); // TODO
         }
 
-        for(ProductCreateDTO p : products) {
+        for (ProductCreateDTO p : products) {
             try {
                 p.setOrder(orderFacade.findById(id));
                 productFacade.createProduct(p);
@@ -155,8 +155,8 @@ public class OrderController {
 
         HttpSession session = request.getSession();
         PersonDTO user = (PersonDTO) session.getAttribute("authenticatedUser");
-        if (user.getClass() != EmployeeDTO.class){
-            if(!orderFacade.findByCustomer(user.getId()).contains(c))
+        if (user.getClass() != EmployeeDTO.class) {
+            if (!orderFacade.findByCustomer(user.getId()).contains(c))
                 return "home";  // TODO
         }
 
@@ -164,7 +164,37 @@ public class OrderController {
         model.addAttribute("price", orderFacade.getTotalPrice(id));
         model.addAttribute("weight", orderFacade.getTotalWeight(id));
         model.addAttribute("products", c.getProducts());
+        model.addAttribute("canAssign", user instanceof EmployeeDTO);
         return "order/detail";
+    }
+
+    @RequestMapping(value = "/assign/{id}", method = RequestMethod.POST)
+    public String assign(@PathVariable long id, RedirectAttributes redirectAttributes,
+                         UriComponentsBuilder uriBuilder, HttpServletRequest req) {
+        log.debug("assign()");
+        HttpSession session = req.getSession();
+        PersonDTO user = (PersonDTO) session.getAttribute("authenticatedUser");
+        if (user instanceof EmployeeDTO) {
+            OrderDTO orderDTO;
+            try {
+                orderDTO = orderFacade.findById(id);
+                orderDTO.setEmployee((EmployeeDTO) user);
+                orderFacade.updateOrder(orderDTO);
+                //report success
+                redirectAttributes.addFlashAttribute("alert_info", "order " + id + " successfully assigned");
+                return "redirect:" + uriBuilder.path("/order/detail/id={id}").buildAndExpand(id).encode().toUriString();
+
+            } catch (NotFoundException | FailedUpdateException e) {
+                //report failure
+                redirectAttributes.addFlashAttribute("alert_danger", "assign of order " + id + " failed");
+                return "redirect:" + uriBuilder.path("/order/detail/id={id}").buildAndExpand(id).encode().toUriString();
+            }
+
+        } else {
+            //report failure
+            redirectAttributes.addFlashAttribute("alert_danger", "unauthorized");
+            return "redirect:" + uriBuilder.path("/order/detail/id={id}").buildAndExpand(id).encode().toUriString();
+        }
     }
 
     @DELETE
@@ -181,8 +211,8 @@ public class OrderController {
 
         HttpSession session = request.getSession();
         PersonDTO user = (PersonDTO) session.getAttribute("authenticatedUser");
-        if (user.getClass() != EmployeeDTO.class){
-            if(!orderFacade.findByCustomer(user.getId()).contains(orderDTO))
+        if (user.getClass() != EmployeeDTO.class) {
+            if (!orderFacade.findByCustomer(user.getId()).contains(orderDTO))
                 return "home";  // TODO
         }
 

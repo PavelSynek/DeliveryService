@@ -13,6 +13,14 @@
         <button type="submit" class="btn btn-primary">Cancel Order</button>
     </form>
 
+    <c:if test="${canAssign}">
+
+        <form method="post" action="${pageContext.request.contextPath}/order/assign/${order.id}">
+            <button type="submit" class="btn btn-primary">Assign order</button>
+        </form>
+
+    </c:if>
+
     <%--<th>products</th>--%>
     <%--<c:forEach begin="0" end="${fn:length(centralityList) - 1}" var="index">--%>
     <%--<tr>--%>
