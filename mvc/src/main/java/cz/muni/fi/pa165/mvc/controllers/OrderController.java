@@ -7,9 +7,7 @@ import cz.muni.fi.pa165.deliveryservice.api.facade.ProductFacade;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.AlreadyExistsException;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.FailedUpdateException;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.NotFoundException;
-import cz.muni.fi.pa165.deliveryservice.persist.entity.Customer;
 import cz.muni.fi.pa165.deliveryservice.service.BeanMappingService;
-import cz.muni.fi.pa165.deliveryservice.service.CustomerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,9 +43,6 @@ public class OrderController {
 
     @Autowired
     private CustomerFacade customerFacade;
-
-    @Autowired
-    private CustomerService customerService;
 
     @Autowired
     private BeanMappingService beanMappingService;
@@ -118,8 +113,7 @@ public class OrderController {
         }
         c.setOrders(customersOrders);
 
-        //customerFacade.update(c);
-        customerService.update(beanMappingService.mapTo(c, Customer.class));
+        customerFacade.update(c);
 
         session.removeAttribute("products");
 
@@ -164,7 +158,8 @@ public class OrderController {
         model.addAttribute("price", orderFacade.getTotalPrice(id));
         model.addAttribute("weight", orderFacade.getTotalWeight(id));
         model.addAttribute("products", c.getProducts());
-        model.addAttribute("canAssign", user instanceof EmployeeDTO);
+        model.addAttribute("isEmployee", user instanceof EmployeeDTO);
+        model.addAttribute("canShip", c.getEmployee() != null);
         return "order/detail";
     }
 
