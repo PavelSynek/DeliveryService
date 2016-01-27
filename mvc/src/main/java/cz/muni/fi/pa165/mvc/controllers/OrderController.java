@@ -161,6 +161,8 @@ public class OrderController {
         model.addAttribute("products", orderDTO.getProducts());
         model.addAttribute("isEmployee", user instanceof EmployeeDTO);
         model.addAttribute("canShip", orderDTO.getEmployee() != null && orderDTO.getState() == OrderState.PROCESSING);
+        model.addAttribute("canClose", orderDTO.getState() == OrderState.SHIPPED);
+        model.addAttribute("isClosed", orderDTO.getState() == OrderState.CLOSED);
         return "order/detail";
     }
 
@@ -211,6 +213,34 @@ public class OrderController {
             } catch (NotFoundException | FailedUpdateException e) {
                 //report failure
                 redirectAttributes.addFlashAttribute("alert_danger", "shipping of order " + id + " failed");
+                return "redirect:" + uriBuilder.path("/order/detail/id={id}").buildAndExpand(id).encode().toUriString();
+            }
+
+        } else {
+            //report failure
+            redirectAttributes.addFlashAttribute("alert_danger", "unauthorized");
+            return "redirect:" + uriBuilder.path("/order/detail/id={id}").buildAndExpand(id).encode().toUriString();
+        }
+    }
+
+    @RequestMapping(value = "/complete/{id}", method = RequestMethod.POST)
+    public String close(@PathVariable long id, RedirectAttributes redirectAttributes,
+                        UriComponentsBuilder uriBuilder, HttpServletRequest req) {
+        log.debug("ship()");
+        HttpSession session = req.getSession();
+        PersonDTO user = (PersonDTO) session.getAttribute("authenticatedUser");
+        if (user instanceof EmployeeDTO) {
+            OrderDTO orderDTO;
+            try {
+                orderDTO = orderFacade.findById(id);
+                orderFacade.closeOrder(orderDTO);
+                //report success
+                redirectAttributes.addFlashAttribute("alert_info", "order " + id + " successfully closed");
+                return "redirect:" + uriBuilder.path("/order/detail/id={id}").buildAndExpand(id).encode().toUriString();
+
+            } catch (NotFoundException | FailedUpdateException e) {
+                //report failure
+                redirectAttributes.addFlashAttribute("alert_danger", "closing of order " + id + " failed");
                 return "redirect:" + uriBuilder.path("/order/detail/id={id}").buildAndExpand(id).encode().toUriString();
             }
 

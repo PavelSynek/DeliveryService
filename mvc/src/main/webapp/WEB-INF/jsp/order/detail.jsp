@@ -9,11 +9,15 @@
 <my:pagetemplate title="Order">
 <jsp:attribute name="body">
 
-    <form method="post" action="${pageContext.request.contextPath}/order/delete/${order.id}">
-        <button type="submit" class="btn btn-primary">Cancel Order</button>
-    </form>
+    <c:if test="${!isClosed}">
 
-    <c:if test="${isEmployee}">
+        <form method="post" action="${pageContext.request.contextPath}/order/delete/${order.id}">
+            <button type="submit" class="btn btn-primary">Cancel Order</button>
+        </form>
+
+    </c:if>
+
+    <c:if test="${isEmployee && !canClose && !isClosed}">
 
         <form method="post" action="${pageContext.request.contextPath}/order/assign/${order.id}">
             <button type="submit" class="btn btn-primary">Assign order</button>
@@ -25,6 +29,14 @@
 
         <form method="post" action="${pageContext.request.contextPath}/order/ship/${order.id}">
             <button type="submit" class="btn btn-primary">Ship order</button>
+        </form>
+
+    </c:if>
+
+    <c:if test="${isEmployee && canClose}">
+
+        <form method="post" action="${pageContext.request.contextPath}/order/complete/${order.id}">
+            <button type="submit" class="btn btn-primary">Close order</button>
         </form>
 
     </c:if>
