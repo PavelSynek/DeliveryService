@@ -8,12 +8,9 @@
 <my:pagetemplate title="DeliveryService">
 <jsp:attribute name="body">
 
-    <div class="jumbotron">
-        <h1>Delivery Service</h1>
         <p class="lead">Log in to continue</p>
         <p><a class="btn btn-lg btn-success" href="${pageContext.request.contextPath}/order/list"
               role="button">Login</a></p>
-    </div>
 
 </jsp:attribute>
 </my:pagetemplate>
