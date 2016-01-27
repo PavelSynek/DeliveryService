@@ -2,7 +2,6 @@ package cz.muni.fi.pa165.deliveryservice.service.facade;
 
 import cz.muni.fi.pa165.deliveryservice.api.dto.OrderCreateDTO;
 import cz.muni.fi.pa165.deliveryservice.api.dto.OrderDTO;
-import cz.muni.fi.pa165.deliveryservice.api.dto.ProductDTO;
 import cz.muni.fi.pa165.deliveryservice.api.enums.OrderState;
 import cz.muni.fi.pa165.deliveryservice.api.facade.OrderFacade;
 import cz.muni.fi.pa165.deliveryservice.api.service.util.*;
@@ -168,11 +167,7 @@ public class OrderFacadeImpl implements OrderFacade {
         Order pOrder = beanMappingService.mapTo(order, Order.class);
         orderService.cancelOrder(pOrder);
         pOrder = orderService.findById(order.getId());
-        pOrder.getProducts().clear();
         orderService.updateOrder(pOrder);
-        for (ProductDTO product: order.getProducts()) {
-            productService.deleteProduct(product.getId());
-        }
     }
 
     @Override
